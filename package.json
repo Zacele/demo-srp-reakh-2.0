@@ -8,12 +8,24 @@
     "dev-reakh": "turbo run dev --filter=reakh-fe"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
     "@turbo/gen": "^1.9.7",
-    "eslint": "^7.32.0",
+    "autoprefixer": "^10.4.14",
+    "daisyui": "^3.1.0",
+    "eslint": "^8.42.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "^2.5.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "postcss": "^8.4.24",
+    "prettier": "^2.8.8",
+    "tailwindcss": "^3.3.2",
     "turbo": "latest"
   },
   "packageManager": "pnpm@7.15.0",
-  "name": "dcg-fe-turborepo"
+  "name": "dcg-fe-turborepo",
+  "dependencies": {
+    "@tanstack/react-query": "^4.29.13",
+    "clsx": "^1.2.1"
+  }
 }
