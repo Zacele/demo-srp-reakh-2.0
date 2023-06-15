@@ -1,5 +1,6 @@
-import * as React from "react";
+import './styles.css'
+import * as React from 'react'
 
 // component exports
-export * from "./Button";
-export * from "./Header";
+export * from './Button'
+export * from './Header'

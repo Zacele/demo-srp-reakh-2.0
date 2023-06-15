@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-theme='reakh'] .btn-primary-outline {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 34px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 2px solid #77c232;
+  border-radius: 10px;
+  color: #77c232;
+  background: #ffffff;
+}
+
+[data-theme='reakh'] .btn-primary {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 34px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  background: #77c232;
+  border-radius: 10px;
+}
