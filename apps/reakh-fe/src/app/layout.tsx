@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Harmattan as SansFont } from 'next/font/google'
+import { Harmattan as HarmattanFont } from 'next/font/google'
 import 'ui/styles.css'
 import './globals.css'
 
@@ -8,9 +8,8 @@ export const metadata: Metadata = {
   description: 'Real estate cambodia 2.0'
 }
 
-const harmattan = SansFont({
+const harmattan = HarmattanFont({
   subsets: ['latin'],
-  variable: '--font-family-sans',
   fallback: ['system-ui', 'Helvetica Neue', 'Helvetica', 'Arial'],
   weight: ['400', '700'],
   display: 'swap'
