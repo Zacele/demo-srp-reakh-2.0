@@ -3,7 +3,7 @@ import { Button, Header } from 'ui'
 export default function Page() {
   return (
     <>
-      <Button />
+      <Header text={'ASFGASFSAFS'} />
       <button className="btn btn-error">TEST</button>
     </>
   )
