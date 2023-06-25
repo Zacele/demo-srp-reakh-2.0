@@ -1,7 +1,13 @@
+'use client'
 import * as React from 'react'
 import { Button } from '../Button'
 
 const Header = ({ text }: { text: string }) => {
+  const [menuOpen, setMenuOpen] = React.useState(false)
+  const toggle = () => {
+    setMenuOpen(!menuOpen)
+  }
+  const menuButtonRef = React.useRef<HTMLInputElement>(null)
   return (
     <>
       <div className="navbar bg-white">
@@ -11,7 +17,14 @@ const Header = ({ text }: { text: string }) => {
         </div>
         <div className="navbar-end">
           <div className="drawer drawer-end">
-            <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+            <input
+              id="my-drawer-3"
+              type="checkbox"
+              className="drawer-toggle"
+              // checked={menuOpen}
+              // onChange={toggle}
+              ref={menuButtonRef}
+            />
             <div className="drawer-content flex flex-col">
               {/* Navbar */}
               <div className="navbar bg-base-300 w-1/2">
@@ -40,11 +53,6 @@ const Header = ({ text }: { text: string }) => {
                   <ul className="menu menu-horizontal">
                     {/* Navbar menu content here */}
                     <li>
-                      <button className="btn btn-primary drawer-t">
-                        CLOSE
-                      </button>
-                    </li>
-                    <li>
                       <a>Navbar Item 1</a>
                     </li>
                     <li>
@@ -59,11 +67,7 @@ const Header = ({ text }: { text: string }) => {
               <ul className="menu bg-base-200 h-full w-full p-4">
                 {/* Sidebar content here */}
                 <li>
-                  <input
-                    id="my-drawer-3"
-                    type="checkbox"
-                    className="drawer-toggle"
-                  />
+                  <a onClick={() => menuButtonRef.current?.click()}>Close</a>
                 </li>
                 <li>
                   <a>Sidebar Item 1</a>
