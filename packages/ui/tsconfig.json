@@ -1,5 +1,5 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["."],
+  "include": [".", "../../apps/reakh-fe/src/components/Header"],
   "exclude": ["dist", "build", "node_modules"]
 }

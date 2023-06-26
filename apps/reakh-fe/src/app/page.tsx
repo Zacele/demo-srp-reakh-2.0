@@ -1,10 +1,11 @@
-import { Button, Header } from 'ui'
+import { Header } from '@src/components/Header'
+import { Button, Layout } from 'ui'
 
 export default function Page() {
   return (
-    <>
-      <Header text={'ASFGASFSAFS'} />
-      <button className="btn btn-error">TEST</button>
-    </>
+    <Layout>
+      <Header />
+      <Button />
+    </Layout>
   )
 }

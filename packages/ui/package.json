@@ -13,11 +13,19 @@
     "@types/react-dom": "*",
     "eslint": "*",
     "eslint-config-custom": "workspace:*",
-    "react": "^17.0.2",
+    "react": "*",
     "tsconfig": "workspace:*",
     "tailwind-config": "workspace:*",
     "typescript": "*",
     "postcss": "*"
+  },
+  "dependencies": {
+    "@emotion/cache": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@mui/icons-material": "*",
+    "@mui/material": "*",
+    "@tanstack/react-query": "*"
   },
   "peerDependencies": {
     "react": "^18.2.0"

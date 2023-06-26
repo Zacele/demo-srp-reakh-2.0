@@ -13,10 +13,11 @@ export default function ThemeRegistry({
 }) {
   return (
     <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+      {/* @ts-ignore */}
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {children}
+        <React.Fragment>{children}</React.Fragment>
       </ThemeProvider>
     </NextAppDirEmotionCacheProvider>
   )

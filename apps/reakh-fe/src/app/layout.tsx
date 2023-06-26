@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import 'ui/styles.css'
 import './globals.css'
 import ThemeRegistry from '../components/Theme/ThemeRegistry/ThemeRegistry'
+import QueryClientProvider from './QueryClientProvider'
 
 export const metadata: Metadata = {
   title: 'Reakh 2.0',
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html data-theme="reakh" lang="en">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        {/* @ts-ignore */}
+        <ThemeRegistry>
+          <QueryClientProvider>{children}</QueryClientProvider>
+        </ThemeRegistry>
       </body>
     </html>
   )

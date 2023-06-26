@@ -29,8 +29,18 @@
   "packageManager": "pnpm@7.15.0",
   "name": "dcg-fe-turborepo",
   "dependencies": {
-    "@tanstack/react-query": "^4.29.13",
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@tanstack/react-query": "^4.29.17",
+    "@tanstack/react-query-devtools": "^4.29.17",
     "clsx": "^1.2.1",
     "next": "^13.4.7"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7"
   }
 }

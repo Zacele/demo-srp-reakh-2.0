@@ -13,11 +13,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "workspace:*",
-    "@emotion/cache": "latest",
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
-    "@mui/icons-material": "latest",
-    "@mui/material": "latest"
+    "axios-config": "workspace:*",
+    "@emotion/cache": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@mui/icons-material": "*",
+    "@mui/material": "*",
+    "@tanstack/react-query": "*",
+    "@tanstack/react-query-devtools": "*"
   },
   "devDependencies": {
     "@types/node": "^17.0.12",
