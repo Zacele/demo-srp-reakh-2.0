@@ -1,8 +1,8 @@
 'use client'
+import * as React from 'react'
 import { Container } from '@mui/material'
 import { getAppEssentialData } from '@src/apis/shared'
 import { useQuery } from '@tanstack/react-query'
-import * as React from 'react'
 
 const Header = () => {
   const { data } = useQuery({

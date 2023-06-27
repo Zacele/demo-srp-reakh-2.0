@@ -1,6 +1,9 @@
-// const withTM = require('next-transpile-modules')(['ui'])
-
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ['ui']
+  transpilePackages: ['ui'],
+  images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
+  }
 }

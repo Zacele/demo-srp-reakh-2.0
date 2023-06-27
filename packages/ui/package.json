@@ -25,7 +25,8 @@
     "@emotion/styled": "*",
     "@mui/icons-material": "*",
     "@mui/material": "*",
-    "@tanstack/react-query": "*"
+    "@tanstack/react-query": "*",
+    "next": "*"
   },
   "peerDependencies": {
     "react": "^18.2.0"

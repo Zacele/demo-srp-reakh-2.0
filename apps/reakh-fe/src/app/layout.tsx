@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
+
+import ThemeRegistry from '../components/Theme/ThemeRegistry/ThemeRegistry'
+
+import QueryClientProvider from './QueryClientProvider'
+
 import 'ui/styles.css'
 import './globals.css'
-import ThemeRegistry from '../components/Theme/ThemeRegistry/ThemeRegistry'
-import QueryClientProvider from './QueryClientProvider'
 
 export const metadata: Metadata = {
   title: 'Reakh 2.0',

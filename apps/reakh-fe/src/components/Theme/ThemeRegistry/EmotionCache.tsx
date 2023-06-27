@@ -1,13 +1,13 @@
 'use client'
 
 import * as React from 'react'
-import createCache from '@emotion/cache'
-import { useServerInsertedHTML } from 'next/navigation'
-import { CacheProvider as DefaultCacheProvider } from '@emotion/react'
 import type {
   EmotionCache,
   Options as OptionsOfCreateCache
 } from '@emotion/cache'
+import createCache from '@emotion/cache'
+import { CacheProvider as DefaultCacheProvider } from '@emotion/react'
+import { useServerInsertedHTML } from 'next/navigation'
 
 export type NextAppDirEmotionCacheProviderProps = {
   /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
@@ -27,7 +27,6 @@ export function NextAppDirEmotionCacheProvider(
   const { options, CacheProvider = DefaultCacheProvider, children } = props
 
   const [{ cache, flush }] = React.useState(() => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const cache = createCache(options)
     cache.compat = true
     const prevInsert = cache.insert
@@ -39,7 +38,6 @@ export function NextAppDirEmotionCacheProvider(
       }
       return prevInsert(...args)
     }
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const flush = () => {
       const prevInserted = inserted
       inserted = []

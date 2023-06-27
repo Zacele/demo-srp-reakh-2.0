@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
-import { Box, Container } from '@mui/material'
-import { Header } from '../../../apps/reakh-fe/src/components/Header'
+import { Box } from '@mui/material'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

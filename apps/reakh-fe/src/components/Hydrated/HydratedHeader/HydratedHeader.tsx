@@ -9,7 +9,7 @@ const HydratedHeader = async () => {
   const dehydratedState = dehydrate(queryClient)
 
   return (
-    /* @ts-expect-error Server Component */
+    /* @ts-ignore */
     <Hydrate state={dehydratedState}>
       <Header />
     </Hydrate>
