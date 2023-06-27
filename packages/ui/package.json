@@ -9,6 +9,7 @@
     "generate:component": "turbo gen react-component"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
     "@types/react": "*",
     "@types/react-dom": "*",
     "eslint": "*",
