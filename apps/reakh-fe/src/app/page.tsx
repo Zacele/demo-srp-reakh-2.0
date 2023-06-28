@@ -1,5 +1,5 @@
 import { Header } from '@src/components/Header'
-import { Button, Layout, SvgDemo } from 'ui'
+import { Button, Layout, NeutralButton, RedHellButton, SvgDemo } from 'ui'
 
 export default function Page() {
   return (
@@ -7,6 +7,8 @@ export default function Page() {
       <Header />
       <Button />
       <SvgDemo />
+      <NeutralButton />
+      <RedHellButton />
     </Layout>
   )
 }

@@ -17,7 +17,8 @@
     "tsconfig": "workspace:*",
     "tailwind-config": "workspace:*",
     "typescript": "*",
-    "postcss": "*"
+    "postcss": "*",
+    "daisyui": "*"
   },
   "dependencies": {
     "@emotion/cache": "*",
