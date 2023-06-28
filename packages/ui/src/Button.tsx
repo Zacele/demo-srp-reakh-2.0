@@ -1,5 +1,5 @@
 import * as React from 'react'
 
 export const Button = () => {
-  return <button className="btn btn-primary">Button</button>
+  return <button className="text-white btn btn-primary">Button</button>
 }

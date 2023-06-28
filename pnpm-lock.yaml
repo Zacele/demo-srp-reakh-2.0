@@ -48,12 +48,12 @@ importers:
         version: 7.22.5(@babel/core@7.22.5)
       '@turbo/gen':
         specifier: ^1.10.6
-        version: 1.10.6(@types/node@20.3.2)(typescript@5.1.5)
+        version: 1.10.6(@types/node@17.0.45)(typescript@5.1.5)
       '@types/react':
-        specifier: ^18.2.14
+        specifier: ^18.0.22
         version: 18.2.14
       '@types/react-dom':
-        specifier: ^18.2.6
+        specifier: ^18.0.7
         version: 18.2.6
       autoprefixer:
         specifier: ^10.4.14
@@ -243,6 +243,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.7
         version: 18.2.6
+      daisyui:
+        specifier: '*'
+        version: 3.1.6(postcss@8.4.24)
       eslint:
         specifier: '*'
         version: 8.42.0
@@ -2392,7 +2395,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@turbo/gen@1.10.6(@types/node@20.3.2)(typescript@5.1.5):
+  /@turbo/gen@1.10.6(@types/node@17.0.45)(typescript@5.1.5):
     resolution: {integrity: sha512-sZWqL7VVBaLz4iFdMUpGg0n8agl7aLauGAVsrwC/0EQSmCh4tHzNeJQA4GSOjMwDBpa2ZO46/8KKdl2m0zDFRA==}
     hasBin: true
     dependencies:
@@ -2403,7 +2406,7 @@ packages:
       minimatch: 9.0.2
       node-plop: 0.26.3
       semver: 7.5.3
-      ts-node: 10.9.1(@types/node@20.3.2)(typescript@5.1.5)
+      ts-node: 10.9.1(@types/node@17.0.45)(typescript@5.1.5)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
@@ -5979,7 +5982,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.3.2)(typescript@5.1.5):
+  /ts-node@10.9.1(@types/node@17.0.45)(typescript@5.1.5):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -5998,7 +6001,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.3.2
+      '@types/node': 17.0.45
       acorn: 8.9.0
       acorn-walk: 8.2.0
       arg: 4.1.3

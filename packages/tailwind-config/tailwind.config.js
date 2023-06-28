@@ -14,11 +14,11 @@ module.exports = {
       {
         reakh: {
           primary: '#77C232',
-          secondary: '#f6d860',
-          accent: '#37cdbe',
+          secondary: '#203C3E',
+          accent: '#DFDFDF',
           neutral: '#3d4451',
-          red: '#BC4242',
-          'base-100': '#ffffff'
+          error: '#FF7474',
+          info: '#3249C2'
         }
       }
     ]
