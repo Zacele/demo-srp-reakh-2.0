@@ -3,7 +3,7 @@
 import React from 'react'
 import Image, { ImageProps } from 'next/image'
 
-import BathSvg from '../shared/svgs/Bath.svg'
+import BathSvg from '../../shared/svgs/Bath.svg'
 
 type Props = Omit<ImageProps, 'src' | 'alt'>
 const Bath = (props: Props) => {

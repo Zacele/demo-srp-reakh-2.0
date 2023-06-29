@@ -3,7 +3,7 @@
 import React from 'react'
 import Image, { ImageProps } from 'next/image'
 
-import CarSvg from '../shared/svgs/Car.svg'
+import CarSvg from '../../shared/svgs/Car.svg'
 
 type Props = Omit<ImageProps, 'src' | 'alt'>
 const Car = (props: Props) => {

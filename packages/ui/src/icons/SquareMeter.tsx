@@ -3,7 +3,7 @@
 import React from 'react'
 import Image, { ImageProps } from 'next/image'
 
-import SqmSvg from '../shared/svgs/SquareMeter.svg'
+import SqmSvg from '../../shared/svgs/SquareMeter.svg'
 
 type Props = Omit<ImageProps, 'src' | 'alt'>
 const SquareMeter = (props: Props) => {

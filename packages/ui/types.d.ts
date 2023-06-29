@@ -55,10 +55,10 @@ type ListingData = {
 type ImageSet = {
   id: number
   thumbnails: ImageSource[]
-  // title: string,
-  // url: string,
-  // width: number
-  // alt?: string
+  title: string,
+  url: string,
+  width: number
+  alt?: string
 }
 type ImageSource = {
   width: number

@@ -2,7 +2,7 @@
 import React from 'react'
 import Image, { ImageProps } from 'next/image'
 
-import AreaSvg from '../shared/svgs/Area.svg'
+import RedHeartSvg from '../../shared/svgs/RedHeart.svg'
 
 type Props = Omit<ImageProps, 'src' | 'alt'>
 const Area = (props: Props) => {
@@ -10,8 +10,8 @@ const Area = (props: Props) => {
   return (
     <Image
       priority
-      src={AreaSvg}
-      alt="Area"
+      src={RedHeartSvg}
+      alt="RedHeart"
       width={25}
       height={25}
       {...props}
