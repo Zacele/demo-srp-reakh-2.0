@@ -1,5 +1,7 @@
 import AmenityIcon from "./AmenityIcon"
 import ListingImages from "./ListingImages";
+import NestedListing from "./NestedListing";
+import NestedListingCard from "./NestedListingCard";
 
 type Props = {
   data: ListingData
@@ -8,12 +10,14 @@ type Props = {
 
 
 export function ListingCard({ data, alt }: Props) {
+  const hasNested = data.nested.length > 0;
   return (
-    <div className="relative mb-5 sm:h-64">
+    <div className="relative mb-5">
       <div className="bg-info before:border-r-[#263996] before:border-t-[#263996] ribbon top-5">
         Featured
       </div>
-      <div className="items-center justify-center w-full h-full overflow-hidden transition-shadow duration-300 rounded-none shadow-lg hover:shadow-primary bg-slate-50 sm:rounded-2xl card-compact card sm:flex-row">
+      <div className={`items-center justify-center w-full overflow-hidden transition-shadow duration-300 shadow-lg hover:shadow-primary bg-slate-50 
+      rounded-none sm:rounded-2xl card-compact card sm:flex-row ${hasNested ? 'sm:rounded-b-none' : ''}`}>
         <ListingImages data={data?.images} alt={alt} onHeartClick={val => alert(val)} />
         <div className="flex flex-col justify-between w-full h-full p-5">
           {/* TITLE */}
@@ -39,16 +43,14 @@ export function ListingCard({ data, alt }: Props) {
           </div>
           {/* AMENITIES */}
           <div className='flex flex-wrap pb-3'>
-            <AmenityIcon value='1' type='Bath' />
-            <AmenityIcon value='2' type='Bed' />
-            <AmenityIcon value='3' type='Car' />
-            <AmenityIcon value='4' type='Area' />
-            <AmenityIcon value='5' type='SquareMeter' />
+            {data.specifications.detail.map(amenity => (
+              <AmenityIcon key={amenity.label} value={amenity.short_label} type='Area' />
+            ))}
           </div>
           {/*DATES */}
           <div className='flex items-center justify-between'>
             <div className='flex-col flex-1 hidden sm:flex'>
-              <p className='text-gray-500 truncate'>Listed: {data.listed_date}</p>
+              <p className='text-gray-500 truncate'>Listed: {data.display_date}</p>
               <p className='text-gray-500 truncate'>Updated: {data.display_date}</p>
             </div>
             <div className="flex justify-end flex-1 gap-3">
@@ -57,7 +59,10 @@ export function ListingCard({ data, alt }: Props) {
             </div>
           </div>
         </div>
+        {/* NESTED LISTINGS */}
+
       </div>
+      {hasNested && <NestedListing data={data.nested} />}
     </div>
   )
 }

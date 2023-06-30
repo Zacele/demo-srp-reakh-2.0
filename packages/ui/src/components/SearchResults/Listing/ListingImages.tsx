@@ -5,14 +5,15 @@ type SourceProps = {
     data: ImageSet[],
     alt?: string,
     isHearted?: boolean
+    isNested?: boolean
     onHeartClick?: (param: boolean) => void | undefined
 }
 
 
-function ListingImages({ data, alt, isHearted = false, onHeartClick = () => { } }: SourceProps) {
+function ListingImages({ data, alt, isNested = false, isHearted = false, onHeartClick = () => { } }: SourceProps) {
     let style = data.length < 3 ? `grid-cols-${data.length} grid-rows-${data.length}` : 'sm:grid-cols-2 sm:grid-rows-3 grid-rows-2 grid-cols-3';
     return (
-        <div className="w-full h-64 sm:h-full bg-slate-100 sm:w-[36%] min-w-[250px] relative">
+        <div className="w-full h-[260px] bg-slate-100 sm:w-[36%] min-w-[250px] relative">
             <div className={`grid w-full h-full gap-[1px] ${style}`}>
                 {data.map((image, idx) => {
                     const lastIndex = idx === data.length - 1;
@@ -35,7 +36,7 @@ function ListingImages({ data, alt, isHearted = false, onHeartClick = () => { } 
                         </div>
                     )
                 })}
-                <div className='w-6 h-6 absolute bottom-0 left-3 sm:top-3 sm:right-3 sm:left-[unset] sm:bottom-[unset] hover:cursor-pointer hover:scale-110 transition-transform duration-300'>
+                {!isNested && <div className='w-6 h-6 absolute bottom-2 left-3 sm:top-3 sm:right-3 sm:left-[unset] sm:bottom-[unset] hover:cursor-pointer hover:scale-110 transition-transform duration-300'>
                     <label className="swap">
                         {/* this hidden checkbox controls the state */}
                         <input type="checkbox"
@@ -45,7 +46,7 @@ function ListingImages({ data, alt, isHearted = false, onHeartClick = () => { } 
                         <HeartIcon className="w-6 h-6 fill-current swap-off" />
                         <RedHeartIcon className="w-6 h-6 fill-current swap-on" />
                     </label>
-                </div>
+                </div>}
             </div>
         </div>
     )

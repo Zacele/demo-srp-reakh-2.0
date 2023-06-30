@@ -13,7 +13,6 @@ function SearchResults({ promise }: Props) {
     return (
         <div className="mx-auto xl:container">
             <div className="flex items-center w-full h-10 p-2 ">
-
                 <div className="form-control">
                     <label className="cursor-pointer label">
                         <span className="label-text">Map Toggle:</span>
@@ -25,16 +24,9 @@ function SearchResults({ promise }: Props) {
                         />
                     </label>
                 </div>
-
-
             </div>
-            <div
-                className={`flex p-2`}
-            >
-                <div
-                    className={`w-full sm:min-w-[639px] sm:max-w-[900px] relative`}
-                >
-
+            <div className={`flex p-2`}>
+                <div className={`w-full sm:min-w-[639px] sm:max-w-[900px] relative`}>
                     {results.map(item => (
                         <ListingCard key={item.id} data={item} alt={item.title_img_alt} />
                     ))}
