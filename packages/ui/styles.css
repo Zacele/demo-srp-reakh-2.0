@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-theme='reakh'] :root {
+  --primary: #77c232;
+  --secondary: #203c3e;
+  --accent: #dfdfdf;
+  --neutral: #3d4451;
+  --error: #ff7474;
+  --info: #3249c2;
+  --primary-shadow: #5a9424;
+  --secondary-shadow: #122223;
+  --accent-shadow: #b9b8b8;
+  --neutral-shadow: #21252d;
+  --error-shadow: #ca5b5b;
+  --info-shadow: #263996;
+}
+
+[data-theme='reakh'] .ribbon {
+  position: absolute;
+  min-width: 80px;
+  height: 30px;
+  left: -10px;
+  border-radius: 1px;
+  border-bottom-left-radius: 0px;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 15px;
+  color: white;
+  font-weight: bolder;
+  z-index: 2;
+}
+
+[data-theme='reakh'] .ribbon::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 30px;
+  border-width: 5px;
+  border-style: solid;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}

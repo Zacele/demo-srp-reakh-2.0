@@ -1,14 +1,17 @@
-import { Header } from '@src/components/Header'
-import { Button, Layout, NeutralButton, RedHellButton, SvgDemo } from 'ui'
+import { Suspense } from 'react';
+import { getListings } from 'lib'
+import { Layout } from 'ui'
+import SearchResults from 'ui/src/components/layouts/SearchResults';
 
-export default function Page() {
+export default async function Page() {
+  const listingData: Promise<SearchResult> = getListings();
+  const data = await listingData;
+  const results = data.results;
   return (
     <Layout>
-      <Header />
-      <Button />
-      <SvgDemo />
-      <NeutralButton />
-      <RedHellButton />
+      {/* <Suspense fallback={<h2>Loading...</h2>}> */}
+      <SearchResults promise={results} />
+      {/* </Suspense> */}
     </Layout>
   )
 }

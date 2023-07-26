@@ -48,12 +48,12 @@ importers:
         version: 7.22.5(@babel/core@7.22.9)
       '@turbo/gen':
         specifier: ^1.10.12
-        version: 1.10.12(@types/node@20.4.5)(typescript@5.1.6)
+        version: 1.10.12(@types/node@17.0.45)(typescript@5.1.6)
       '@types/react':
-        specifier: ^18.2.16
+        specifier: ^18.0.22
         version: 18.2.16
       '@types/react-dom':
-        specifier: ^18.2.7
+        specifier: ^18.0.7
         version: 18.2.7
       autoprefixer:
         specifier: ^10.4.14
@@ -95,6 +95,8 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  apps/lib: {}
+
   apps/reakh-fe:
     dependencies:
       '@emotion/cache':
@@ -121,6 +123,9 @@ importers:
       axios-config:
         specifier: workspace:*
         version: link:../../packages/axios-config-custom
+      lib:
+        specifier: workspace:*
+        version: link:../../packages/lib
       next:
         specifier: '*'
         version: 13.4.7(@babel/core@7.22.5)(react-dom@18.2.0)(react@18.2.0)
@@ -190,11 +195,13 @@ importers:
         specifier: ^4.29.9
         version: 4.29.9
 
+  packages/lib: {}
+
   packages/prettier-config-custom:
     devDependencies:
       prettier-plugin-tailwindcss:
         specifier: ^0.2.7
-        version: 0.2.7(prettier@3.0.0)
+        version: 0.2.7(prettier@2.8.8)
 
   packages/tailwind-config:
     devDependencies:
@@ -235,8 +242,11 @@ importers:
         version: 4.29.17(react-dom@18.2.0)(react@18.2.0)
       next:
         specifier: '*'
-        version: 13.4.7(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
+        version: 13.4.7(@babel/core@7.22.5)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
+      '@svgr/webpack':
+        specifier: ^8.0.1
+        version: 8.0.1
       '@types/react':
         specifier: ^18.0.22
         version: 18.2.14
@@ -2351,7 +2361,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.22.6
-      '@mui/utils': 5.13.6(react@18.2.0)
+      '@mui/utils': 5.14.1(react@18.2.0)
       '@types/react': 18.2.14
       prop-types: 15.8.1
       react: 18.2.0
@@ -2990,7 +3000,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@turbo/gen@1.10.12(@types/node@20.4.5)(typescript@5.1.6):
+  /@turbo/gen@1.10.12(@types/node@17.0.45)(typescript@5.1.6):
     resolution: {integrity: sha512-noop5+3MBFsgPQ7O2vQpS6YYiah+ZrOioa4cDDpZceUVsKVXvUHFmC2nEVyKSJZhO/8SLvbDE/esB/MGw5b2tw==}
     hasBin: true
     dependencies:
@@ -3002,7 +3012,7 @@ packages:
       node-plop: 0.26.3
       proxy-agent: 6.3.0
       semver: 7.5.4
-      ts-node: 10.9.1(@types/node@20.4.5)(typescript@5.1.6)
+      ts-node: 10.9.1(@types/node@17.0.45)(typescript@5.1.6)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
@@ -5800,49 +5810,6 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /next@13.4.7(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-M8z3k9VmG51SRT6v5uDKdJXcAqLzP3C+vaKfLIAM0Mhx1um1G7MDnO63+m52qPdZfrTFzMZNzfsgvm3ghuVHIQ==}
-    engines: {node: '>=16.8.0'}
-    hasBin: true
-    peerDependencies:
-      '@opentelemetry/api': ^1.1.0
-      fibers: '>= 3.1.0'
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      sass: ^1.3.0
-    peerDependenciesMeta:
-      '@opentelemetry/api':
-        optional: true
-      fibers:
-        optional: true
-      sass:
-        optional: true
-    dependencies:
-      '@next/env': 13.4.7
-      '@swc/helpers': 0.5.1
-      busboy: 1.6.0
-      caniuse-lite: 1.0.30001509
-      postcss: 8.4.14
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.22.9)(react@18.2.0)
-      watchpack: 2.4.0
-      zod: 3.21.4
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 13.4.7
-      '@next/swc-darwin-x64': 13.4.7
-      '@next/swc-linux-arm64-gnu': 13.4.7
-      '@next/swc-linux-arm64-musl': 13.4.7
-      '@next/swc-linux-x64-gnu': 13.4.7
-      '@next/swc-linux-x64-musl': 13.4.7
-      '@next/swc-win32-arm64-msvc': 13.4.7
-      '@next/swc-win32-ia32-msvc': 13.4.7
-      '@next/swc-win32-x64-msvc': 13.4.7
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-    dev: false
-
   /no-case@2.3.2:
     resolution: {integrity: sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==}
     dependencies:
@@ -6312,7 +6279,7 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  /prettier-plugin-tailwindcss@0.2.7(prettier@3.0.0):
+  /prettier-plugin-tailwindcss@0.2.7(prettier@2.8.8):
     resolution: {integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -6364,18 +6331,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 3.0.0
+      prettier: 2.8.8
     dev: true
 
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
-    hasBin: true
-    dev: true
-
-  /prettier@3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
-    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
@@ -6563,6 +6524,7 @@ packages:
 
   /resolve@2.0.0-next.4:
     resolution: {integrity: sha512-iMDbmAWtfU+MHpxt/I5iWI7cY6YVEZUQ3MBgPQ++XD1PELuJHIl82xBmObyP2KyQmkNB2dsqF7seoQQiAn5yDQ==}
+    hasBin: true
     dependencies:
       is-core-module: 2.12.0
       path-parse: 1.0.7
@@ -7093,7 +7055,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.4.5)(typescript@5.1.6):
+  /ts-node@10.9.1(@types/node@17.0.45)(typescript@5.1.6):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -7112,7 +7074,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.4.5
+      '@types/node': 17.0.45
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3

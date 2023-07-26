@@ -4,8 +4,8 @@ import ThemeRegistry from '../components/Theme/ThemeRegistry/ThemeRegistry'
 
 import QueryClientProvider from './QueryClientProvider'
 
-import 'ui/styles.css'
-import './globals.css'
+// import 'ui/styles.css'
+// import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Reakh 2.0',
