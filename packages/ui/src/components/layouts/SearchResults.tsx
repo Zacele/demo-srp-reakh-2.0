@@ -1,14 +1,13 @@
 'use client'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import clsx from 'clsx'
+import { ISearchResults } from 'types'
 
 import { ListingCard } from '../SearchResults/Listing/ListingCard'
 
-type Props = {
-  promise: ListingData[]
-}
-
-function SearchResults({ promise }: Props) {
-  const results = promise
+const SearchResults: React.FC<{ searchResults: ISearchResults['results'] }> = ({
+  searchResults
+}) => {
   const [isMap, setIsMap] = useState(true)
   return (
     <div className="mx-auto xl:container">
@@ -27,14 +26,15 @@ function SearchResults({ promise }: Props) {
       </div>
       <div className={`flex p-2`}>
         <div className={`w-full sm:min-w-[639px] sm:max-w-[900px] relative`}>
-          {results.map((item) => (
+          {searchResults?.map((item) => (
             <ListingCard key={item.id} data={item} alt={item.title_img_alt} />
           ))}
         </div>
         <div
-          className={`${
-            isMap ? 'sm:flex-1' : 'hidden'
-          } bg-pink-300 md:inline-block`}
+          className={clsx('bg-pink-300 md:inline-block', {
+            'sm:flex-1': isMap,
+            hidden: !isMap
+          })}
         ></div>
       </div>
     </div>

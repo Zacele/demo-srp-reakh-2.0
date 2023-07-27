@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Result } from 'types'
 
 import AmenityIcon from './AmenityIcon'
 import ListingImages from './ListingImages'
@@ -6,14 +7,14 @@ import NestedListing from './NestedListing'
 // import NestedListingCard from "./NestedListingCard";
 
 type Props = {
-  data: ListingData
+  data: Result
   alt?: string
 }
 
 export function ListingCard({ data, alt }: Props) {
   const hasNested = data.nested.length > 0
   return (
-    <div className="relative mb-5">
+    <div className="relative mb-6">
       <div className="bg-info before:border-r-[#263996] before:border-t-[#263996] ribbon top-5">
         Featured
       </div>

@@ -1,8 +1,8 @@
 import './styles.css'
-import * as React from 'react'
 
 // component exports
 export * from './src/Button'
+export { default as SearchResults } from './src/components/layouts/SearchResults'
 export * from './src/components/layouts/SearchResults'
 export * from './src/components/SearchResults/Listing/ListingCard'
 export * from './src/components/SearchResults/Listing/NestedListing'

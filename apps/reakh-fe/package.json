@@ -21,7 +21,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "workspace:*",
-    "lib": "workspace:*"
+    "lib": "workspace:*",
+    "api": "workspace:*",
+    "dotenv-cli": "*",
+    "types": "workspace:*"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",

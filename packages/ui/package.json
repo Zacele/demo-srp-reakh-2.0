@@ -28,7 +28,9 @@
     "@mui/icons-material": "*",
     "@mui/material": "*",
     "@tanstack/react-query": "*",
-    "next": "*"
+    "next": "*",
+    "api": "workspace:*",
+    "types": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0"

@@ -45,6 +45,6 @@
 
 @layer components {
   .btn-primary-reakh {
-    @apply leading-10 flex-auto sm:flex-none font-bold text-white btn btn-sm btn-primary w-[120px] h-10 text-lg normal-case;
+    @apply leading-[44px] flex-auto sm:flex-none font-bold text-white btn btn-sm btn-primary w-[120px] h-11 text-lg normal-case;
   }
 }

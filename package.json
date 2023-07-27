@@ -5,13 +5,13 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev-reakh": "turbo run dev --filter=reakh-fe"
+    "dev-reakh": "dotenv -- turbo run dev --filter=reakh-fe"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@turbo/gen": "^1.10.12",
-    "@types/react": "^18.2.16",
+    "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.5.0",
@@ -38,6 +38,7 @@
     "@tanstack/react-query": "^4.32.0",
     "@tanstack/react-query-devtools": "^4.32.0",
     "clsx": "^1.2.1",
+    "dotenv-cli": "^7.2.1",
     "next": "^13.4.12"
   },
   "resolutions": {
