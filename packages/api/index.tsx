@@ -1,2 +1,1 @@
-export * from "./getListings";
-
+export { default as getListings } from './getListings'

@@ -1,13 +1,20 @@
 'use client'
 import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { ISearchResults } from 'types'
 
+import { getListings } from '../../../../api'
 import { ListingCard } from '../SearchResults/Listing/ListingCard'
 
 const SearchResults: React.FC<{ searchResults: ISearchResults['results'] }> = ({
   searchResults
 }) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['searchResults'],
+    queryFn: getListings,
+    initialData: searchResults
+  })
   const [isMap, setIsMap] = useState(true)
   return (
     <div className="mx-auto xl:container">

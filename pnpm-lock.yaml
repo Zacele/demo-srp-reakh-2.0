@@ -1857,7 +1857,7 @@ packages:
     resolution: {integrity: sha512-M+37LLIRBTEVjktoJjbw4KVhupF0U/3PYUCbBwgAd9k17hoKhRu1n935QiG7Tuxv0LJOMrb2vuKEeYUlv0iyiw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      core-js-pure: 3.31.1
+      core-js-pure: 3.32.0
       regenerator-runtime: 0.13.11
     dev: true
 
@@ -3101,7 +3101,7 @@ packages:
   /@types/react-is@18.2.1:
     resolution: {integrity: sha512-wyUkmaaSZEzFZivD8F2ftSyAfk6L+DfFliVj/mYdOXbVjRcS87fQJLTnhk6dRZPuJjI+9g6RZJO4PNCngUrmyw==}
     dependencies:
-      '@types/react': 18.2.17
+      '@types/react': 18.2.14
     dev: false
 
   /@types/react-transition-group@4.4.6:
@@ -3777,8 +3777,8 @@ packages:
       browserslist: 4.21.8
     dev: true
 
-  /core-js-pure@3.31.1:
-    resolution: {integrity: sha512-w+C62kvWti0EPs4KPMCMVv9DriHSXfQOCQ94bGGBiEW5rrbtt/Rz8n5Krhfw9cpFyzXBjf3DB3QnPdEzGDY4Fw==}
+  /core-js-pure@3.32.0:
+    resolution: {integrity: sha512-qsev1H+dTNYpDUEURRuOXMvpdtAnNEvQWS/FMJ2Vb5AY8ZP4rAPQldkE27joykZPJTe0+IVgHZYh1P5Xu1/i1g==}
     requiresBuild: true
     dev: true
 
