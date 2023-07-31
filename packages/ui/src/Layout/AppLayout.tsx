@@ -1,8 +1,8 @@
 'use client'
-import React from 'react'
+
 import { Box } from '@mui/material'
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const AppLayout = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   return (
     <Box
       sx={{
@@ -15,4 +15,4 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default Layout
+export default AppLayout

@@ -4,7 +4,7 @@ import * as React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 
-import { NextAppDirEmotionCacheProvider } from './EmotionCache'
+import NextAppDirEmotionCacheProvider from './EmotionCache'
 import theme from './theme'
 
 export default function ThemeRegistry({
@@ -14,11 +14,10 @@ export default function ThemeRegistry({
 }) {
   return (
     <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
-      {/* @ts-ignore */}
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <React.Fragment>{children}</React.Fragment>
+        {children}
       </ThemeProvider>
     </NextAppDirEmotionCacheProvider>
   )

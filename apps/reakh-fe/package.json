@@ -9,33 +9,33 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/cache": "*",
-    "@emotion/react": "*",
-    "@emotion/styled": "*",
-    "@mui/icons-material": "*",
-    "@mui/material": "*",
-    "@tanstack/react-query": "*",
-    "@tanstack/react-query-devtools": "*",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.2",
+    "@tanstack/react-query": "^4.32.0",
+    "@tanstack/react-query-devtools": "^4.32.0",
+    "api": "workspace:*",
     "axios-config": "workspace:*",
+    "dotenv-cli": "^7.2.1",
+    "lib": "workspace:*",
     "next": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ui": "workspace:*",
-    "lib": "workspace:*",
-    "api": "workspace:*",
-    "dotenv-cli": "*",
-    "types": "workspace:*"
+    "types": "workspace:*",
+    "ui": "workspace:*"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
-    "@types/node": "^17.0.12",
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "daisyui": "*",
+    "@types/node": "^17.0.45",
+    "@types/react": "^18.2.17",
+    "@types/react-dom": "^18.2.7",
+    "daisyui": "^3.5.0",
     "eslint-config-custom": "workspace:*",
-    "next-transpile-modules": "*",
+    "next-transpile-modules": "^10.0.1",
     "tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.3"
+    "typescript": "^4.9.5"
   }
 }
