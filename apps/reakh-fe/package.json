@@ -17,7 +17,6 @@
     "@tanstack/react-query": "^4.32.0",
     "@tanstack/react-query-devtools": "^4.32.0",
     "api": "workspace:*",
-    "axios-config": "workspace:*",
     "dotenv-cli": "^7.2.1",
     "lib": "workspace:*",
     "next": "*",
