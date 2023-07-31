@@ -208,7 +208,11 @@ importers:
         specifier: ^4.29.9
         version: 4.29.9
 
-  packages/lib: {}
+  packages/lib:
+    dependencies:
+      types:
+        specifier: workspace:*
+        version: link:../types
 
   packages/prettier-config-custom:
     devDependencies:
@@ -258,6 +262,9 @@ importers:
       api:
         specifier: workspace:*
         version: link:../api
+      lib:
+        specifier: workspace:*
+        version: link:../lib
       next:
         specifier: '*'
         version: 13.4.8(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)

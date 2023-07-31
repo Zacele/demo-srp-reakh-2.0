@@ -1,13 +1,13 @@
 'use client'
 import { useState } from 'react'
 import clsx from 'clsx'
-import { ISearchResults } from 'types'
+import { GetListingsTypes } from 'types'
 
 import { ListingCard } from '../SearchResults/Listing/ListingCard'
 
-const SearchResults: React.FC<{ searchResults: ISearchResults['results'] }> = ({
-  searchResults
-}) => {
+const SearchResults: React.FC<{
+  searchResults: GetListingsTypes.ISearchResults['results']
+}> = ({ searchResults }) => {
   const [isMap, setIsMap] = useState(true)
   return (
     <div className="mx-auto xl:container">

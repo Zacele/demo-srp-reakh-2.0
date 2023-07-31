@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { Result } from 'types'
+import { GetListingsTypes } from 'types'
 
 import AmenityIcon from './AmenityIcon'
 import ListingImages from './ListingImages'
@@ -7,7 +7,7 @@ import NestedListing from './NestedListing'
 // import NestedListingCard from "./NestedListingCard";
 
 type Props = {
-  data: Result
+  data: GetListingsTypes.Result
   alt?: string
 }
 

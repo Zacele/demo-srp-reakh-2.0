@@ -30,7 +30,8 @@
     "@tanstack/react-query": "*",
     "next": "*",
     "api": "workspace:*",
-    "types": "workspace:*"
+    "types": "workspace:*",
+    "lib": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0"

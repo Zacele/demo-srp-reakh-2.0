@@ -1,18 +1,11 @@
 'use client'
 
-import { Box } from '@mui/material'
+import React from 'react'
 
-const AppLayout = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
-  return (
-    <Box
-      sx={{
-        backgroundColor: '#E8E8E8',
-        height: '32px'
-      }}
-    >
-      {children}
-    </Box>
-  )
+const AppLayout: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({
+  children
+}) => {
+  return <React.Fragment>{children}</React.Fragment>
 }
 
 export default AppLayout
