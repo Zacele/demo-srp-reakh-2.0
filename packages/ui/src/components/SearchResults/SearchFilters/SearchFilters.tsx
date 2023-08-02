@@ -14,7 +14,7 @@ const SearchFilters = async () => {
     <div className="pt-3 mx-auto xl:container">
       <SearchLocationAutocomplete
         popularLocations={popularLocations}
-        texts={search_form.texts}
+        searchForm={search_form}
       />
     </div>
   )
