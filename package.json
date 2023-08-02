@@ -34,12 +34,14 @@
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
+    "@mui/lab": "5.0.0-alpha.138",
     "@mui/material": "latest",
     "@tanstack/react-query": "^4.32.0",
     "@tanstack/react-query-devtools": "^4.32.0",
     "clsx": "^1.2.1",
     "dotenv-cli": "^7.2.1",
-    "next": "^13.4.8"
+    "next": "^13.4.8",
+    "react-dropdown-tree-select": "^2.8.0"
   },
   "resolutions": {
     "@types/react": "^18.0.22",

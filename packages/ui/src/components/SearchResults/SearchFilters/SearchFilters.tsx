@@ -1,21 +1,21 @@
-import { getListings } from 'api'
-import { convertToNestedArray } from 'lib'
-import { GetListingsTypes } from 'types'
+import { getListings, getPopularLocations } from 'api'
+import { GetListingsTypes, GetPopularLocationsTypes } from 'types'
 
 import SearchLocationAutocomplete from './components/SearchLocationAutocomplete'
 
 const SearchFilters = async () => {
-  const listingData: Promise<GetListingsTypes.ISearchResults> = getListings()
-  const { search_form } = await listingData
+  const listingData: GetListingsTypes.ISearchResults = await getListings()
+  const popularLocations: GetPopularLocationsTypes.PopularLocations =
+    await getPopularLocations()
 
-  console.log(
-    'results: ',
-    search_form && convertToNestedArray(search_form.popular_locations)
-  )
+  const { search_form } = listingData
 
   return (
     <div className="pt-3 mx-auto xl:container">
-      <SearchLocationAutocomplete texts={search_form.texts} />
+      <SearchLocationAutocomplete
+        popularLocations={popularLocations}
+        texts={search_form.texts}
+      />
     </div>
   )
 }

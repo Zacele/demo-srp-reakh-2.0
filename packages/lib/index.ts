@@ -1,1 +1,1 @@
-export { default as convertToNestedArray } from './convertToNestedArray'
+export { default as convertLocations } from './convertLocations'

@@ -1,10 +1,10 @@
 const getEssentialsData = async () => {
-  const URL = `${process.env.NEXT_PUBLIC_API_ROOT}/essentials`
+  const URL = `${process.env.NEXT_PUBLIC_API_ROOT}/portal/essentials`
   const res = await fetch(URL)
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
-  return await res.json()
+  return res.json()
 }
 
 export default getEssentialsData

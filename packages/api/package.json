@@ -8,7 +8,9 @@
     "access": "public"
   },
   "dependencies": {
-    "dotenv-cli": "*"
+    "dotenv-cli": "*",
+    "lib": "workspace:*",
+    "types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^17.0.45"
