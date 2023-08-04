@@ -1,1 +1,1 @@
-export { default as convertLocations } from './convertLocations'
+export { default as selectNextLocation } from './selectNextLocation'
