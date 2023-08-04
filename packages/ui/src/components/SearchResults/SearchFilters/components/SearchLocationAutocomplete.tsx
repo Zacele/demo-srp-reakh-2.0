@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { Autocomplete, Checkbox, TextField } from '@mui/material'
-import { selectNextLocation } from 'lib'
+import { Autocomplete, Checkbox, Chip, TextField } from '@mui/material'
+import { selectNextLocation, selectTopLevelLocations } from 'lib'
 import { GetListingsTypes } from 'types'
 
 const SearchLocationAutocomplete: React.FC<{
@@ -20,7 +20,9 @@ const SearchLocationAutocomplete: React.FC<{
     return matches ? matches.length + 1 : 1
   }
 
-  const existing = (location: GetListingsTypes.PopularLocation) => selectLocations.length > 0 && selectLocations[0].id === location.id
+  const toggleLocation = (option: GetListingsTypes.PopularLocation) => {
+    setSelectLocations(selectNextLocation(option, selectLocations, searchForm?.popular_locations))
+  }
 
   const renderOption = (
     props: React.HTMLAttributes<HTMLLIElement>,
@@ -29,8 +31,8 @@ const SearchLocationAutocomplete: React.FC<{
   ) => {
     const numberOfParents = countCharacterOccurrences(' > ', option.id)
     return (
-      <li {...props} key={option.slug + option.id}>
-        <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8, paddingLeft: numberOfParents * 32 }} checked={selected} />
+      <li {...props} key={option.slug + option.id} onClick={() => toggleLocation(option)}>
+        <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8, paddingLeft: numberOfParents * 24 }} checked={selected} />
         {option.name}
       </li>
     )
@@ -42,12 +44,15 @@ const SearchLocationAutocomplete: React.FC<{
       limitTags={1}
       disableCloseOnSelect
       value={selectLocations}
-      onChange={(event, newValue) => {
-        setSelectLocations(selectNextLocation(newValue[0], selectLocations, searchForm?.popular_locations))
-      }}
       options={searchForm?.popular_locations}
       getOptionLabel={(option) => option?.name || ''}
       renderOption={renderOption}
+      renderTags={(tagValue, getTagProps) => {
+        const topLevelLocations = selectTopLevelLocations(searchForm?.popular_locations, tagValue)
+        return topLevelLocations.map((option, index) => (
+          <Chip {...getTagProps({ index })} label={option.name} onDelete={() => toggleLocation(option)} key={option.id} />
+        ))
+      }}
       renderInput={(params) => <TextField {...params} placeholder={searchForm.texts.searchPlaceholder} />}
     />
   )
