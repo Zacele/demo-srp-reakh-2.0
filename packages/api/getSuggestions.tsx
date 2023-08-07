@@ -1,4 +1,6 @@
-const getSuggestions = async (searchString: any) => {
+import throttle from 'lodash/throttle'
+
+const getSuggestions = throttle(async (searchString) => {
   const URL = `${
     process.env.NEXT_PUBLIC_API_ROOT
   }/autocomplete/?q=${searchString}&autocomplete=1&pathname=${'buy'}`
@@ -8,6 +10,6 @@ const getSuggestions = async (searchString: any) => {
     throw new Error('Failed to fetch data')
   }
   return res.json()
-}
+}, 300)
 
 export default getSuggestions

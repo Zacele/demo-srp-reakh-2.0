@@ -1,6 +1,6 @@
 import { GetListingsTypes } from 'types'
 
-const selectTopLocations = (
+const selectTopLevelLocations = (
   popularLocations: GetListingsTypes.PopularLocation[],
   locations: GetListingsTypes.PopularLocation[]
 ) =>
@@ -10,4 +10,4 @@ const selectTopLocations = (
     return !locations.find(({ id }) => id === location.parent_id)
   })
 
-export default selectTopLocations
+export default selectTopLevelLocations

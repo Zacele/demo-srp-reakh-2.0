@@ -5,7 +5,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { Autocomplete, Checkbox, Chip, TextField } from '@mui/material'
 import { getSuggestions } from 'api'
 import { selectNextLocation, selectTopLevelLocations } from 'lib'
-import { GetListingsTypes } from 'types'
+import { GetListingsTypes, GetSuggestionTypes } from 'types'
 
 const SearchLocationAutocomplete: React.FC<{
   searchForm: GetListingsTypes.SearchForm
@@ -16,12 +16,12 @@ const SearchLocationAutocomplete: React.FC<{
   const [selectLocations, setSelectLocations] = React.useState<
     (string | GetListingsTypes.PopularLocation)[] | undefined
   >([])
+  const [suggestions, setSuggestions] = React.useState<GetSuggestionTypes.Suggestions | {}>({})
   const [onCustomQuery, setOnCustomQuery] = React.useState<boolean>(false)
 
   React.useEffect(() => {
-    if (onCustomQuery && typeof selectLocations === 'string' && selectLocations) {
-      console.log('GO HERE')
-      getSuggestions(selectLocations)
+    if (onCustomQuery && selectLocations && selectLocations?.length > 0) {
+      getSuggestions(selectLocations[0])?.then((response) => setSuggestions(response))
     }
   }, [onCustomQuery, selectLocations])
 
@@ -43,7 +43,7 @@ const SearchLocationAutocomplete: React.FC<{
   ) => {
     const numberOfParents = countCharacterOccurrences(' > ', option.id)
     // @ts-ignore
-    if (selectLocations && typeof selectLocations === 'string' && selectLocations.length > 1) {
+    if (onCustomQuery) {
       return null
     }
     return (
@@ -75,6 +75,9 @@ const SearchLocationAutocomplete: React.FC<{
       getOptionLabel={(option) => option?.name || ''}
       renderOption={renderOption}
       renderTags={(tagValue, getTagProps) => {
+        if (onCustomQuery) {
+          return null
+        }
         const topTagsLevelLocations = selectTopLevelLocations(
           searchForm?.popular_locations,
           tagValue
@@ -103,6 +106,15 @@ const SearchLocationAutocomplete: React.FC<{
               )
               toggleLocation(topLevelLocations[topLevelLocations.length - 1])
             }
+          }}
+          onChange={(event) => {
+            if (event.target.value === '') {
+              setOnCustomQuery(false)
+              setSelectLocations([])
+              return
+            }
+            setOnCustomQuery(true)
+            setSelectLocations([event.target.value])
           }}
         />
       )}
