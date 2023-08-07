@@ -1,6 +1,9 @@
 import { GetListingsTypes } from 'types'
 
-const selectTopLocations = (popularLocations: GetListingsTypes.PopularLocation[], locations: GetListingsTypes.PopularLocation[]) =>
+const selectTopLocations = (
+  popularLocations: GetListingsTypes.PopularLocation[],
+  locations: GetListingsTypes.PopularLocation[]
+) =>
   locations.filter((item) => {
     const location = popularLocations.find(({ id }) => id === item.id || id === item.name)
     if (!popularLocations.length || !location) return true

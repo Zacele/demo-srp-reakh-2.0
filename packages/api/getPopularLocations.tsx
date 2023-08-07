@@ -1,5 +1,5 @@
 const getPopularLocations = async () => {
-  const URL = `${process.env.NEXT_PUBLIC_API_ROOT}/location-funnel/?popular_location=1&structured=True`
+  const URL = `${process.env.NEXT_PUBLIC_API_ROOT}/api/location-funnel/?popular_location=1&structured=True`
   const res = await fetch(URL)
 
   if (!res.ok) {
