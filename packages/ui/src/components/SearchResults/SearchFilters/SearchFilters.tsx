@@ -1,7 +1,7 @@
 import { getListings } from 'api'
 import { GetListingsTypes } from 'types'
 
-import SearchLocationAutocomplete from './components/SearchLocationAutocomplete'
+import SearchForm from './components/SearchForm'
 
 const SearchFilters = async () => {
   const listingData: GetListingsTypes.ISearchResults = await getListings()
@@ -10,7 +10,7 @@ const SearchFilters = async () => {
 
   return (
     <div className="pt-3 mx-auto xl:container">
-      <SearchLocationAutocomplete searchForm={search_form} />
+      <SearchForm searchForm={search_form} />
     </div>
   )
 }

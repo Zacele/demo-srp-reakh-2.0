@@ -162,6 +162,8 @@ export interface PopularLocation {
   parent_id?: string
   name: string
   slug: string
+  group?: string
+  type?: string
 }
 
 export interface QuickSearchLocation {

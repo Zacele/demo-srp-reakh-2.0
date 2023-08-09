@@ -1,0 +1,391 @@
+'use client'
+
+import React, { Fragment, MouseEventHandler, useEffect, useRef, useState } from 'react'
+import Highlighter from 'react-highlight-words'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import CloseIcon from '@mui/icons-material/Close'
+import { Button, Checkbox } from '@mui/material'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import { getSuggestions } from 'api'
+import { selectNextLocation, selectTopLevelLocations } from 'lib'
+import { GetListingsTypes, GetSuggestionTypes } from 'types'
+
+interface TabPanelProps {
+  children?: React.ReactNode
+  index: number
+  value: number
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
+  }
+}
+
+const SearchFormTab = (props: TabPanelProps) => {
+  const { children, value, index, ...other } = props
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`search-from-tabpanel-${index}`}
+      aria-labelledby={`search-from-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box>{children}</Box>}
+    </div>
+  )
+}
+
+const Root = styled('div')(
+  ({ theme }) => `
+  color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'};
+  font-size: 14px;
+`
+)
+
+const BoxSearchForm = styled(Box)({
+  position: 'absolute',
+  width: '700px',
+  overflow: 'auto',
+  backgroundColor: '#fff',
+  maxHeight: '450px',
+  borderRadius: '4px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+  zIndex: 999
+})
+
+const HeaderBox = styled(Box)({
+  backgroundColor: 'rgb(234, 234, 234)',
+  fontSize: '12px',
+  padding: '12px 16px',
+  display: 'flex'
+})
+
+const Listbox = styled('ul')(
+  ({ theme }) => `
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  background-color: #fff;
+  max-height: 450px;
+  border-radius: 4px;
+  z-index: 999;
+
+  & li {
+    padding: 4px 0px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+`
+)
+
+const ListboxOption = styled(Button)({
+  justifyContent: 'unset',
+  color: '#000',
+  textTransform: 'unset',
+  fontSize: '16px',
+  cursor: 'pointer'
+})
+
+const InputWrapper = styled('div')(
+  ({ theme }) => `
+  width: 700px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1px;
+  display: flex;
+  flex-wrap: wrap;
+
+  &:hover {
+    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
+  }
+
+  &.focused {
+    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+
+  & input {
+    background-color: #fff;
+    color: rgba(0,0,0,.85);
+    height: 30px;
+    box-sizing: border-box;
+    padding: 4px 6px;
+    width: 0;
+    min-width: 30px;
+    flex-grow: 1;
+    border: 0;
+    margin: 0;
+    outline: 0;
+  }
+`
+)
+
+interface TagProps {
+  label: string
+  onDelete: MouseEventHandler<SVGSVGElement>
+}
+
+const Tag: React.FC<TagProps> = ({ label, onDelete }) => {
+  return (
+    <div>
+      <span>{label}</span>
+      <CloseIcon onClick={onDelete} />
+    </div>
+  )
+}
+
+const StyledTag = styled(Tag)<TagProps>(
+  ({ theme }) => `
+  display: flex;
+  align-items: center;
+  height: 24px;
+  margin: 2px;
+  line-height: 22px;
+  background-color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : '#fafafa'};
+  border: 1px solid ${theme.palette.mode === 'dark' ? '#303030' : '#e8e8e8'};
+  border-radius: 2px;
+  box-sizing: content-box;
+  padding: 0 4px 0 10px;
+  outline: 0;
+  overflow: hidden;
+
+  &:focus {
+    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
+    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
+  }
+
+  & span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  & svg {
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px;
+  }
+`
+)
+
+const SuggestionButton = styled(Button)({
+  justifyContent: 'unset',
+  color: '#000',
+  textTransform: 'unset',
+  fontSize: '16px',
+  paddingLeft: '16px'
+})
+
+const SearchForm: React.FC<{
+  searchForm: GetListingsTypes.SearchForm
+}> = ({ searchForm }) => {
+  const icon = <CheckCircleIcon fontSize="small" color="disabled" />
+  const checkedIcon = <CheckCircleIcon fontSize="small" />
+  const [isFocusing, setIsFocusing] = useState(false)
+  const [searchFormOpen, setSearchFormOpen] = useState(true)
+  const [searchFormValue, setSearchFormValue] = useState<GetSuggestionTypes.Suggestions | null>(
+    null
+  )
+  const rootRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const [value, setValue] = React.useState(0)
+
+  useEffect(() => {
+    const handleInputChange = () => {
+      if (inputRef.current) {
+        const inputValue = inputRef.current.value
+        if (inputValue.length > 2) {
+          setSearchFormOpen(false)
+          getSuggestions(inputValue)?.then((data) => setSearchFormValue(data))
+        } else {
+          setSearchFormOpen(true)
+          setSearchFormValue(null)
+        }
+      }
+    }
+
+    if (inputRef.current) {
+      inputRef.current.addEventListener('input', handleInputChange)
+    }
+
+    return () => {
+      if (inputRef.current) {
+        inputRef.current.removeEventListener('input', handleInputChange)
+      }
+    }
+  }, [])
+
+  const handleTabChanges = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue)
+  }
+
+  const [selectedLocations, setSelectedLocations] = React.useState<
+    GetListingsTypes.PopularLocation[]
+  >([])
+
+  const toggleLocation = (option: GetListingsTypes.PopularLocation) => {
+    setSelectedLocations(
+      selectNextLocation(option, selectedLocations, searchForm?.popular_locations)
+    )
+  }
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+      setIsFocusing(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
+  const handleFocus = () => {
+    setIsFocusing(true)
+  }
+
+  const countCharacterOccurrences = (char: string, str?: string): number => {
+    const regex = new RegExp(char, 'g')
+    const matches = str && str.match(regex)
+    return matches ? matches.length + 1 : 1
+  }
+
+  const topTagsLevelLocations = React.useMemo(
+    () => selectTopLevelLocations(searchForm?.popular_locations, selectedLocations),
+    [searchForm?.popular_locations, selectedLocations]
+  )
+
+  let lastIndex = -1
+
+  return (
+    <Root>
+      <div ref={rootRef}>
+        <InputWrapper className={isFocusing ? 'focused' : ''}>
+          {topTagsLevelLocations.map((option: GetListingsTypes.PopularLocation) => (
+            <StyledTag
+              key={option.name}
+              label={option.name}
+              onDelete={() => toggleLocation(option)}
+            />
+          ))}
+          <input
+            ref={inputRef}
+            onFocus={handleFocus}
+            onKeyDown={(event: any) => {
+              if (event.key === 'Backspace' && selectedLocations && selectedLocations?.length > 0) {
+                const topLevelLocations = selectTopLevelLocations(
+                  searchForm?.popular_locations,
+                  selectedLocations
+                )
+                toggleLocation(topLevelLocations[topLevelLocations.length - 1])
+              }
+            }}
+          />
+        </InputWrapper>
+      </div>
+      {searchFormOpen && (
+        <BoxSearchForm>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={value}
+              onChange={handleTabChanges}
+              aria-label="search-form"
+              variant="fullWidth"
+              centered
+            >
+              <Tab label={searchForm.texts.popularLocations} {...a11yProps(0)} />
+              <Tab label={searchForm.texts.landmarks} {...a11yProps(1)} />
+              <Tab label={searchForm.texts.recent} {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+          <SearchFormTab value={value} index={0}>
+            <Listbox>
+              {searchForm.popular_locations.map((option, index) => {
+                const numberOfParents = countCharacterOccurrences(' > ', option.id)
+                return (
+                  <li key={option.slug + option.id + option.name}>
+                    <ListboxOption
+                      onClick={() => {
+                        setIsFocusing(true)
+                        toggleLocation(option)
+                      }}
+                      style={{ paddingLeft: numberOfParents * 24 }}
+                      fullWidth
+                    >
+                      <Checkbox
+                        icon={icon}
+                        checkedIcon={checkedIcon}
+                        style={{ marginRight: 8 }}
+                        checked={selectedLocations.includes(option)}
+                      />
+                      {option.name}
+                    </ListboxOption>
+                  </li>
+                )
+              })}
+            </Listbox>
+          </SearchFormTab>
+        </BoxSearchForm>
+      )}
+      {!searchFormOpen && searchFormValue !== null && (
+        <BoxSearchForm>
+          {Object.keys(searchFormValue).length > 0 &&
+            Object.entries(searchFormValue).map(([type, payload]) => {
+              if (payload.length === 0) {
+                return null
+              }
+              return (
+                <Fragment key={`${type}-${payload}`}>
+                  <HeaderBox>
+                    {/* @ts-ignore */}
+                    <h2>{searchForm.texts[type]}</h2>
+                  </HeaderBox>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {payload.map(
+                      (
+                        option:
+                          | GetSuggestionTypes.Condo
+                          | GetSuggestionTypes.Keyword
+                          | GetSuggestionTypes.Landmark
+                          | GetSuggestionTypes.Listing
+                          | GetSuggestionTypes.Office
+                          | GetSuggestionTypes.Location
+                      ) => {
+                        lastIndex += 1
+                        const displayName =
+                          type !== 'keywords' ? option.full_name || option.name : option.query
+                        return (
+                          <SuggestionButton key={`${type}-${option}`}>
+                            <Highlighter
+                              autoEscape
+                              highlightStyle={{ background: '#FFD54F' }}
+                              searchWords={inputRef.current?.value.split(' ') || []}
+                              textToHighlight={displayName}
+                            />
+                          </SuggestionButton>
+                        )
+                      }
+                    )}
+                  </Box>
+                </Fragment>
+              )
+            })}
+        </BoxSearchForm>
+      )}
+    </Root>
+  )
+}
+
+export default SearchForm
