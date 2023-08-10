@@ -6,7 +6,7 @@ export { default as SearchResults } from './src/components/layouts/SearchResults
 export * from './src/components/layouts/SearchResults'
 export * from './src/components/SearchResults/Listing/ListingCard'
 export * from './src/components/SearchResults/Listing/NestedListing'
-export * from './src/components/SearchResults/Listing/NestedListingCard'
+export { default } from './src/components/SearchResults/Listing/NestedListingCard'
 export * from './src/components/SearchResults/SearchFilters'
 export * from './src/ErrorButton'
 export * from './src/HellButton'

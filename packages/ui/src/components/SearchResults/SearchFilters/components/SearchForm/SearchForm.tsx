@@ -1,18 +1,27 @@
 'use client'
 
-import React, { Fragment, MouseEventHandler, useEffect, useRef, useState } from 'react'
+import React, { Fragment, MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react'
 import Highlighter from 'react-highlight-words'
+import ApartmentIcon from '@mui/icons-material/Apartment'
+import BadgeIcon from '@mui/icons-material/Badge'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CloseIcon from '@mui/icons-material/Close'
+import ConstructionIcon from '@mui/icons-material/Construction'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import PinDropIcon from '@mui/icons-material/PinDrop'
+import SearchIcon from '@mui/icons-material/Search'
+import StorefrontIcon from '@mui/icons-material/Storefront'
+import VillaIcon from '@mui/icons-material/Villa'
 import { Button, Checkbox } from '@mui/material'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import { getSuggestions } from 'api'
+import clsx from 'clsx'
 import { selectNextLocation, selectTopLevelLocations } from 'lib'
 import { GetListingsTypes, GetSuggestionTypes } from 'types'
-
+import { Texts2 } from 'types/getListings.types'
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -24,6 +33,25 @@ function a11yProps(index: number) {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`
   }
+}
+
+const IconHeader: React.FC<{ type: keyof Texts2 }> = ({ type }) => {
+  if (type === 'keywords') {
+    return <SearchIcon />
+  }
+  if (type === 'locations') {
+    return <LocationOnIcon />
+  }
+  if (type === 'landmarks') {
+    return <PinDropIcon />
+  }
+  if (type === 'projects') {
+    return <ConstructionIcon />
+  }
+  if (type === 'condos') return <ApartmentIcon />
+  if (type === 'borey') return <VillaIcon />
+  if (type === 'agents') return <BadgeIcon />
+  return <StorefrontIcon />
 }
 
 const SearchFormTab = (props: TabPanelProps) => {
@@ -62,9 +90,11 @@ const BoxSearchForm = styled(Box)({
 
 const HeaderBox = styled(Box)({
   backgroundColor: 'rgb(234, 234, 234)',
-  fontSize: '12px',
+  fontSize: '14px',
   padding: '12px 16px',
-  display: 'flex'
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center'
 })
 
 const Listbox = styled('ul')(
@@ -177,13 +207,19 @@ const StyledTag = styled(Tag)<TagProps>(
 `
 )
 
-const SuggestionButton = styled(Button)({
-  justifyContent: 'unset',
-  color: '#000',
-  textTransform: 'unset',
-  fontSize: '16px',
-  paddingLeft: '16px'
-})
+const SuggestionButton = styled(Button)(
+  ({ theme }) => `
+  justify-content: unset;
+  color: #000;
+  text-transform: unset;
+  font-size: 16px;
+  padding-left: 16px;
+
+  &.focused {
+    background-color: rgb(214, 232, 207)
+  }
+  `
+)
 
 const SearchForm: React.FC<{
   searchForm: GetListingsTypes.SearchForm
@@ -192,11 +228,13 @@ const SearchForm: React.FC<{
   const checkedIcon = <CheckCircleIcon fontSize="small" />
   const [isFocusing, setIsFocusing] = useState(false)
   const [searchFormOpen, setSearchFormOpen] = useState(true)
+  const [focusedIndex, setFocusedIndex] = useState(-1)
   const [searchFormValue, setSearchFormValue] = useState<GetSuggestionTypes.Suggestions | null>(
     null
   )
   const rootRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const totalSuggestions = useMemo(() => countValues(searchFormValue), [searchFormValue])
 
   const [value, setValue] = React.useState(0)
 
@@ -261,6 +299,34 @@ const SearchForm: React.FC<{
     const matches = str && str.match(regex)
     return matches ? matches.length + 1 : 1
   }
+
+  function countValues(obj: any): number {
+    let count = 0
+    for (let key in obj) {
+      if (typeof obj[key] === 'object' && obj[key].length > 0) {
+        count += obj[key].length
+      }
+    }
+    return count
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault() // Prevent default scroll behavior
+        setFocusedIndex((prevIndex) => (prevIndex >= totalSuggestions ? 0 : prevIndex + 1))
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault() // Prevent default scroll behavior
+        setFocusedIndex((prevIndex) => (prevIndex <= 0 ? totalSuggestions : prevIndex - 1))
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown) // Attach keydown event listener
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown) // Clean up event listener on unmount
+    }
+  }, [totalSuggestions])
 
   const topTagsLevelLocations = React.useMemo(
     () => selectTopLevelLocations(searchForm?.popular_locations, selectedLocations),
@@ -351,23 +417,28 @@ const SearchForm: React.FC<{
                   <HeaderBox>
                     {/* @ts-ignore */}
                     <h2>{searchForm.texts[type]}</h2>
+                    <IconHeader type={type} />
                   </HeaderBox>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {payload.map(
                       (
-                        option:
-                          | GetSuggestionTypes.Condo
-                          | GetSuggestionTypes.Keyword
-                          | GetSuggestionTypes.Landmark
-                          | GetSuggestionTypes.Listing
-                          | GetSuggestionTypes.Office
-                          | GetSuggestionTypes.Location
+                        option: GetSuggestionTypes.Condo &
+                          GetSuggestionTypes.Keyword &
+                          GetSuggestionTypes.Landmark &
+                          GetSuggestionTypes.Listing &
+                          GetSuggestionTypes.Office &
+                          GetSuggestionTypes.Location
                       ) => {
                         lastIndex += 1
                         const displayName =
                           type !== 'keywords' ? option.full_name || option.name : option.query
                         return (
-                          <SuggestionButton key={`${type}-${option}`}>
+                          <SuggestionButton
+                            className={clsx({
+                              focused: lastIndex === focusedIndex
+                            })}
+                            key={`${type}-${displayName}`}
+                          >
                             <Highlighter
                               autoEscape
                               highlightStyle={{ background: '#FFD54F' }}

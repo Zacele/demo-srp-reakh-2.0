@@ -85,6 +85,7 @@ export interface SearchForm {
 }
 
 export interface Texts2 {
+  [key: string]: string
   'All Types': string
   agencies: string
   agents: string
