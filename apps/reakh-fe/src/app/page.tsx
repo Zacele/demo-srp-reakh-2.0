@@ -7,7 +7,7 @@ import SearchResults from 'ui/src/components/layouts/SearchResults'
 import SearchFilters from 'ui/src/components/SearchResults/SearchFilters'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const listingData: Promise<ISearchResults> = getListings()
+  const listingData: Promise<ISearchResults> = getListings({})
   const data = await listingData
   const { seo } = data
 
@@ -17,14 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const SearchResultsPage = async () => {
-  const listingData: ISearchResults = await getListings()
-  const { results, search_form } = listingData
+  const initialListingData: ISearchResults = await getListings({})
+  const { search_form } = initialListingData
 
   return (
     <AppLayout>
       <Suspense fallback={<h2>Loading...</h2>}>
         <SearchFilters searchForm={search_form} />
-        <SearchResults searchResults={results} />
+        <SearchResults searchResults={initialListingData} />
       </Suspense>
     </AppLayout>
   )

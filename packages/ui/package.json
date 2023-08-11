@@ -31,7 +31,8 @@
     "next": "*",
     "api": "workspace:*",
     "types": "workspace:*",
-    "lib": "workspace:*"
+    "lib": "workspace:*",
+    "hooks": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0"

@@ -23,7 +23,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "types": "workspace:*",
-    "ui": "workspace:*"
+    "ui": "workspace:*",
+    "hooks": "workspace:*"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",

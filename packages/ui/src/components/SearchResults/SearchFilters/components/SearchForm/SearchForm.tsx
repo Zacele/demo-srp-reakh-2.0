@@ -13,6 +13,7 @@ import PinDropIcon from '@mui/icons-material/PinDrop'
 import SearchIcon from '@mui/icons-material/Search'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import VillaIcon from '@mui/icons-material/Villa'
+import LoadingButton from '@mui/lab/LoadingButton'
 import { Button, Checkbox } from '@mui/material'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
@@ -128,10 +129,9 @@ const ListboxOption = styled(Button)({
 const InputWrapper = styled('div')(
   ({ theme }) => `
   width: 700px;
-  border: 1px solid #d9d9d9;
   background-color: #fff;
-  border-radius: 4px;
-  padding: 1px;
+  border-radius: 14px;
+  border: 1px solid #E8E8E8;  padding: 1px;
   display: flex;
   flex-wrap: wrap;
 
@@ -147,7 +147,8 @@ const InputWrapper = styled('div')(
   & input {
     background-color: #fff;
     color: rgba(0,0,0,.85);
-    height: 30px;
+    height: 40px;
+    border-radius: 14px;
     box-sizing: border-box;
     padding: 4px 6px;
     width: 0;
@@ -156,6 +157,7 @@ const InputWrapper = styled('div')(
     border: 0;
     margin: 0;
     outline: 0;
+
   }
 `
 )
@@ -366,6 +368,9 @@ const SearchForm: React.FC<{
               onDelete={() => toggleLocation(option)}
             />
           ))}
+          <LoadingButton type="submit">
+            <SearchIcon />
+          </LoadingButton>
           <input
             {...register('q')}
             ref={inputRef}

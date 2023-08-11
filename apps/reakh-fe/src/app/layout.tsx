@@ -1,14 +1,14 @@
 import ThemeRegistry from '../components/Theme/ThemeRegistry/ThemeRegistry'
 
-export default function RootLayout({
-  children
-}: {
-  children: JSX.Element | JSX.Element[]
-}) {
+import QueryClientProvider from './QueryClientProvider'
+
+export default function RootLayout({ children }: { children: JSX.Element | JSX.Element[] }) {
   return (
     <html data-theme="reakh" lang="en">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <QueryClientProvider>{children}</QueryClientProvider>
+        </ThemeRegistry>
       </body>
     </html>
   )

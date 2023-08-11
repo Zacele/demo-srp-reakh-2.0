@@ -2,6 +2,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
+import { getListings } from 'api'
 import { ISearchForm, SearchFormInputsType } from 'types'
 
 import SearchForm from './components/SearchForm'
@@ -23,7 +24,7 @@ const SearchFilters = ({ searchForm }: { searchForm: ISearchForm }) => {
       search_type: 'sale'
     }
   })
-  const onSubmit: SubmitHandler<SearchFormInputsType> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<SearchFormInputsType> = (data) => getListings(data)
 
   const [isDevToolEnabled, setIsDevToolEnabled] = React.useState<boolean>(false)
   React.useEffect(() => {

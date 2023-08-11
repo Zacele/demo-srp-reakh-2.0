@@ -1,17 +1,17 @@
 export interface SearchFormInputsType {
-  page_size: number
-  search_languages: string
+  page_size?: number
+  search_languages?: string
   order_by?: OrderBy
   q?: string
-  page: number
+  page?: number
   features?: string[]
   highlights?: string[]
   categories?: string[]
-  active_tab: 'landmark' | 'popularLocations'
-  search_type: 'sale' | 'rent'
+  active_tab?: 'landmark' | 'popularLocations'
+  search_type?: 'sale' | 'rent'
   has_virtual_tour?: boolean
-  location: string[]
-  property_type: string
+  location?: string[]
+  property_type?: string
 }
 
 type OrderBy =
