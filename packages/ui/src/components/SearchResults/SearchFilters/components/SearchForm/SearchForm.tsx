@@ -273,6 +273,17 @@ const SearchForm: React.FC<{
 
   const [selectedLocations, setSelectedLocations] = React.useState<PopularLocation[]>([])
 
+  useEffect(() => {
+    if (selectedLocations) {
+      setValue(
+        'q',
+        selectTopLevelLocations(searchForm?.popular_locations, selectedLocations)
+          .map((item) => 'location: ' + item.id + ';')
+          .join('')
+      )
+    }
+  }, [searchForm?.popular_locations, selectedLocations, setValue])
+
   const toggleLocation = (option: PopularLocation) => {
     setSelectedLocations(
       selectNextLocation(option, selectedLocations, searchForm?.popular_locations)
@@ -280,7 +291,12 @@ const SearchForm: React.FC<{
   }
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+    if (
+      rootRef.current &&
+      !rootRef.current.contains(event.target as Node) &&
+      inputRef.current &&
+      !inputRef.current.contains(event.target as Node)
+    ) {
       setIsFocusing(false)
     }
   }
@@ -292,11 +308,7 @@ const SearchForm: React.FC<{
     }
   }, [])
 
-  const handleFocus = () => {
-    setIsFocusing(true)
-  }
-
-  console.log('selectedLocations', selectedLocations)
+  const handleFocus = () => setIsFocusing(true)
 
   const countCharacterOccurrences = (char: string, str?: string): number => {
     const regex = new RegExp(char, 'g')
@@ -319,9 +331,13 @@ const SearchForm: React.FC<{
       if (event.key === 'ArrowDown') {
         event.preventDefault() // Prevent default scroll behavior
         setFocusedIndex((prevIndex) => (prevIndex >= totalSuggestions ? 0 : prevIndex + 1))
-      } else if (event.key === 'ArrowUp') {
+      }
+      if (event.key === 'ArrowUp') {
         event.preventDefault() // Prevent default scroll behavior
         setFocusedIndex((prevIndex) => (prevIndex <= 0 ? totalSuggestions : prevIndex - 1))
+      }
+      if (event.key === 'Escape') {
+        setIsFocusing(false)
       }
     }
 
@@ -341,7 +357,7 @@ const SearchForm: React.FC<{
 
   return (
     <Root>
-      <div ref={rootRef}>
+      <div>
         <InputWrapper className={isFocusing ? 'focused' : ''}>
           {topTagsLevelLocations.map((option: PopularLocation) => (
             <StyledTag
@@ -351,13 +367,12 @@ const SearchForm: React.FC<{
             />
           ))}
           <input
+            {...register('q')}
             ref={inputRef}
             onFocus={handleFocus}
+            placeholder={searchForm.texts.searchPlaceholder}
             onKeyDown={(event: any) => {
               if (event.key === 'Backspace' && selectedLocations && selectedLocations?.length > 0) {
-                // setValue(
-                //   'q',
-                // )
                 const topLevelLocations = selectTopLevelLocations(
                   searchForm?.popular_locations,
                   selectedLocations
@@ -368,8 +383,8 @@ const SearchForm: React.FC<{
           />
         </InputWrapper>
       </div>
-      {searchFormOpen && (
-        <BoxSearchForm>
+      {searchFormOpen && isFocusing && (
+        <BoxSearchForm ref={rootRef}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs
               value={currentTab}
