@@ -1,12 +1,12 @@
 'use client'
 import { useState } from 'react'
 import clsx from 'clsx'
-import { GetListingsTypes } from 'types'
+import { ISearchResults } from 'types'
 
 import { ListingCard } from '../SearchResults/Listing/ListingCard'
 
 const SearchResults: React.FC<{
-  searchResults: GetListingsTypes.ISearchResults['results']
+  searchResults: ISearchResults['results']
 }> = ({ searchResults }) => {
   const [isMap, setIsMap] = useState(true)
   return (

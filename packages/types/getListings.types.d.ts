@@ -57,7 +57,7 @@ export interface Texts {
   enquiry_form_heading: string
 }
 
-export interface SearchForm {
+export interface ISearchForm {
   texts: Texts2
   popular_locations: PopularLocation[]
   quick_search_locations: QuickSearchLocation[]
@@ -84,7 +84,7 @@ export interface SearchForm {
   landmarks: any[]
 }
 
-export interface Texts2 {
+export interface GetListingsTexts2 {
   [key: string]: string
   'All Types': string
   agencies: string

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { GetListingsTypes } from 'types'
+import { Result } from 'types'
 
 import AmenityIcon from './AmenityIcon'
 import ListingImages from './ListingImages'
@@ -7,7 +7,7 @@ import NestedListing from './NestedListing'
 // import NestedListingCard from "./NestedListingCard";
 
 type Props = {
-  data: GetListingsTypes.Result
+  data: Result
   alt?: string
 }
 
@@ -26,28 +26,21 @@ export function ListingCard({ data, alt }: Props) {
           }
         )}
       >
-        <ListingImages
-          data={data?.images}
-          alt={alt}
-          onHeartClick={(val) => alert(val)}
-        />
+        <ListingImages data={data?.images} alt={alt} onHeartClick={(val) => alert(val)} />
         <div className="flex flex-col justify-between w-full h-full p-5">
           {/* TITLE */}
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-secondary">
-              {data.headline}
-            </h1>
+            <h1 className="text-xl font-bold text-secondary">{data.headline}</h1>
             <h2 className="font-bold text-md text-primary">{`${data.category_name} | ${data.address}`}</h2>
           </div>
           {/* PRICE */}
           <div className="flex items-baseline flex-1">
             <h1 className="text-4xl font-bold text-secondary">{`${data.display_price}`}</h1>
-            {data?.display_price_per_sqm &&
-              data.display_price_per_sqm_with_unit && (
-                <p className="pl-2 text-lg font-semibold text-gray-500">
-                  {data?.display_price_per_sqm_with_unit}
-                </p>
-              )}
+            {data?.display_price_per_sqm && data.display_price_per_sqm_with_unit && (
+              <p className="pl-2 text-lg font-semibold text-gray-500">
+                {data?.display_price_per_sqm_with_unit}
+              </p>
+            )}
           </div>
           {/* TYPE */}
           <div className="flex flex-wrap items-center flex-1 gap-2 pb-3 ">
@@ -60,24 +53,14 @@ export function ListingCard({ data, alt }: Props) {
                   : 'For sale or rent'
               }`}
             </h1>
-            <div className="font-semibold badge badge-primary badge-outline">
-              Under Offer
-            </div>
-            <div className="font-semibold badge badge-error badge-outline">
-              Save 27%
-            </div>
-            <div className="font-semibold badge badge-info badge-outline">
-              City View
-            </div>
+            <div className="font-semibold badge badge-primary badge-outline">Under Offer</div>
+            <div className="font-semibold badge badge-error badge-outline">Save 27%</div>
+            <div className="font-semibold badge badge-info badge-outline">City View</div>
           </div>
           {/* AMENITIES */}
           <div className="flex flex-wrap pb-3">
             {data.specifications.detail.map((amenity) => (
-              <AmenityIcon
-                key={amenity.label}
-                value={amenity.short_label}
-                type="Area"
-              />
+              <AmenityIcon key={amenity.label} value={amenity.short_label} type="Area" />
             ))}
           </div>
           {/*DATES */}

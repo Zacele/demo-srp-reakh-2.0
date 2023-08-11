@@ -1,8 +1,8 @@
-import { GetListingsTypes } from 'types'
+import { PopularLocation } from 'types'
 
 const selectTopLevelLocations = (
-  popularLocations: GetListingsTypes.PopularLocation[],
-  locations: GetListingsTypes.PopularLocation[]
+  popularLocations: PopularLocation[],
+  locations: PopularLocation[]
 ) =>
   locations.filter((item) => {
     const location = popularLocations.find(({ id }) => id === item.id || id === item.name)

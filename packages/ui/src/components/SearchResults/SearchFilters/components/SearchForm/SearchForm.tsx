@@ -2,6 +2,7 @@
 
 import React, { Fragment, MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react'
 import Highlighter from 'react-highlight-words'
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import BadgeIcon from '@mui/icons-material/Badge'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
@@ -20,8 +21,8 @@ import Tabs from '@mui/material/Tabs'
 import { getSuggestions } from 'api'
 import clsx from 'clsx'
 import { selectNextLocation, selectTopLevelLocations } from 'lib'
-import { GetListingsTypes, GetSuggestionTypes } from 'types'
-import { Texts2 } from 'types/getListings.types'
+import { GetListingsTexts2, GetSuggestionTypes, ISearchForm, PopularLocation } from 'types'
+import { SearchFormInputsType } from 'types'
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -35,7 +36,7 @@ function a11yProps(index: number) {
   }
 }
 
-const IconHeader: React.FC<{ type: keyof Texts2 }> = ({ type }) => {
+const IconHeader: React.FC<{ type: keyof GetListingsTexts2 }> = ({ type }) => {
   if (type === 'keywords') {
     return <SearchIcon />
   }
@@ -222,8 +223,10 @@ const SuggestionButton = styled(Button)(
 )
 
 const SearchForm: React.FC<{
-  searchForm: GetListingsTypes.SearchForm
-}> = ({ searchForm }) => {
+  searchForm: ISearchForm
+  register: UseFormRegister<SearchFormInputsType>
+  setValue: UseFormSetValue<SearchFormInputsType>
+}> = ({ searchForm, register, setValue }) => {
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
   const [isFocusing, setIsFocusing] = useState(false)
@@ -236,12 +239,13 @@ const SearchForm: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null)
   const totalSuggestions = useMemo(() => countValues(searchFormValue), [searchFormValue])
 
-  const [value, setValue] = React.useState(0)
+  const [currentTab, setCurrentTab] = React.useState(0)
 
   useEffect(() => {
+    const inputCurrent = inputRef.current
     const handleInputChange = () => {
-      if (inputRef.current) {
-        const inputValue = inputRef.current.value
+      if (inputCurrent) {
+        const inputValue = inputCurrent.value
         if (inputValue.length > 2) {
           setSearchFormOpen(false)
           getSuggestions(inputValue)?.then((data) => setSearchFormValue(data))
@@ -252,26 +256,24 @@ const SearchForm: React.FC<{
       }
     }
 
-    if (inputRef.current) {
-      inputRef.current.addEventListener('input', handleInputChange)
+    if (inputCurrent) {
+      inputCurrent.addEventListener('input', handleInputChange)
     }
 
     return () => {
-      if (inputRef.current) {
-        inputRef.current.removeEventListener('input', handleInputChange)
+      if (inputCurrent) {
+        inputCurrent.removeEventListener('input', handleInputChange)
       }
     }
   }, [])
 
   const handleTabChanges = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
+    setCurrentTab(newValue)
   }
 
-  const [selectedLocations, setSelectedLocations] = React.useState<
-    GetListingsTypes.PopularLocation[]
-  >([])
+  const [selectedLocations, setSelectedLocations] = React.useState<PopularLocation[]>([])
 
-  const toggleLocation = (option: GetListingsTypes.PopularLocation) => {
+  const toggleLocation = (option: PopularLocation) => {
     setSelectedLocations(
       selectNextLocation(option, selectedLocations, searchForm?.popular_locations)
     )
@@ -293,6 +295,8 @@ const SearchForm: React.FC<{
   const handleFocus = () => {
     setIsFocusing(true)
   }
+
+  console.log('selectedLocations', selectedLocations)
 
   const countCharacterOccurrences = (char: string, str?: string): number => {
     const regex = new RegExp(char, 'g')
@@ -339,7 +343,7 @@ const SearchForm: React.FC<{
     <Root>
       <div ref={rootRef}>
         <InputWrapper className={isFocusing ? 'focused' : ''}>
-          {topTagsLevelLocations.map((option: GetListingsTypes.PopularLocation) => (
+          {topTagsLevelLocations.map((option: PopularLocation) => (
             <StyledTag
               key={option.name}
               label={option.name}
@@ -351,6 +355,9 @@ const SearchForm: React.FC<{
             onFocus={handleFocus}
             onKeyDown={(event: any) => {
               if (event.key === 'Backspace' && selectedLocations && selectedLocations?.length > 0) {
+                // setValue(
+                //   'q',
+                // )
                 const topLevelLocations = selectTopLevelLocations(
                   searchForm?.popular_locations,
                   selectedLocations
@@ -365,7 +372,7 @@ const SearchForm: React.FC<{
         <BoxSearchForm>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs
-              value={value}
+              value={currentTab}
               onChange={handleTabChanges}
               aria-label="search-form"
               variant="fullWidth"
@@ -376,7 +383,7 @@ const SearchForm: React.FC<{
               <Tab label={searchForm.texts.recent} {...a11yProps(2)} />
             </Tabs>
           </Box>
-          <SearchFormTab value={value} index={0}>
+          <SearchFormTab value={currentTab} index={0}>
             <Listbox>
               {searchForm.popular_locations.map((option, index) => {
                 const numberOfParents = countCharacterOccurrences(' > ', option.id)
