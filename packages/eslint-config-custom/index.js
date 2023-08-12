@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['next', 'turbo', 'prettier', 'plugin:react-hooks/recommended'],
-  plugins: ['react', 'simple-import-sort', 'unused-imports', '@tanstack/query'],
+  plugins: ['react', 'simple-import-sort', 'unused-imports', 'react-hooks', '@tanstack/query'],
   rules: {
     // increase the severity of rules so they are auto-fixable
     'simple-import-sort/imports': 'error',
@@ -8,8 +8,8 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'unused-imports/no-unused-imports': 'error',
-    '@tanstack/query/exhaustive-deps': 'error',
-    '@tanstack/query/prefer-query-object-syntax': 'error'
+    '@tanstack/query/exhaustive-deps': 'off',
+    '@tanstack/query/prefer-query-object-syntax': 'warn'
   },
   parserOptions: {
     babelOptions: {

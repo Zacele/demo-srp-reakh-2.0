@@ -21,9 +21,11 @@ import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import { getSuggestions } from 'api'
 import clsx from 'clsx'
-import { selectNextLocation, selectTopLevelLocations } from 'lib'
+import { extractLocationsFromParams, selectNextLocation, selectTopLevelLocations } from 'lib'
+import { useSearchParams } from 'next/navigation'
 import { GetListingsTexts2, GetSuggestionTypes, ISearchForm, PopularLocation } from 'types'
 import { SearchFormInputsType } from 'types'
+
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -228,7 +230,8 @@ const SearchForm: React.FC<{
   searchForm: ISearchForm
   register: UseFormRegister<SearchFormInputsType>
   setValue: UseFormSetValue<SearchFormInputsType>
-}> = ({ searchForm, register, setValue }) => {
+  isLoading: boolean
+}> = ({ searchForm, register, setValue, isLoading }) => {
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
   const [isFocusing, setIsFocusing] = useState(false)
@@ -240,8 +243,19 @@ const SearchForm: React.FC<{
   const rootRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const totalSuggestions = useMemo(() => countValues(searchFormValue), [searchFormValue])
+  const searchParams = useSearchParams()
+  const querySearchLocation = searchParams.get('q')
+  const currentTabFromQuery = searchParams.get('active_tab') ?? 'popularLocations'
 
-  const [currentTab, setCurrentTab] = React.useState(0)
+  const [currentTab, setCurrentTab] = React.useState(() => {
+    if (currentTabFromQuery === 'popularLocations') {
+      return 0
+    }
+    if (currentTabFromQuery === 'landmarks') {
+      return 1
+    }
+    return 0
+  })
 
   useEffect(() => {
     const inputCurrent = inputRef.current
@@ -273,14 +287,33 @@ const SearchForm: React.FC<{
     setCurrentTab(newValue)
   }
 
-  const [selectedLocations, setSelectedLocations] = React.useState<PopularLocation[]>([])
+  const initiateLocationsPills = (): PopularLocation[] => {
+    if (
+      currentTabFromQuery === 'popularLocations' &&
+      typeof querySearchLocation === 'string' &&
+      querySearchLocation.length > 0
+    ) {
+      const locationIds = extractLocationsFromParams(querySearchLocation)
+      const selectedLocations = searchForm?.popular_locations?.filter((item) =>
+        locationIds.includes(item.id)
+      )
+      return selectedLocations ?? []
+    }
+    return []
+  }
+
+  const [selectedLocations, setSelectedLocations] = React.useState<PopularLocation[]>(
+    initiateLocationsPills()
+  )
 
   useEffect(() => {
     if (selectedLocations) {
       setValue(
         'q',
         selectTopLevelLocations(searchForm?.popular_locations, selectedLocations)
-          .map((item) => 'location: ' + item.id + ';')
+          .map(
+            (item, index, array) => 'location: ' + item.id + (index !== array.length - 1 ? ';' : '')
+          )
           .join('')
       )
     }
@@ -361,6 +394,9 @@ const SearchForm: React.FC<{
     <Root>
       <div>
         <InputWrapper className={isFocusing ? 'focused' : ''}>
+          <LoadingButton loading={isLoading} type="submit">
+            <SearchIcon />
+          </LoadingButton>
           {topTagsLevelLocations.map((option: PopularLocation) => (
             <StyledTag
               key={option.name}
@@ -368,9 +404,6 @@ const SearchForm: React.FC<{
               onDelete={() => toggleLocation(option)}
             />
           ))}
-          <LoadingButton type="submit">
-            <SearchIcon />
-          </LoadingButton>
           <input
             {...register('q')}
             ref={inputRef}
@@ -421,7 +454,7 @@ const SearchForm: React.FC<{
                         icon={icon}
                         checkedIcon={checkedIcon}
                         style={{ marginRight: 8 }}
-                        checked={selectedLocations.includes(option)}
+                        checked={selectedLocations.some((item) => item.id === option.id)}
                       />
                       {option.name}
                     </ListboxOption>
