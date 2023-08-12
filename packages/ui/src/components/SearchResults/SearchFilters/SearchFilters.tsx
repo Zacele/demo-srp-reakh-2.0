@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { ISearchForm, SearchFormInputsType } from 'types'
 
+import OtherFilters from './components/OtherFilters'
 import SearchForm from './components/SearchForm'
 
 const SearchFilters = ({ searchForm }: { searchForm: ISearchForm }) => {
@@ -58,6 +59,7 @@ const SearchFilters = ({ searchForm }: { searchForm: ISearchForm }) => {
           searchForm={searchForm}
           isLoading={isLoading}
         />
+        <OtherFilters />
       </form>
       {isDevToolEnabled && <DevTool control={control} />}
     </div>
