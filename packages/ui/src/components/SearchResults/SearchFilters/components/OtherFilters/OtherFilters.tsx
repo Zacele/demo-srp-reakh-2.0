@@ -1,42 +1,22 @@
 'use client'
 
 import React from 'react'
-import Button from '@mui/material/Button'
-import Popover from '@mui/material/Popover'
-import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import { ISearchForm } from 'types'
 
-const OtherFilters: React.FC = () => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+import PriceFilter from './components/PriceFilter'
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+const StyledBox = styled(Box)`
+  margin-top: 10px;
+`
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
-
+const OtherFilters: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
+  const { texts } = searchForm
   return (
-    <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Open Popover
-      </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-      >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover>
-    </div>
+    <StyledBox>
+      <PriceFilter searchForm={searchForm} />
+    </StyledBox>
   )
 }
 

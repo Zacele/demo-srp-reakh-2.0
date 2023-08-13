@@ -58,7 +58,7 @@ export interface Texts {
 }
 
 export interface ISearchForm {
-  texts: Texts2
+  texts: GetListingsTexts2
   popular_locations: PopularLocation[]
   quick_search_locations: QuickSearchLocation[]
   popular_landmarks: PopularLandmark[]

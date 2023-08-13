@@ -59,7 +59,7 @@ const SearchFilters = ({ searchForm }: { searchForm: ISearchForm }) => {
           searchForm={searchForm}
           isLoading={isLoading}
         />
-        <OtherFilters />
+        <OtherFilters searchForm={searchForm} />
       </form>
       {isDevToolEnabled && <DevTool control={control} />}
     </div>
