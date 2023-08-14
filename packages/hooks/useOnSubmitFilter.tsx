@@ -7,7 +7,7 @@ import { SearchFormInputsType } from 'types'
 export const useOnSubmitFilter = () => {
   const router = useRouter()
   const onSubmit: SubmitHandler<SearchFormInputsType> = (data) => {
-    const routerString = queryString.stringify(data)
+    const routerString = queryString.stringify(data, { skipEmptyString: true, skipNull: true })
     router.push(`/?${routerString}`)
   }
 

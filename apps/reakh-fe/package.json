@@ -18,13 +18,13 @@
     "@tanstack/react-query-devtools": "^4.32.0",
     "api": "workspace:*",
     "dotenv-cli": "^7.2.1",
+    "hooks": "workspace:*",
     "lib": "workspace:*",
-    "next": "*",
+    "next": "^13.4.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "types": "workspace:*",
-    "ui": "workspace:*",
-    "hooks": "workspace:*"
+    "ui": "workspace:*"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
