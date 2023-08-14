@@ -12,6 +12,8 @@ export interface SearchFormInputsType {
   has_virtual_tour?: boolean
   location?: string[]
   property_type?: string
+  price_min__gte?: string
+  price_min__lte?: string
 }
 
 type OrderBy =

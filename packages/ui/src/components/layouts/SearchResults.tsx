@@ -1,4 +1,3 @@
-'use client'
 import { ISearchResults } from 'types'
 
 import { ListingCard } from '../SearchResults/Listing/ListingCard'

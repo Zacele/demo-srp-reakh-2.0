@@ -21,12 +21,12 @@ export const SearchResultsPage = async ({
   searchParams: SearchFormInputsType
 }) => {
   const initialListingData: ISearchResults = await getListings(searchParams || {})
-  const { search_form } = initialListingData
+  const { search_form, texts } = initialListingData
 
   return (
     <AppLayout>
-      <SearchFilters searchForm={search_form} />
-      <Suspense fallback={<h1>Loading......</h1>}>
+      <SearchFilters searchForm={search_form} texts={texts} />
+      <Suspense key={searchParams.q} fallback={<h1>Loading......</h1>}>
         <SearchResults initialListingData={initialListingData} />
       </Suspense>
     </AppLayout>

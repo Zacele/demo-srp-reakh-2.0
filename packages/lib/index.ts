@@ -1,4 +1,7 @@
 export { default as convertToAutocompleteData } from './convertToAutocompleteData'
+export * from './currencyUtils'
 export { default as extractLocationsFromParams } from './extractLocationsFromParams'
+export { default as getPrice } from './getPrice'
+export * from './rangeUtils'
 export { default as selectNextLocation } from './selectNextLocation'
 export { default as selectTopLevelLocations } from './selectTopLevelLocations'

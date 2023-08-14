@@ -45,6 +45,9 @@ importers:
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
+      currency-symbol-map:
+        specifier: ^5.1.0
+        version: 5.1.0
       dotenv-cli:
         specifier: ^7.2.1
         version: 7.2.1
@@ -54,6 +57,9 @@ importers:
       next:
         specifier: ^13.4.8
         version: 13.4.8(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
+      numeral:
+        specifier: ^2.0.6
+        version: 2.0.6
       query-string:
         specifier: ^8.1.0
         version: 8.1.0
@@ -79,6 +85,9 @@ importers:
       '@turbo/gen':
         specifier: ^1.10.12
         version: 1.10.12(@types/node@17.0.45)(typescript@5.1.6)
+      '@types/numeral':
+        specifier: ^2.0.2
+        version: 2.0.2
       '@types/react':
         specifier: ^18.0.22
         version: 18.0.22
@@ -3136,6 +3145,10 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: true
 
+  /@types/numeral@2.0.2:
+    resolution: {integrity: sha512-A8F30k2gYJ/6e07spSCPpkuZu79LCnkPTvqmIWQzNGcrzwFKpVOydG41lNt5wZXjSI149qjyzC2L1+F2PD/NUA==}
+    dev: true
+
   /@types/parse-json@4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
 
@@ -3953,6 +3966,10 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+
+  /currency-symbol-map@5.1.0:
+    resolution: {integrity: sha512-LO/lzYRw134LMDVnLyAf1dHE5tyO6axEFkR3TXjQIOmMkAM9YL6QsiUwuXzZAmFnuDJcs4hayOgyIYtViXFrLw==}
+    dev: false
 
   /daisyui@3.1.0(postcss@8.4.24):
     resolution: {integrity: sha512-G4dz/bRZVvlhQ/FtezXSg0rXOXzDJ0PcnMqeLSwCYNWXxf46fNJ8LWeV5qwsYOdJbXiXoZLnwyy+BsNoWZ+Bjg==}
@@ -6000,6 +6017,10 @@ packages:
     dependencies:
       boolbase: 1.0.0
     dev: true
+
+  /numeral@2.0.6:
+    resolution: {integrity: sha512-qaKRmtYPZ5qdw4jWJD6bxEf1FJEqllJrwxCLIm0sQU/A7v2/czigzOb+C2uSiFsa9lBUzeH7M1oK+Q+OLxL3kA==}
+    dev: false
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}

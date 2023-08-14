@@ -14,6 +14,8 @@ const getListings = async (payload: SearchFormInputsType) => {
     active_tab = 'popularLocations',
     search_type = 'sale',
     has_virtual_tour,
+    price_min__gte,
+    price_min__lte,
     location,
     property_type
   } = payload
@@ -33,10 +35,12 @@ const getListings = async (payload: SearchFormInputsType) => {
       search_type,
       has_virtual_tour,
       location,
-      property_type
+      property_type,
+      price_min__gte,
+      price_min__lte
     }
   })
-  const res = await fetch(fetchURL, { cache: 'no-store' })
+  const res = await fetch(fetchURL, { cache: 'no-cache' })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { getListings } from 'api'
 import { ISearchResults, SearchFormInputsType } from 'types'
 
-export const useGetListingsData = (payload: SearchFormInputsType, initialData?: ISearchResults) => {
+export const useGetListingsData = () => {
   const { data: getListingsData, isLoading: isGetListingsLoading } = useQuery<ISearchResults>({
-    queryKey: ['listing/data', payload, initialData],
-    queryFn: () => getListings(payload),
-    initialData
+    // @ts-ignore
+    queryKey: ['listing/data'],
+    queryFn: (payload: SearchFormInputsType) => getListings(payload)
   })
 
   return { getListingsData, isGetListingsLoading }

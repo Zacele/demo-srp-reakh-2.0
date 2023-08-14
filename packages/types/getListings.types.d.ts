@@ -78,7 +78,7 @@ export interface ISearchForm {
   sort_options: SortOption[]
   categories: any[]
   locations: any[]
-  search_type: string
+  search_type: 'sale' | 'rent'
   floor_area: FloorArea[]
   land_area: LandArea[]
   landmarks: any[]

@@ -1,43 +1,50 @@
 'use client'
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { usePrevious } from 'react-use'
 import { DevTool } from '@hookform/devtools'
-import { useRouter } from 'next/navigation'
-import queryString from 'query-string'
-import { ISearchForm, SearchFormInputsType } from 'types'
+import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
+import { useSearchParams } from 'next/navigation'
+import { ISearchForm, ISearchResults, SearchFormInputsType } from 'types'
 
 import OtherFilters from './components/OtherFilters'
 import SearchForm from './components/SearchForm'
 
-const SearchFilters = ({ searchForm }: { searchForm: ISearchForm }) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    getValues,
-    control,
-    formState: { errors }
-  } = useForm<SearchFormInputsType>({
-    mode: 'onSubmit',
+const SearchFilters = ({
+  searchForm,
+  texts
+}: {
+  searchForm: ISearchForm
+  texts: ISearchResults['texts']
+}) => {
+  const searchParams = useSearchParams()
+  const { onSubmit } = useOnSubmitFilter()
+  const priceMinInParams = searchParams.get('price_min__gte')
+  const priceMaxInParams = searchParams.get('price_min__lte')
+  const q = searchParams.get('q')
+  const methods = useForm<SearchFormInputsType>({
+    mode: 'onChange',
     defaultValues: {
       active_tab: 'popularLocations',
       order_by: 'relevance',
       property_type: 'residential',
       search_type: 'sale',
-      page_size: 20
+      price_min__gte: priceMinInParams || '',
+      price_min__lte: priceMaxInParams || '',
+      page_size: 20,
+      q: q || ''
     }
   })
   const [isLoading, setIsLoading] = React.useState(false)
-  const router = useRouter()
   const prevSearchForm = usePrevious(searchForm)
 
-  const onSubmit: SubmitHandler<SearchFormInputsType> = (data) => {
-    const routerString = queryString.stringify(data)
-    setIsLoading(true)
-    router.push(`/?${routerString}`)
-  }
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors }
+  } = methods
 
   React.useEffect(() => {
     if (searchForm.results !== prevSearchForm?.results) {
@@ -52,15 +59,17 @@ const SearchFilters = ({ searchForm }: { searchForm: ISearchForm }) => {
 
   return (
     <div className="pt-3 mx-auto xl:container">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <SearchForm
-          setValue={setValue}
-          register={register}
-          searchForm={searchForm}
-          isLoading={isLoading}
-        />
-        <OtherFilters searchForm={searchForm} />
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <SearchForm
+            setValue={setValue}
+            register={register}
+            searchForm={searchForm}
+            isLoading={isLoading}
+          />
+          <OtherFilters searchForm={searchForm} texts={texts} />
+        </form>
+      </FormProvider>
       {isDevToolEnabled && <DevTool control={control} />}
     </div>
   )
