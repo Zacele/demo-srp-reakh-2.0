@@ -13,7 +13,7 @@ const PopoverButton = styled(Button)`
   border-radius: 10px;
   text-transform: unset;
   box-shadow: none;
-
+  margin-right: 10px;
   &:hover {
     background-color: #f0f0f0;
   }

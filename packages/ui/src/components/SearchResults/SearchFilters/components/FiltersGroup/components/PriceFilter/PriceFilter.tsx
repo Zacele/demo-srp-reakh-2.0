@@ -6,7 +6,6 @@ import { InputLabel, MenuItem } from '@mui/material'
 import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import Grid from '@mui/material/Grid'
-import MuiInput from '@mui/material/Input'
 import Select from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
@@ -15,10 +14,6 @@ import { getPrice, makeCurrencyFormat } from 'lib'
 import { ISearchForm, ISearchResults } from 'types'
 
 import PopOverComponent from '../FilterPopoverWrapper'
-
-const Input = styled(MuiInput)`
-  width: 42px;
-`
 
 const Separator = styled('div')`
   padding: 0 16px;
@@ -78,7 +73,7 @@ const PriceFilter: React.FC<{
                     {price &&
                       price.map((price) => (
                         <MenuItem key={price} value={price}>
-                          {currencyFullFormat(price) + renderSuffix()}
+                          {currencyFullFormat(JSON.stringify(price)) + renderSuffix()}
                         </MenuItem>
                       ))}
                   </Select>
@@ -104,7 +99,7 @@ const PriceFilter: React.FC<{
                     {price &&
                       price.map((price) => (
                         <MenuItem key={price} value={price}>
-                          {currencyFullFormat(price) + renderSuffix()}
+                          {currencyFullFormat(JSON.stringify(price)) + renderSuffix()}
                         </MenuItem>
                       ))}
                   </Select>

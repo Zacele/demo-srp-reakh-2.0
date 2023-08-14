@@ -7,7 +7,7 @@ import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import { useSearchParams } from 'next/navigation'
 import { ISearchForm, ISearchResults, SearchFormInputsType } from 'types'
 
-import OtherFilters from './components/OtherFilters'
+import FilterGroups from './components/FiltersGroup'
 import SearchForm from './components/SearchForm'
 
 const SearchFilters = ({
@@ -67,7 +67,7 @@ const SearchFilters = ({
             searchForm={searchForm}
             isLoading={isLoading}
           />
-          <OtherFilters searchForm={searchForm} texts={texts} />
+          <FilterGroups searchForm={searchForm} texts={texts} />
         </form>
       </FormProvider>
       {isDevToolEnabled && <DevTool control={control} />}

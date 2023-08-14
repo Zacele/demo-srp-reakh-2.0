@@ -6,12 +6,13 @@ import { styled } from '@mui/material/styles'
 import { ISearchForm, ISearchResults } from 'types'
 
 import PriceFilter from './components/PriceFilter'
+import PropertyTypeFilter from './components/PropertyTypeFilter'
 
 const StyledBox = styled(Box)`
   margin-top: 10px;
 `
 
-const OtherFilters: React.FC<{ searchForm: ISearchForm; texts: ISearchResults['texts'] }> = ({
+const FilterGroups: React.FC<{ searchForm: ISearchForm; texts: ISearchResults['texts'] }> = ({
   searchForm,
   texts
 }) => {
@@ -19,8 +20,9 @@ const OtherFilters: React.FC<{ searchForm: ISearchForm; texts: ISearchResults['t
   return (
     <StyledBox>
       <PriceFilter searchForm={searchForm} texts={texts} searchFormTexts={searchFormTexts} />
+      <PropertyTypeFilter searchForm={searchForm} />
     </StyledBox>
   )
 }
 
-export default OtherFilters
+export default FilterGroups
