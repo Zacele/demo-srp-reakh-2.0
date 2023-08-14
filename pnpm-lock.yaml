@@ -84,7 +84,7 @@ importers:
         version: 4.3.1(@types/react@18.0.22)(react-dom@18.2.0)(react@18.2.0)
       '@turbo/gen':
         specifier: ^1.10.12
-        version: 1.10.12(@types/node@20.5.0)(typescript@5.1.6)
+        version: 1.10.12(@types/node@17.0.45)(typescript@5.1.6)
       '@types/numeral':
         specifier: ^2.0.2
         version: 2.0.2
@@ -276,7 +276,7 @@ importers:
     devDependencies:
       prettier-plugin-tailwindcss:
         specifier: ^0.2.7
-        version: 0.2.7(prettier@3.0.1)
+        version: 0.2.7(prettier@2.8.8)
 
   packages/tailwind-config:
     devDependencies:
@@ -383,7 +383,7 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.18
+      '@jridgewell/trace-mapping': 0.3.19
 
   /@babel/code-frame@7.22.10:
     resolution: {integrity: sha512-/KKIMG4UEL35WmI9OlvMhurwtytjvXoFcGNrOvyG9zIzA8YmPjVtIZUf7b05+TPO7G7/GEmLHDaoCgACHl9hhA==}
@@ -2445,7 +2445,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.22.10
       '@emotion/is-prop-valid': 1.2.1
       '@mui/types': 7.2.4(@types/react@18.2.14)
       '@mui/utils': 5.13.6(react@18.2.0)
@@ -2469,7 +2469,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.22.10
       '@emotion/is-prop-valid': 1.2.1
       '@mui/types': 7.2.4(@types/react@18.0.22)
       '@mui/utils': 5.14.1(react@18.2.0)
@@ -2721,7 +2721,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.22.10
       '@mui/utils': 5.13.6(react@18.2.0)
       '@types/react': 18.2.14
       prop-types: 15.8.1
@@ -2738,7 +2738,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.22.10
       '@mui/utils': 5.14.4(react@18.2.0)
       '@types/react': 18.0.22
       prop-types: 15.8.1
@@ -2775,7 +2775,7 @@ packages:
       '@emotion/styled':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.22.10
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@18.0.22)(react@18.2.0)
       '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.0.22)(react@18.2.0)
@@ -2800,7 +2800,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.22.10
       '@emotion/react': 11.11.1(@types/react@18.2.14)(react@18.2.0)
       '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.14)(react@18.2.0)
       '@mui/private-theming': 5.13.1(@types/react@18.2.14)(react@18.2.0)
@@ -2830,7 +2830,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.22.10
       '@emotion/react': 11.11.1(@types/react@18.0.22)(react@18.2.0)
       '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.0.22)(react@18.2.0)
       '@mui/private-theming': 5.13.7(@types/react@18.0.22)(react@18.2.0)
@@ -2902,7 +2902,7 @@ packages:
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.22.10
       '@types/prop-types': 15.7.5
       '@types/react-is': 18.2.1
       prop-types: 15.8.1
@@ -2916,7 +2916,7 @@ packages:
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.22.10
       '@types/prop-types': 15.7.5
       '@types/react-is': 18.2.1
       prop-types: 15.8.1
@@ -3444,7 +3444,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@turbo/gen@1.10.12(@types/node@20.5.0)(typescript@5.1.6):
+  /@turbo/gen@1.10.12(@types/node@17.0.45)(typescript@5.1.6):
     resolution: {integrity: sha512-noop5+3MBFsgPQ7O2vQpS6YYiah+ZrOioa4cDDpZceUVsKVXvUHFmC2nEVyKSJZhO/8SLvbDE/esB/MGw5b2tw==}
     hasBin: true
     dependencies:
@@ -3456,7 +3456,7 @@ packages:
       node-plop: 0.26.3
       proxy-agent: 6.3.0
       semver: 7.5.4
-      ts-node: 10.9.1(@types/node@20.5.0)(typescript@5.1.6)
+      ts-node: 10.9.1(@types/node@17.0.45)(typescript@5.1.6)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
@@ -6691,7 +6691,7 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
     dependencies:
-      '@babel/code-frame': 7.22.5
+      '@babel/code-frame': 7.22.10
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
@@ -6896,7 +6896,7 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  /prettier-plugin-tailwindcss@0.2.7(prettier@3.0.1):
+  /prettier-plugin-tailwindcss@0.2.7(prettier@2.8.8):
     resolution: {integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -6948,18 +6948,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 3.0.1
+      prettier: 2.8.8
     dev: true
 
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
-    hasBin: true
-    dev: true
-
-  /prettier@3.0.1:
-    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
-    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
@@ -7826,7 +7820,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.5.0)(typescript@5.1.6):
+  /ts-node@10.9.1(@types/node@17.0.45)(typescript@5.1.6):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -7845,7 +7839,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.5.0
+      '@types/node': 17.0.45
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3

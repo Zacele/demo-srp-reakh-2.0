@@ -46,7 +46,7 @@ const PriceFilter: React.FC<{
   }, [priceMinValue, priceMaxValue])
 
   const price = getPrice(searchForm)
-  const currencyFullFormat = makeCurrencyFormat(searchForm.currency.toUpperCase(), false)
+  const currencyFullFormat = makeCurrencyFormat(searchForm.currency, false)
   const renderSuffix = () => {
     if (searchForm.search_type === 'rent') return texts.rent_rate
     return ''
@@ -85,26 +85,6 @@ const PriceFilter: React.FC<{
                 </FormControl>
               )}
             />
-            {/* <FormControl size="small" sx={{ minWidth: 120 }}>
-              <InputLabel htmlFor="from-price">{searchForm.texts.labelFrom}</InputLabel>
-              <Select
-                labelId="from-price"
-                id="from-price"
-                value={JSON.stringify(priceMin)}
-                label={searchForm.texts.labelFrom}
-                onChange={handlePriceMinChange}
-              >
-                <MenuItem value="">
-                  <em>{searchFormTexts.noMinimum}</em>
-                </MenuItem>
-                {price &&
-                  price.map((price) => (
-                    <MenuItem key={price} value={price}>
-                      {currencyFullFormat(price) + renderSuffix()}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>{' '} */}
           </Grid>
           <Separator>&nbsp;&mdash;&nbsp;</Separator>
           <Grid item>
