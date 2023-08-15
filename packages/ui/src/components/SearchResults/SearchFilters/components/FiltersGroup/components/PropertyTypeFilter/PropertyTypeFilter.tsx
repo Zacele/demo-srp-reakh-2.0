@@ -9,7 +9,7 @@ import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import { useSearchParams } from 'next/navigation'
-import { AllAmenity, AllHighlight, ISearchForm } from 'types'
+import { AllAmenity, AllHighlight, ISearchForm, PropertyType } from 'types'
 
 import PopOverComponent from '../FilterPopoverWrapper'
 
@@ -54,13 +54,14 @@ const CheckboxButton = styled(Button)({
 const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   const [alignment, setAlignment] = React.useState<'residential' | 'commercial'>('residential')
   const searchParams = useSearchParams()
-  const { watch, setValue, control, handleSubmit, getValues } = useFormContext()
-  const formValues = getValues()
+  const { setValue, control, handleSubmit } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const paramsPropertyType = searchParams.get('property_type')
   const paramsCategories = searchParams.getAll('categories')
   const paramsSearchType = searchParams.get('search_type')
 
+  const icon = <CheckCircleIcon fontSize="small" color="disabled" />
+  const checkedIcon = <CheckCircleIcon fontSize="small" />
   React.useEffect(() => {
     if (paramsPropertyType) {
       setAlignment(paramsPropertyType as 'residential' | 'commercial')
@@ -76,9 +77,6 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     }
   }, [paramsCategories, setValue])
 
-  const icon = <CheckCircleIcon fontSize="small" color="disabled" />
-  const checkedIcon = <CheckCircleIcon fontSize="small" />
-
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: 'residential' | 'commercial'
@@ -89,10 +87,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     handleSubmit((data) => onSubmit(data))()
   }
 
-  const onButtonChange = (
-    event: React.MouseEvent<HTMLElement>,
-    value: AllAmenity['value'] | AllHighlight['value']
-  ) => {
+  const onButtonChange = (event: React.MouseEvent<HTMLElement>, value: PropertyType['value']) => {
     if (value === 'residential' || value === 'commercial') {
       setValue('categories', [])
       handleSubmit((data) => onSubmit(data))()

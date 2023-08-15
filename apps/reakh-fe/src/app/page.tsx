@@ -22,7 +22,7 @@ const SearchResultsPage = async ({ searchParams }) => {
   return (
     <AppLayout>
       <SearchFilters listingData={listingData} />
-      <Suspense fallback={<h1>Loading......</h1>}>
+      <Suspense key={querySearch.toString()} fallback={<h1>Loading......</h1>}>
         {/* @ts-expect-error Server Component */}
         <SearchResults searchParams={searchParams} />
       </Suspense>

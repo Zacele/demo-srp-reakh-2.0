@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { InputLabel, MenuItem } from '@mui/material'
+import { Button, InputLabel, MenuItem } from '@mui/material'
 import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import Grid from '@mui/material/Grid'
@@ -69,7 +69,28 @@ const PriceFilter: React.FC<{
 
   return (
     <PopOverComponent filterId="price-filter" buttonText={searchForm.texts.price}>
-      <Box sx={{ mx: 4, my: 1 }}>
+      <Box sx={{ marginLeft: '80%', height: '20px' }}>
+        <Button
+          variant="text"
+          size="small"
+          sx={{
+            fontSize: 16,
+            fontWeight: 700,
+            color: '#77C232',
+            cursor: 'pointer',
+            textDecoration: 'underline',
+            textTransform: 'none'
+          }}
+          onClick={() => {
+            setValue('price_min__gte', '')
+            setValue('price_min__lte', '')
+            handleSubmit(onSubmit)()
+          }}
+        >
+          Resets
+        </Button>
+      </Box>
+      <Box sx={{ mx: 4, mb: 2 }}>
         <Typography id="input-slider" gutterBottom>
           {searchForm.texts.price}
         </Typography>

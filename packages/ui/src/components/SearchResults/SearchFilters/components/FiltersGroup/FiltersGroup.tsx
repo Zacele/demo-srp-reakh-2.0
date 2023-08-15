@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import { ISearchForm, ISearchResults } from 'types'
 
+import FeaturesFilter from './components/FeaturesFilter'
 import PriceFilter from './components/PriceFilter'
 import PropertyTypeFilter from './components/PropertyTypeFilter'
 
@@ -21,6 +22,7 @@ const FilterGroups: React.FC<{ searchForm: ISearchForm; texts: ISearchResults['t
     <StyledBox>
       <PriceFilter searchForm={searchForm} texts={texts} searchFormTexts={searchFormTexts} />
       <PropertyTypeFilter searchForm={searchForm} />
+      <FeaturesFilter searchForm={searchForm} />
     </StyledBox>
   )
 }
