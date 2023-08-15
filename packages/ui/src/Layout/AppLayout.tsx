@@ -2,9 +2,7 @@
 
 import React from 'react'
 
-const AppLayout: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({
-  children
-}) => {
+const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return <React.Fragment>{children}</React.Fragment>
 }
 

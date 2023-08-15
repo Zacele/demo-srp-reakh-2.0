@@ -216,8 +216,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tsconfig
       typescript:
-        specifier: ^4.9.5
-        version: 4.9.5
+        specifier: ^5.1.6
+        version: 5.1.6
 
   packages/api:
     dependencies:
@@ -2722,7 +2722,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.22.10
-      '@mui/utils': 5.13.6(react@18.2.0)
+      '@mui/utils': 5.14.4(react@18.2.0)
       '@types/react': 18.2.14
       prop-types: 15.8.1
       react: 18.2.0

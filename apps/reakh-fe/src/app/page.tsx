@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { getListings } from 'api'
 import { Metadata } from 'next'
-import { ISearchResults, SearchFormInputsType } from 'types'
+import { ISearchResults } from 'types'
 import { AppLayout } from 'ui'
 import SearchResults from 'ui/src/components/layouts/SearchResults'
 import SearchFilters from 'ui/src/components/SearchResults/SearchFilters'
@@ -15,19 +15,16 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export const SearchResultsPage = async ({
-  searchParams
-}: {
-  searchParams: SearchFormInputsType
-}) => {
-  const initialListingData: ISearchResults = await getListings(searchParams || {})
-  const { search_form, texts } = initialListingData
-
+const SearchResultsPage = async ({ searchParams }) => {
+  const promiseListingData: Promise<ISearchResults> = getListings(searchParams || {})
+  const querySearch = new URLSearchParams(searchParams)
+  const listingData = await promiseListingData
   return (
     <AppLayout>
-      <SearchFilters searchForm={search_form} texts={texts} />
-      <Suspense key={searchParams.q} fallback={<h1>Loading......</h1>}>
-        <SearchResults initialListingData={initialListingData} />
+      <SearchFilters listingData={listingData} />
+      <Suspense fallback={<h1>Loading......</h1>}>
+        {/* @ts-expect-error Server Component */}
+        <SearchResults searchParams={searchParams} />
       </Suspense>
     </AppLayout>
   )

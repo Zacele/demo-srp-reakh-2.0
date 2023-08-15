@@ -5,18 +5,12 @@ import { usePrevious } from 'react-use'
 import { DevTool } from '@hookform/devtools'
 import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import { useSearchParams } from 'next/navigation'
-import { ISearchForm, ISearchResults, SearchFormInputsType } from 'types'
+import { ISearchResults, SearchFormInputsType } from 'types'
 
 import FilterGroups from './components/FiltersGroup'
 import SearchForm from './components/SearchForm'
 
-const SearchFilters = ({
-  searchForm,
-  texts
-}: {
-  searchForm: ISearchForm
-  texts: ISearchResults['texts']
-}) => {
+const SearchFilters: React.FC<{ listingData: ISearchResults }> = ({ listingData }) => {
   const searchParams = useSearchParams()
   const { onSubmit } = useOnSubmitFilter()
   const priceMinInParams = searchParams.get('price_min__gte')
@@ -35,6 +29,7 @@ const SearchFilters = ({
       q: q || ''
     }
   })
+  const { search_form: searchForm, texts } = listingData
   const [isLoading, setIsLoading] = React.useState(false)
   const prevSearchForm = usePrevious(searchForm)
 

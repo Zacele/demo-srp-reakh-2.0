@@ -13,11 +13,11 @@ const getListings = async (payload: SearchFormInputsType) => {
     categories,
     active_tab = 'popularLocations',
     search_type = 'sale',
-    has_virtual_tour,
     price_min__gte,
     price_min__lte,
     location,
-    property_type
+    property_type,
+    has_virtual_tour
   } = payload
   const url = `${process.env.NEXT_PUBLIC_API_ROOT}/api/portal/pages/results`
   const fetchURL = queryString.stringifyUrl({
@@ -40,7 +40,7 @@ const getListings = async (payload: SearchFormInputsType) => {
       price_min__lte
     }
   })
-  const res = await fetch(fetchURL, { cache: 'no-cache' })
+  const res = await fetch(fetchURL, { next: { revalidate: 3600 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

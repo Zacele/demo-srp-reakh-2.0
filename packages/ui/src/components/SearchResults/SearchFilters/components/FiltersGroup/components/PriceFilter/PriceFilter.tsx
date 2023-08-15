@@ -11,6 +11,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import { getPrice, makeCurrencyFormat } from 'lib'
+import { useSearchParams } from 'next/navigation'
 import { ISearchForm, ISearchResults } from 'types'
 
 import PopOverComponent from '../FilterPopoverWrapper'
@@ -25,17 +26,36 @@ const PriceFilter: React.FC<{
   texts: ISearchResults['texts']
   searchFormTexts: ISearchForm['texts']
 }> = ({ searchForm, texts, searchFormTexts }) => {
-  const { watch, setValue, control, handleSubmit, getValues } = useFormContext()
+  const { watch, setValue, control, handleSubmit } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
+  const searchParams = useSearchParams()
   const priceMinValue = watch('price_min__gte')
   const priceMaxValue = watch('price_min__lte')
+  const priceMinSearchFilters = searchParams.get('price_min__gte')
+  const priceMaxSearchFilters = searchParams.get('price_min__lte')
 
   React.useEffect(() => {
     if (priceMinValue && priceMaxValue) {
       setValue('price_min__gte', Math.min(Number(priceMinValue), Number(priceMaxValue)))
       setValue('price_min__lte', Math.max(Number(priceMinValue), Number(priceMaxValue)))
+      handleSubmit(onSubmit)()
     }
-    handleSubmit((data) => onSubmit(data))()
+
+    if (priceMinValue && !priceMaxValue) {
+      setValue('price_min__gte', priceMinValue)
+      handleSubmit(onSubmit)()
+    }
+
+    if (priceMaxValue && !priceMinValue) {
+      setValue('price_min__lte', priceMaxValue)
+      handleSubmit(onSubmit)()
+    }
+
+    if (!priceMinValue && !priceMaxValue && (priceMinSearchFilters || priceMaxSearchFilters)) {
+      setValue('price_min__gte', '')
+      setValue('price_min__lte', '')
+      handleSubmit(onSubmit)()
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [priceMinValue, priceMaxValue])
