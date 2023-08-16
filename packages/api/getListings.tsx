@@ -40,7 +40,7 @@ const getListings = async (payload: SearchFormInputsType) => {
       price_min__lte
     }
   })
-  const res = await fetch(fetchURL, { next: { revalidate: 3600 } })
+  const res = await fetch(fetchURL)
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

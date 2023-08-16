@@ -6,6 +6,8 @@ import { AppLayout } from 'ui'
 import SearchResults from 'ui/src/components/layouts/SearchResults'
 import SearchFilters from 'ui/src/components/SearchResults/SearchFilters'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   const listingData: ISearchResults = await getListings({})
   const { seo } = listingData

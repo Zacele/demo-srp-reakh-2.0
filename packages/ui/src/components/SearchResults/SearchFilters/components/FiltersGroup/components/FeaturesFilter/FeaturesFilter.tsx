@@ -28,7 +28,7 @@ const CheckboxButton = styled(Button)({
 })
 
 const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
-  const { setValue, control, handleSubmit } = useFormContext()
+  const { setValue, control, handleSubmit, register } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const params = useSearchParams()
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
@@ -59,6 +59,11 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     }
     handleSubmit(onSubmit)()
   }
+
+  React.useEffect(() => {
+    register('features')
+    register('highlights')
+  }, [register])
 
   return (
     <PopOverComponent

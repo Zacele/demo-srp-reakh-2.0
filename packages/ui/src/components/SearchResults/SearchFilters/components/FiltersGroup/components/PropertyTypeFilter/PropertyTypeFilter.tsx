@@ -54,7 +54,7 @@ const CheckboxButton = styled(Button)({
 const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   const [alignment, setAlignment] = React.useState<'residential' | 'commercial'>('residential')
   const searchParams = useSearchParams()
-  const { setValue, control, handleSubmit } = useFormContext()
+  const { setValue, control, handleSubmit, register } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const paramsPropertyType = searchParams.get('property_type')
   const paramsCategories = searchParams.getAll('categories')
@@ -62,6 +62,12 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
 
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
+
+  React.useEffect(() => {
+    register('property_type')
+    register('categories')
+  }, [register])
+
   React.useEffect(() => {
     if (paramsPropertyType) {
       setAlignment(paramsPropertyType as 'residential' | 'commercial')

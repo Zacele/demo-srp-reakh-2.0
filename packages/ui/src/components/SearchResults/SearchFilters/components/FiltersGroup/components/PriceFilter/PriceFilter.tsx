@@ -26,7 +26,7 @@ const PriceFilter: React.FC<{
   texts: ISearchResults['texts']
   searchFormTexts: ISearchForm['texts']
 }> = ({ searchForm, texts, searchFormTexts }) => {
-  const { watch, setValue, control, handleSubmit } = useFormContext()
+  const { watch, setValue, control, handleSubmit, register } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const searchParams = useSearchParams()
   const priceMinValue = watch('price_min__gte')
@@ -35,22 +35,31 @@ const PriceFilter: React.FC<{
   const priceMaxSearchFilters = searchParams.get('price_min__lte')
 
   React.useEffect(() => {
+    register('price_min__gte')
+    register('price_min__lte')
+  }, [register])
+
+  React.useEffect(() => {
+    // Update price_min__gte and price_min__lte values when priceMinValue or priceMaxValue changes
     if (priceMinValue && priceMaxValue) {
       setValue('price_min__gte', Math.min(Number(priceMinValue), Number(priceMaxValue)))
       setValue('price_min__lte', Math.max(Number(priceMinValue), Number(priceMaxValue)))
       handleSubmit(onSubmit)()
     }
 
+    // Update priceMinValue value when priceMinValue
     if (priceMinValue && !priceMaxValue) {
       setValue('price_min__gte', priceMinValue)
       handleSubmit(onSubmit)()
     }
 
+    // Update priceMaxValue value when priceMaxValue
     if (priceMaxValue && !priceMinValue) {
       setValue('price_min__lte', priceMaxValue)
       handleSubmit(onSubmit)()
     }
 
+    // Update priceMinValue and priceMaxValue values when priceMinValue and priceMaxValue are empty
     if (!priceMinValue && !priceMaxValue && (priceMinSearchFilters || priceMaxSearchFilters)) {
       setValue('price_min__gte', '')
       setValue('price_min__lte', '')
@@ -69,87 +78,90 @@ const PriceFilter: React.FC<{
 
   return (
     <PopOverComponent filterId="price-filter" buttonText={searchForm.texts.price}>
-      <Box sx={{ marginLeft: '80%', height: '20px' }}>
-        <Button
-          variant="text"
-          size="small"
-          sx={{
-            fontSize: 16,
-            fontWeight: 700,
-            color: '#77C232',
-            cursor: 'pointer',
-            textDecoration: 'underline',
-            textTransform: 'none'
-          }}
-          onClick={() => {
-            setValue('price_min__gte', '')
-            setValue('price_min__lte', '')
-            handleSubmit(onSubmit)()
-          }}
-        >
-          Resets
-        </Button>
-      </Box>
-      <Box sx={{ mx: 4, mb: 2 }}>
-        <Typography id="input-slider" gutterBottom>
-          {searchForm.texts.price}
-        </Typography>
-        <Grid container alignItems="center">
-          <Grid item>
-            <Controller
-              name="price_min__gte"
-              control={control}
-              render={({ field }) => (
-                <FormControl size="small" sx={{ minWidth: 120 }}>
-                  <InputLabel htmlFor="from-price">{searchForm.texts.labelFrom}</InputLabel>
-                  <Select
-                    {...field}
-                    labelId="from-price"
-                    id="from-price"
-                    label={searchForm.texts.labelFrom}
-                  >
-                    <MenuItem value="">
-                      <em>{searchFormTexts.noMinimum}</em>
-                    </MenuItem>
-                    {price &&
-                      price.map((price) => (
-                        <MenuItem key={price} value={price}>
-                          {currencyFullFormat(JSON.stringify(price)) + renderSuffix()}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              )}
-            />
+      <React.Fragment>
+        <Box sx={{ marginLeft: '80%', height: '20px' }}>
+          <Button
+            variant="text"
+            size="small"
+            sx={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: '#77C232',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              textTransform: 'none'
+            }}
+            onClick={() => {
+              setValue('price_min__gte', '')
+              setValue('price_min__lte', '')
+              handleSubmit(onSubmit)()
+            }}
+          >
+            Resets
+          </Button>
+        </Box>
+        <Box sx={{ m: 1 }}>
+          <Typography id="input-slider" gutterBottom>
+            {searchForm.texts.price}
+          </Typography>
+          <Grid container alignItems="center">
+            <Grid item>
+              <Controller
+                name="price_min__gte"
+                control={control}
+                render={({ field }) => (
+                  <FormControl size="small" sx={{ minWidth: 120 }}>
+                    <InputLabel htmlFor="from-price">{searchForm.texts.labelFrom}</InputLabel>
+                    <Select
+                      {...field}
+                      labelId="from-price"
+                      id="from-price"
+                      label={searchForm.texts.labelFrom}
+                      native
+                    >
+                      <MenuItem value="">
+                        <em>{searchFormTexts.noMinimum}</em>
+                      </MenuItem>
+                      {price &&
+                        price.map((price) => (
+                          <MenuItem key={price} value={price}>
+                            {currencyFullFormat(JSON.stringify(price)) + renderSuffix()}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
+                )}
+              />
+            </Grid>
+            <Separator>&nbsp;&mdash;&nbsp;</Separator>
+            <Grid item>
+              <Controller
+                name="price_min__lte"
+                control={control}
+                render={({ field }) => (
+                  <FormControl size="small" sx={{ minWidth: 120 }}>
+                    <InputLabel htmlFor="to-price">{searchForm.texts.labelTo}</InputLabel>
+                    <Select
+                      {...field}
+                      labelId="to-price"
+                      id="to-price"
+                      label={searchForm.texts.labelTo}
+                    >
+                      <MenuItem value="">{searchFormTexts.noMaximum}</MenuItem>
+                      {price &&
+                        price.map((price) => (
+                          <MenuItem key={price} value={price}>
+                            {currencyFullFormat(JSON.stringify(price)) + renderSuffix()}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
+                )}
+              />
+            </Grid>
           </Grid>
-          <Separator>&nbsp;&mdash;&nbsp;</Separator>
-          <Grid item>
-            <Controller
-              name="price_min__lte"
-              control={control}
-              render={({ field }) => (
-                <FormControl size="small" sx={{ minWidth: 120 }}>
-                  <InputLabel htmlFor="to-price">{searchForm.texts.labelTo}</InputLabel>
-                  <Select
-                    {...field}
-                    labelId="to-price"
-                    id="to-price"
-                    label={searchForm.texts.labelTo}
-                  >
-                    <MenuItem value="">{searchFormTexts.noMaximum}</MenuItem>
-                    {price &&
-                      price.map((price) => (
-                        <MenuItem key={price} value={price}>
-                          {currencyFullFormat(JSON.stringify(price)) + renderSuffix()}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              )}
-            />
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </React.Fragment>
     </PopOverComponent>
   )
 }
