@@ -178,6 +178,7 @@ const Tag: React.FC<TagProps> = ({ label, onDelete }) => {
   )
 }
 
+// @ts-ignore
 const StyledTag = styled(Tag)<TagProps>(
   ({ theme }) => `
   display: flex;

@@ -2,6 +2,7 @@
 import React from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import Image from 'next/image'
+import { NestedListing } from 'types'
 
 import AmenityIcon from './AmenityIcon'
 
@@ -29,12 +30,11 @@ function NestedListingCard({ data, isLast }: ListingProps): React.ReactNode {
       <div className="flex flex-col justify-between flex-1 w-full h-full px-5 py-2">
         <div className="flex items-baseline">
           <h1 className="text-2xl font-bold text-secondary">{`${data.display_price}`}</h1>
-          {data?.display_price_per_sqm &&
-            data.display_price_per_sqm_with_unit && (
-              <p className="pl-2 text-lg font-semibold text-gray-400">
-                {data?.display_price_per_sqm_with_unit}
-              </p>
-            )}
+          {data?.display_price_per_sqm && data.display_price_per_sqm_with_unit && (
+            <p className="pl-2 text-lg font-semibold text-gray-400">
+              {data?.display_price_per_sqm_with_unit}
+            </p>
+          )}
         </div>
         <div className="">
           <h1 className="font-bold truncate max-w-[230px] sm:max-w-[390px] text-md text-secondary">
@@ -45,21 +45,12 @@ function NestedListingCard({ data, isLast }: ListingProps): React.ReactNode {
           <div className="font-semibold badge badge-primary badge-sm badge-outline">
             Under Offer
           </div>
-          <div className="font-semibold badge badge-error badge-sm badge-outline">
-            Save 27%
-          </div>
-          <div className="font-semibold badge badge-info badge-sm badge-outline">
-            City View
-          </div>
+          <div className="font-semibold badge badge-error badge-sm badge-outline">Save 27%</div>
+          <div className="font-semibold badge badge-info badge-sm badge-outline">City View</div>
         </div>
         <div className="flex flex-wrap">
           {data.specifications.detail.map((amenity) => (
-            <AmenityIcon
-              key={amenity.label}
-              value={amenity.short_label}
-              type="Area"
-              size={4}
-            />
+            <AmenityIcon key={amenity.label} value={amenity.short_label} type="Area" size={4} />
           ))}
         </div>
       </div>

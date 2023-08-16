@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { ImageSet } from 'types'
 
 import { HeartIcon, RedHeartIcon } from '../../../..'
 
@@ -36,11 +37,7 @@ function ListingImages({
             <div key={image.id} className={`relative ${firstImage}`}>
               <Image
                 priority
-                src={
-                  idx == 0
-                    ? image.thumbnails?.[1].url
-                    : image.thumbnails?.[0].url
-                }
+                src={idx == 0 ? image.thumbnails?.[1].url : image.thumbnails?.[0].url}
                 alt={alt || ''}
                 fill
                 sizes="(max-width: 640px) 100vw,(min-width: 768px) 50vw"
@@ -48,9 +45,7 @@ function ListingImages({
               />
               {lastIndex && idx > 1 && (
                 <div className="absolute w-full h-full bg-[rgba(0,0,0,0.5)] flex justify-center items-center hover:bg-[rgba(0,0,0,0.6)] transition-color duration-300 hover:cursor-pointer">
-                  <p className="font-bold text-white">
-                    Show All ({data.length})
-                  </p>
+                  <p className="font-bold text-white">Show All ({data.length})</p>
                 </div>
               )}
             </div>

@@ -705,23 +705,23 @@ type ListingData = {
 
 type NestedListing = {
   id: number
-  images?: ImageSet[]
-  url?: string
-  address?: string
-  display_price?: string
-  headline?: string
-  price_is_displayed?: boolean
-  rent_is_displayed?: boolean
-  listed_date?: string
-  display_rent?: string
-  specifications?: Amenities
-  chat_app_url?: string
-  currency_sign?: string
-  display_price_per_sqm_with_unit?: string
-  display_price_per_sqm?: boolean
-  display_rent_per_sqm_with_unit?: string
-  display_rent_per_sqm?: boolean
-  ribbon?: string
+  images: ImageSet[]
+  url: string
+  address: string
+  display_price: string
+  headline: string
+  price_is_displayed: boolean
+  rent_is_displayed: boolean
+  listed_date: string
+  display_rent: string
+  specifications: Amenities
+  chat_app_url: string
+  currency_sign: string
+  display_price_per_sqm_with_unit: string
+  display_price_per_sqm: boolean
+  display_rent_per_sqm_with_unit: string
+  display_rent_per_sqm: boolean
+  ribbon: string
 }
 
 type Amenities = {
