@@ -3,7 +3,7 @@ import { SearchFormInputsType } from 'types'
 
 const getListings = async (payload: SearchFormInputsType) => {
   const {
-    page_size = 20,
+    page_size = 1,
     search_languages = 'en,km,zh-hans,fr,th',
     order_by = 'relevance',
     q,
@@ -40,7 +40,7 @@ const getListings = async (payload: SearchFormInputsType) => {
       price_min__lte
     }
   })
-  const res = await fetch(fetchURL, { next: { revalidate: 3600 } })
+  const res = await fetch(fetchURL)
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

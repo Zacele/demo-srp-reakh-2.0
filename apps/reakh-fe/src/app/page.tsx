@@ -4,12 +4,19 @@ import { Metadata } from 'next'
 import { ISearchResults } from 'types'
 import { AppLayout } from 'ui'
 import SearchResults from 'ui/src/components/layouts/SearchResults'
-import SearchFilters from 'ui/src/components/SearchResults/SearchFilters'
+import SearchResultsLoading from 'ui/src/components/layouts/SearchResults.loading'
+import SearchFiltersWrapper from 'ui/src/components/SearchResults/SearchFilters/components/SearchFiltersWrapper'
 
-export const dynamic = 'force-dynamic'
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
-export async function generateMetadata(): Promise<Metadata> {
-  const listingData: ISearchResults = await getListings({})
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const listingData: ISearchResults = await getListings({
+    q: JSON.stringify(searchParams.q),
+    page_size: 1
+  })
   const { seo } = listingData
 
   return {
@@ -17,14 +24,18 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const SearchResultsPage = async ({ searchParams }) => {
-  const promiseListingData: Promise<ISearchResults> = getListings(searchParams || {})
+const SearchResultsPage = async ({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) => {
+  // @ts-ignore
   const querySearch = new URLSearchParams(searchParams)
-  const listingData = await promiseListingData
   return (
     <AppLayout>
-      <SearchFilters listingData={listingData} />
-      <Suspense key={querySearch.toString()} fallback={<h1>Loading......</h1>}>
+      {/* @ts-ignore */}
+      <SearchFiltersWrapper searchParams={searchParams} />
+      <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}>
         {/* @ts-expect-error Server Component */}
         <SearchResults searchParams={searchParams} />
       </Suspense>

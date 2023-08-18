@@ -21,6 +21,7 @@ import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import { getSuggestions } from 'api'
 import clsx from 'clsx'
+import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import { extractLocationsFromParams, selectNextLocation, selectTopLevelLocations } from 'lib'
 import { useSearchParams } from 'next/navigation'
 import { GetListingsTexts2, GetSuggestionTypes, ISearchForm, PopularLocation } from 'types'
@@ -233,6 +234,7 @@ const SearchForm: React.FC<{
   setValue: UseFormSetValue<SearchFormInputsType>
   isLoading: boolean
 }> = ({ searchForm, register, setValue, isLoading }) => {
+  const { onSubmit, isPending } = useOnSubmitFilter()
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
   const [isFocusing, setIsFocusing] = useState(false)
@@ -247,6 +249,7 @@ const SearchForm: React.FC<{
   const searchParams = useSearchParams()
   const querySearchLocation = searchParams.get('q')
   const currentTabFromQuery = searchParams.get('active_tab') ?? 'popularLocations'
+  console.log('isPending: ', isPending)
 
   const [currentTab, setCurrentTab] = React.useState(() => {
     if (currentTabFromQuery === 'popularLocations') {

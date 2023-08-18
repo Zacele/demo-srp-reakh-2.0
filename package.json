@@ -5,7 +5,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev-reakh": "dotenv -- turbo run dev --filter=reakh-fe"
+    "dev-reakh": "dotenv -- turbo run dev --filter=reakh-fe",
+    "start": "dotenv -- turbo start --filter=reakh-fe"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.22.5",

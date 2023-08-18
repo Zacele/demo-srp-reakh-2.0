@@ -19,4 +19,10 @@ const defaultTheme = createTheme({
   }
 })
 
+// xs: extra small screens (less than 600px)
+// sm: small screens (600px and up)
+// md: medium screens (960px and up)
+// lg: large screens (1280px and up)
+// xl: extra large screens (1920px and up)
+
 export default defaultTheme

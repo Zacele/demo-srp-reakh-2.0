@@ -117,7 +117,6 @@ const PriceFilter: React.FC<{
                       labelId="from-price"
                       id="from-price"
                       label={searchForm.texts.labelFrom}
-                      native
                     >
                       <MenuItem value="">
                         <em>{searchFormTexts.noMinimum}</em>

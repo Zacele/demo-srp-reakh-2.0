@@ -118,7 +118,6 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
                     >
                       {amenity.label}
                     </CheckboxButton>
-                    {/* <FormControlLabel label={amenity.label} control={<Checkbox />} /> */}
                   </Grid>
                 ))}
               </Grid>
