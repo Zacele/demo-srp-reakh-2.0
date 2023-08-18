@@ -5,6 +5,7 @@
   "dependencies": {
     "@tanstack/react-query": "*",
     "types": "workspace:*",
-    "api": "workspace:*"
+    "api": "workspace:*",
+    "constants": "workspace:*"
   }
 }

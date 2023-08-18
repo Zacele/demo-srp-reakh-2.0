@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import CheckBox from '@mui/material/Checkbox'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
-import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
+import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import { useSearchParams } from 'next/navigation'
 import { AllAmenity, AllHighlight, ISearchForm, PropertyType } from 'types'
 
@@ -54,11 +54,14 @@ const CheckboxButton = styled(Button)({
 const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   const [alignment, setAlignment] = React.useState<'residential' | 'commercial'>('residential')
   const searchParams = useSearchParams()
-  const { setValue, control, handleSubmit, register } = useFormContext()
+  const { setValue, control, handleSubmit, register, getValues } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const paramsPropertyType = searchParams.get('property_type')
   const paramsCategories = searchParams.getAll('categories')
-  const paramsSearchType = searchParams.get('search_type')
+  const formValues = getValues()
+  // const propertyTypesFormValue = formValues['property_type']
+  const categoriesFormValue = formValues['categories']
+  const searchTypeFormValue = formValues['search_type']
 
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
@@ -81,6 +84,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
       setValue('categories', paramsCategories)
       return
     }
+    setValue('categories', [])
   }, [paramsCategories, setValue])
 
   const handleChange = (
@@ -99,26 +103,26 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
       handleSubmit((data) => onSubmit(data))()
       return
     }
-    if (paramsCategories.includes(value)) {
+    if (categoriesFormValue.includes(value)) {
       setValue(
         'categories',
-        paramsCategories.filter((item) => item !== value)
+        categoriesFormValue?.filter((item) => item !== value)
       )
       handleSubmit((data) => onSubmit(data))()
       return
     }
-    setValue('categories', [...paramsCategories, value])
+    setValue('categories', [...categoriesFormValue, value])
     handleSubmit((data) => onSubmit(data))()
   }
 
   const checkBoxChecked = (item: AllAmenity | AllHighlight) => {
     if (
-      (paramsCategories.length === 0 && item.value === 'residential') ||
-      item.value === 'commercial'
+      categoriesFormValue?.length === 0 &&
+      (item.value === 'residential' || item.value === 'commercial')
     ) {
       return true
     }
-    if (paramsCategories.includes(item.value)) return true
+    if (categoriesFormValue?.includes(item.value)) return true
     return false
   }
 
@@ -173,7 +177,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
                   {searchForm.property_types
                     .filter((item) => item.tab === 'residential')
                     .filter((item) =>
-                      paramsSearchType === 'sale'
+                      searchTypeFormValue === 'sale'
                         ? item.display_mode === null
                         : item.display_mode === null || item.display_mode === 'rent'
                     )

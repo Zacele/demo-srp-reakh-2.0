@@ -7,6 +7,7 @@ import { ISearchForm, ISearchResults } from 'types'
 
 import BedroomsFilter from './components/BedroomsFilter'
 import FeaturesFilter from './components/FeaturesFilter'
+import MoreFilters from './components/MoreFilters/MoreFilters'
 import PriceFilter from './components/PriceFilter'
 import PropertyTypeFilter from './components/PropertyTypeFilter'
 
@@ -25,6 +26,7 @@ const FilterGroups: React.FC<{ searchForm: ISearchForm; texts: ISearchResults['t
       <PriceFilter searchForm={searchForm} texts={texts} searchFormTexts={searchFormTexts} />
       <PropertyTypeFilter searchForm={searchForm} />
       <FeaturesFilter searchForm={searchForm} />
+      <MoreFilters searchForm={searchForm} />
     </StyledBox>
   )
 }

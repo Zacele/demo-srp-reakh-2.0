@@ -1,14 +1,10 @@
 'use client'
-import { useQuery } from '@tanstack/react-query'
-import { getListings } from 'api'
+import { useGetSearchResults } from '@src/hooks/useGetSearchResults'
 import { Result as ListingResult, SearchFormInputsType } from 'types'
 import { ListingCard } from 'ui'
 
-const SearchResults = async ({ searchParams }: { searchParams: SearchFormInputsType }) => {
-  const { data: listingData } = useQuery({
-    queryKey: ['listings/data'],
-    queryFn: () => getListings(searchParams || {})
-  })
+const SearchResults: React.FC<{ searchParams: SearchFormInputsType }> = ({ searchParams }) => {
+  const { getListingsResponse: listingData } = useGetSearchResults(searchParams, true)
 
   return (
     <div className="mx-auto xl:container">

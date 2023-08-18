@@ -1,45 +1,30 @@
-import HydratedSRP from '@src/app/components/HydratedComponents/HydratedSRP'
+import getQueryClient from '@src/app/getQueryClient'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getListings } from 'api'
-import { Metadata } from 'next'
-import { ISearchResults } from 'types'
 import { AppLayout } from 'ui'
-import SearchFiltersWrapper from 'ui/src/components/SearchResults/SearchFilters/components/SearchFiltersWrapper'
 
-type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+import SearchResults from './components/layouts/SearchResults'
+import SearchFilters from './components/SearchResults/SearchFilters'
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const listingData: ISearchResults = await getListings({
-    q: JSON.stringify(searchParams.q),
-    page_size: 1
-  })
-  const { seo } = listingData
-
-  return {
-    title: seo.head.title
-  }
-}
-
-const SearchResultsPage = async ({
+export default async function SearchResultsPage({
   searchParams
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
-}) => {
-  // @ts-ignore
-  const querySearch = new URLSearchParams(searchParams)
+}) {
+  const queryClient = getQueryClient()
+  await queryClient.prefetchQuery({
+    queryKey: ['listings/data'],
+    queryFn: () => getListings({ ...searchParams } || {})
+  })
+
+  const dehydratedState = dehydrate(queryClient)
+
   return (
     <AppLayout>
-      {/* @ts-ignore */}
-      <SearchFiltersWrapper searchParams={searchParams} />
-      {/* <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}> */}
-      {/* <SearchResults searchParams={searchParams} /> */}
-      {/* </Suspense> */}
-      {/* @ts-expect-error Server Component */}
-      <HydratedSRP searchParams={searchParams} />
+      <HydrationBoundary state={dehydratedState}>
+        <SearchFilters searchParams={searchParams} />
+        <SearchResults searchParams={searchParams} />
+      </HydrationBoundary>
     </AppLayout>
   )
 }
-
-export default SearchResultsPage

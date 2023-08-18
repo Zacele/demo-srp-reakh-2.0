@@ -2,13 +2,10 @@ import './styles.css'
 
 // component exports
 export * from './src/Button'
-export { default as SearchResults } from './src/components/layouts/SearchResults'
-export * from './src/components/layouts/SearchResults'
 export * from './src/components/SearchResults/Listing/ListingCard'
 export { default as ListingCardSkeleton } from './src/components/SearchResults/Listing/ListingCardSkeleton'
 export * from './src/components/SearchResults/Listing/NestedListing'
 export { default } from './src/components/SearchResults/Listing/NestedListingCard'
-export * from './src/components/SearchResults/SearchFilters'
 export * from './src/ErrorButton'
 export * from './src/HellButton'
 export { default as AreaIcon } from './src/icons/Area'

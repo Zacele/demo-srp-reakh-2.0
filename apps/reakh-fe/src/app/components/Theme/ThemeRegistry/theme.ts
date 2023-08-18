@@ -15,7 +15,10 @@ const defaultTheme = createTheme({
   typography: {
     fontFamily: HarmattanFont.style.fontFamily,
     body1: { fontFamily: HarmattanFont.style.fontFamily },
-    body2: { fontFamily: HarmattanFont.style.fontFamily }
+    body2: { fontFamily: HarmattanFont.style.fontFamily },
+    button: {
+      textTransform: 'none'
+    }
   }
 })
 

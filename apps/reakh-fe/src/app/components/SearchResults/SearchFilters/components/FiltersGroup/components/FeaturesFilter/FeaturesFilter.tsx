@@ -6,7 +6,7 @@ import { Button, styled, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import CheckBox from '@mui/material/Checkbox'
 import Grid from '@mui/material/Grid'
-import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
+import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import { useSearchParams } from 'next/navigation'
 import { AllAmenity, AllHighlight, ISearchForm } from 'types'
 
@@ -28,13 +28,14 @@ const CheckboxButton = styled(Button)({
 })
 
 const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
-  const { setValue, control, handleSubmit, register } = useFormContext()
+  const { setValue, control, handleSubmit, register, getValues } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const params = useSearchParams()
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
   const featuresParams = params.getAll('features')
   const highlightsParams = params.getAll('highlights')
+  const values = getValues()
 
   const onButtonChange = (
     event: React.MouseEvent<HTMLElement>,

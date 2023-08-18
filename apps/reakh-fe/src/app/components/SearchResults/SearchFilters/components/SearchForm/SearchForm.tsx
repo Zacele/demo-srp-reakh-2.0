@@ -19,9 +19,9 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
+import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import { getSuggestions } from 'api'
 import clsx from 'clsx'
-import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import { extractLocationsFromParams, selectNextLocation, selectTopLevelLocations } from 'lib'
 import { useSearchParams } from 'next/navigation'
 import { GetListingsTexts2, GetSuggestionTypes, ISearchForm, PopularLocation } from 'types'
@@ -249,7 +249,6 @@ const SearchForm: React.FC<{
   const searchParams = useSearchParams()
   const querySearchLocation = searchParams.get('q')
   const currentTabFromQuery = searchParams.get('active_tab') ?? 'popularLocations'
-  console.log('isPending: ', isPending)
 
   const [currentTab, setCurrentTab] = React.useState(() => {
     if (currentTabFromQuery === 'popularLocations') {

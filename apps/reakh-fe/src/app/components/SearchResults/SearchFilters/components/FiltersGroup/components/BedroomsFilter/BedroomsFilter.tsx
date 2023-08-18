@@ -5,8 +5,8 @@ import { useFormContext } from 'react-hook-form'
 import { Button, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
+import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import clsx from 'clsx'
-import { useOnSubmitFilter } from 'hooks/useOnSubmitFilter'
 import inRange from 'lodash/inRange'
 import { useSearchParams } from 'next/navigation'
 import { ISearchForm } from 'types'
@@ -19,13 +19,13 @@ const RoundedButton = styled(Button)(({ theme }) => ({
   minWidth: 'unset',
   minHeight: 'unset',
   padding: 0,
-  border: 'none',
   borderRadius: '50%',
   color: '#203C3E',
   fontWeight: 400,
   lineHeight: 'normal',
   fontSize: '16px',
   textTransform: 'none',
+  border: '1px solid #BEBEBE',
   '&.active': {
     background: `${theme.palette.primary.main}`,
     color: '#fff',

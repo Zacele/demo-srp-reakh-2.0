@@ -5,9 +5,9 @@ export default function RootLayout({ children }: { children: JSX.Element | JSX.E
   return (
     <html data-theme="reakh" lang="en">
       <body>
-        <ThemeRegistry>
-          <QueryClientProvider>{children}</QueryClientProvider>
-        </ThemeRegistry>
+        <QueryClientProvider>
+          <ThemeRegistry>{children}</ThemeRegistry>
+        </QueryClientProvider>
       </body>
     </html>
   )

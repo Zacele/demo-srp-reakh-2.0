@@ -169,6 +169,9 @@ importers:
       api:
         specifier: workspace:*
         version: link:../../packages/api
+      constants:
+        specifier: workspace:*
+        version: link:../../packages/constants
       dotenv-cli:
         specifier: ^7.2.1
         version: 7.2.1
@@ -241,6 +244,8 @@ importers:
         specifier: ^17.0.45
         version: 17.0.45
 
+  packages/constants: {}
+
   packages/eslint-config-custom:
     dependencies:
       eslint-config-next:
@@ -268,6 +273,9 @@ importers:
       api:
         specifier: workspace:*
         version: link:../api
+      constants:
+        specifier: workspace:*
+        version: link:../constants
       types:
         specifier: workspace:*
         version: link:../types
