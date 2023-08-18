@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -85,7 +86,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
       return
     }
     setValue('categories', [])
-  }, [paramsCategories, setValue])
+  }, [])
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,

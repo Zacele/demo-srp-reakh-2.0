@@ -69,6 +69,11 @@ const PriceFilter: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [priceMinValue, priceMaxValue])
 
+  React.useEffect(() => {
+    if (!priceMinSearchFilters) setValue('price_min__gte', '')
+    if (!priceMaxSearchFilters) setValue('price_min__lte', '')
+  }, [priceMinSearchFilters, priceMaxSearchFilters, setValue])
+
   const price = getPrice(searchForm)
   const currencyFullFormat = makeCurrencyFormat(searchForm.currency, false)
   const renderSuffix = () => {

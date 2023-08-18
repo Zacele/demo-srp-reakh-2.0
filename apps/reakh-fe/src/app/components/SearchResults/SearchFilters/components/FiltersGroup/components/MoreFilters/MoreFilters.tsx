@@ -84,6 +84,19 @@ const MoreFilters: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   }, [register])
 
   React.useEffect(() => {
+    if (!floorAreaMinInParams) setValue('floor_area__gte', '')
+    if (!floorAreaMaxInParams) setValue('floor_area__lte', '')
+    if (!landAreaMinInParams) setValue('land_area__gte', '')
+    if (!landAreaMaxInParams) setValue('land_area__lte', '')
+  }, [
+    setValue,
+    floorAreaMinInParams,
+    floorAreaMaxInParams,
+    landAreaMinInParams,
+    landAreaMaxInParams
+  ])
+
+  React.useEffect(() => {
     // Update floor_area__gte and floor_area__lte values when floorAreaMinValue or floorAreaMaxValue changes
     if (floorAreaMinValue && floorAreaMaxValue) {
       setValue('floor_area__gte', Math.min(Number(floorAreaMinValue), Number(floorAreaMaxValue)))

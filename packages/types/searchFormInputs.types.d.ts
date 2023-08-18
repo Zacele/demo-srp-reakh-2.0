@@ -14,6 +14,14 @@ export interface SearchFormInputsType {
   property_type?: string
   price_min__gte?: string
   price_min__lte?: string
+  floor_area__lte?: string
+  floor_area__gte?: string
+  land_area__lte?: string
+  land_area__gte?: string
+  garages__gte?: string
+  garages__lte?: string
+  bedrooms__gte?: string
+  bedrooms__lte?: string
 }
 
 type OrderBy =

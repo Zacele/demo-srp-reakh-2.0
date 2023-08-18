@@ -15,6 +15,14 @@ const getListings = async (payload: SearchFormInputsType) => {
     search_type = 'sale',
     price_min__gte,
     price_min__lte,
+    floor_area__lte,
+    floor_area__gte,
+    land_area__lte,
+    land_area__gte,
+    garages__gte,
+    garages__lte,
+    bedrooms__gte,
+    bedrooms__lte,
     location,
     property_type,
     has_virtual_tour
@@ -37,7 +45,15 @@ const getListings = async (payload: SearchFormInputsType) => {
       location,
       property_type,
       price_min__gte,
-      price_min__lte
+      price_min__lte,
+      floor_area__lte,
+      floor_area__gte,
+      land_area__lte,
+      land_area__gte,
+      garages__gte,
+      garages__lte,
+      bedrooms__gte,
+      bedrooms__lte
     }
   })
   const res = await fetch(fetchURL, { next: { revalidate: 3600 } })
