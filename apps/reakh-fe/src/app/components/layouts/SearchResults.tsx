@@ -1,8 +1,8 @@
+'use client'
 import { useQuery } from '@tanstack/react-query'
 import { getListings } from 'api'
 import { Result as ListingResult, SearchFormInputsType } from 'types'
-
-import { ListingCard } from '../SearchResults/Listing/ListingCard'
+import { ListingCard } from 'ui'
 
 const SearchResults = async ({ searchParams }: { searchParams: SearchFormInputsType }) => {
   const { data: listingData } = useQuery({

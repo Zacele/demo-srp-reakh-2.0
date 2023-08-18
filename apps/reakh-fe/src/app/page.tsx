@@ -1,10 +1,8 @@
-import { Suspense } from 'react'
+import HydratedSRP from '@src/app/components/HydratedComponents/HydratedSRP'
 import { getListings } from 'api'
 import { Metadata } from 'next'
 import { ISearchResults } from 'types'
 import { AppLayout } from 'ui'
-import SearchResults from 'ui/src/components/layouts/SearchResults'
-import SearchResultsLoading from 'ui/src/components/layouts/SearchResults.loading'
 import SearchFiltersWrapper from 'ui/src/components/SearchResults/SearchFilters/components/SearchFiltersWrapper'
 
 type Props = {
@@ -35,10 +33,11 @@ const SearchResultsPage = async ({
     <AppLayout>
       {/* @ts-ignore */}
       <SearchFiltersWrapper searchParams={searchParams} />
-      <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}>
-        {/* @ts-expect-error Server Component */}
-        <SearchResults searchParams={searchParams} />
-      </Suspense>
+      {/* <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}> */}
+      {/* <SearchResults searchParams={searchParams} /> */}
+      {/* </Suspense> */}
+      {/* @ts-expect-error Server Component */}
+      <HydratedSRP searchParams={searchParams} />
     </AppLayout>
   )
 }
