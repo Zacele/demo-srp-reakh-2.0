@@ -36,6 +36,19 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
   const featuresParams = params.getAll('features')
   const highlightsParams = params.getAll('highlights')
   const values = getValues()
+  const featuresInForm = values['features']
+  const highlightsInForm = values['highlights']
+
+  React.useEffect(() => {
+    if (featuresParams && featuresParams.length > 0) {
+      setValue('features', featuresParams)
+    }
+
+    if (highlightsParams && highlightsParams.length > 0) {
+      setValue('highlights', highlightsParams)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onButtonChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -43,20 +56,20 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     type: 'features' | 'highlights'
   ) => {
     if (type === 'features') {
-      if (featuresParams.includes(value)) {
-        const newValues = featuresParams.filter((item: AllAmenity['value']) => item !== value)
+      if (featuresInForm.includes(value)) {
+        const newValues = featuresInForm.filter((item: AllAmenity['value']) => item !== value)
         setValue(type, newValues)
       } else {
-        setValue(type, [...featuresParams, value])
+        setValue(type, [...featuresInForm, value])
       }
       handleSubmit(onSubmit)()
       return
     }
-    if (highlightsParams.includes(value)) {
-      const newValues = highlightsParams.filter((item: AllHighlight['value']) => item !== value)
+    if (highlightsInForm.includes(value)) {
+      const newValues = highlightsInForm.filter((item: AllHighlight['value']) => item !== value)
       setValue(type, newValues)
     } else {
-      setValue(type, [...highlightsParams, value])
+      setValue(type, [...highlightsInForm, value])
     }
     handleSubmit(onSubmit)()
   }
@@ -110,7 +123,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
                       onClick={(e) => onButtonChange(e, amenity.value, 'features')}
                       startIcon={
                         <CheckBox
-                          checked={featuresParams.includes(amenity.value)}
+                          checked={featuresInForm.includes(amenity.value)}
                           icon={icon}
                           checkedIcon={checkedIcon}
                           onClick={(e) => onButtonChange(e, amenity.value, 'features')}
@@ -144,7 +157,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
                       onClick={(e) => onButtonChange(e, highlight.value, 'highlights')}
                       startIcon={
                         <CheckBox
-                          checked={highlightsParams.includes(highlight.value)}
+                          checked={highlightsInForm.includes(highlight.value)}
                           icon={icon}
                           checkedIcon={checkedIcon}
                           onClick={(e) => onButtonChange(e, highlight.value, 'highlights')}

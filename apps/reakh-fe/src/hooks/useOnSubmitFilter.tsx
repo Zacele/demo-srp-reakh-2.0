@@ -11,7 +11,7 @@ export const useOnSubmitFilter = () => {
   const onSubmit: SubmitHandler<SearchFormInputsType> = (data) => {
     const routerString = queryString.stringify(data, { skipEmptyString: true, skipNull: true })
     router.prefetch(`/?${routerString}`)
-    startTransition(() => router.push(`/?${routerString}`))
+    startTransition(() => router.replace(`/?${routerString}`))
   }
 
   return { onSubmit, isPending }

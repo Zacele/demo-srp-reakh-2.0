@@ -40,16 +40,24 @@ const RoundedButton = styled(Button)(({ theme }) => ({
 }))
 
 const BedroomsFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
-  const { setValue, register, handleSubmit } = useFormContext()
+  const { setValue, register, handleSubmit, getValues } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const searchParams = useSearchParams()
   const bedroomsSearchParamsMin = searchParams.get('bedrooms__gte')
   const bedroomsSearchParamsMax = searchParams.get('bedrooms__lte')
+  const formValues = getValues()
+  const bedroomsInFormMin = formValues['bedrooms__gte']
+  const bedroomsInFormMax = formValues['bedrooms__lte']
 
   React.useEffect(() => {
     register('bedrooms__gte')
     register('bedrooms__lte')
   }, [register])
+
+  React.useEffect(() => {
+    if (bedroomsSearchParamsMin) setValue('bedrooms__gte', bedroomsSearchParamsMin)
+    if (bedroomsSearchParamsMax) setValue('bedrooms__lte', bedroomsSearchParamsMin)
+  }, [])
 
   const onButtonClick = (value: number) => {
     if (!bedroomsSearchParamsMin && !bedroomsSearchParamsMax) {
@@ -100,7 +108,7 @@ const BedroomsFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
           <RoundedButton
             variant="outlined"
             className={clsx({
-              active: !bedroomsSearchParamsMin && !bedroomsSearchParamsMax
+              active: !bedroomsInFormMin && !bedroomsInFormMax
             })}
             onClick={onAnyButtonClick}
           >
@@ -113,11 +121,7 @@ const BedroomsFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
               variant="outlined"
               value={value + 1}
               className={clsx({
-                active: inRange(
-                  value + 1,
-                  Number(bedroomsSearchParamsMin),
-                  Number(bedroomsSearchParamsMax) + 1
-                )
+                active: inRange(value + 1, Number(bedroomsInFormMin), Number(bedroomsInFormMax) + 1)
               })}
             >
               {value + 1} {value === 4 && '+'}

@@ -4,19 +4,17 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { usePrevious } from 'react-use'
 import { DevTool } from '@hookform/devtools'
-import { useGetSearchResults } from '@src/hooks/useGetSearchResults'
 import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
-import { SearchFormInputsType } from 'types'
+import { ISearchResults, SearchFormInputsType } from 'types'
 
 import FilterGroups from './components/FiltersGroup'
 import SearchForm from './components/SearchForm'
 
-const SearchFilters: React.FC<{ searchParams: SearchFormInputsType }> = ({ searchParams }) => {
+const SearchFilters: React.FC<{
+  searchParams: SearchFormInputsType
+  listingData: ISearchResults
+}> = ({ searchParams, listingData }) => {
   const { onSubmit } = useOnSubmitFilter()
-  const { getListingsResponse: listingData, getListingsLoading } = useGetSearchResults(
-    searchParams,
-    true
-  )
 
   const methods = useForm<SearchFormInputsType>({
     mode: 'onChange',
@@ -42,7 +40,7 @@ const SearchFilters: React.FC<{ searchParams: SearchFormInputsType }> = ({ searc
       setIsLoading(false)
     }
   }, [prevSearchForm, searchForm])
-  const searchTypeInParams = searchParams.search_type
+  const searchTypeInParams = searchParams?.search_type
 
   React.useEffect(() => {
     register('search_type')

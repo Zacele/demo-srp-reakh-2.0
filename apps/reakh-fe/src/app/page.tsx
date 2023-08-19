@@ -1,20 +1,27 @@
-import getQueryClient from '@src/app/getQueryClient'
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { Suspense } from 'react'
 import { getListings } from 'api'
 import { Metadata } from 'next'
+import { ISearchResults } from 'types'
 import { AppLayout } from 'ui'
 
 import SearchResults from './components/layouts/SearchResults'
+import SearchResultsLoading from './components/layouts/SearchResults.loading'
 import SearchFilters from './components/SearchResults/SearchFilters'
 
 type Props = {
+  params: { id: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const data = await getListings({ ...searchParams, page_size: 1, page: 1 })
+  const listingData: ISearchResults = await getListings({
+    q: JSON.stringify(searchParams.q),
+    page_size: 1
+  })
+  const { seo } = listingData
+
   return {
-    title: data.seo.head.title
+    title: seo.head.title
   }
 }
 
@@ -23,20 +30,18 @@ export default async function SearchResultsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const queryClient = getQueryClient()
-  await queryClient.prefetchQuery({
-    queryKey: ['listings/data'],
-    queryFn: () => getListings({ ...searchParams } || {})
-  })
-
-  const dehydratedState = dehydrate(queryClient)
+  const searchResults: Promise<ISearchResults> = getListings(searchParams || {})
+  const listingData = await searchResults
+  // @ts-ignore
+  const querySearch = new URLSearchParams(searchParams)
 
   return (
     <AppLayout>
-      <HydrationBoundary state={dehydratedState}>
-        <SearchFilters searchParams={searchParams} />
+      <SearchFilters searchParams={searchParams} listingData={listingData} />
+      <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}>
+        {/* @ts-expect-error Server Component */}
         <SearchResults searchParams={searchParams} />
-      </HydrationBoundary>
+      </Suspense>
     </AppLayout>
   )
 }
