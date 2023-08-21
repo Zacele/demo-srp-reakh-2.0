@@ -60,7 +60,7 @@ const SearchFilters: React.FC<{
   }, [])
 
   return (
-    <div className="pt-3 mx-auto xl:container">
+    <div className="container max-w-[1200px] px-6 pt-3 mx-auto">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <SearchForm

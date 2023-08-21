@@ -4,7 +4,7 @@ import ListingCardSkeleton from '../SearchResults/Listing/ListingCardSkeleton'
 
 const SearchResultsLoading = () => {
   return (
-    <div className="mx-auto xl:container">
+    <div className="container max-w-[1200px] px-6 pt-3 mx-auto">
       <div className={`flex p-2`}>
         <div className={`w-full sm:min-w-[639px] sm:max-w-[900px] relative`}>
           {Array.from(new Array(5)).map((_, idx) => {

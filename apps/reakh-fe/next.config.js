@@ -11,6 +11,14 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'cdnjs.cloudflare.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'uat.realestate.com.kh'
+      },
+      {
+        protocol: 'https',
+        hostname: 'realestate.com.kh'
       }
     ]
   }

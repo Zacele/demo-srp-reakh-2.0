@@ -80,7 +80,6 @@ const CurrencyIconSmall = styled('div')(({ theme }) => {
 })
 
 const TopHeader: React.FC<{ essentialsData: IGetEssentials }> = ({ essentialsData }) => {
-  const [currencyOpen, setCurrencyOpen] = React.useState(false)
   const [currency, setCurrency] = React.useState('usd')
   const [country, setCountry] = React.useState('en')
 
