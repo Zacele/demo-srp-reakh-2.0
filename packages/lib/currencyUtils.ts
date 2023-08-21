@@ -10,7 +10,7 @@ const composeFunctions =
   (...args: Parameters<T>): ReturnType<T> =>
     rest.reduce((acc, next) => next(acc), init(...args))
 
-const processCurrency = (currency: string) =>
+export const processCurrency = (currency: string) =>
   currency.toLowerCase() !== 'aud'
     ? getSymbolFromCurrency(currency)
     : `A${getSymbolFromCurrency(currency)}`

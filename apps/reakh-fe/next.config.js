@@ -6,6 +6,12 @@ module.exports = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    domains: ['images.realestate.com.kh']
+    domains: ['images.realestate.com.kh'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdnjs.cloudflare.com'
+      }
+    ]
   }
 }
