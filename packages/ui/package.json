@@ -32,7 +32,8 @@
     "api": "workspace:*",
     "types": "workspace:*",
     "lib": "workspace:*",
-    "hooks": "workspace:*"
+    "hooks": "workspace:*",
+    "constants": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0"

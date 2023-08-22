@@ -337,6 +337,9 @@ importers:
       api:
         specifier: workspace:*
         version: link:../api
+      constants:
+        specifier: workspace:*
+        version: link:../constants
       hooks:
         specifier: workspace:*
         version: link:../hooks

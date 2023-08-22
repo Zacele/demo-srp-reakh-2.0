@@ -1,8 +1,7 @@
-import { Suspense } from 'react'
+import { Fragment, Suspense } from 'react'
 import { getListings } from 'api'
 import { Metadata } from 'next'
 import { ISearchResults } from 'types'
-import { AppLayout } from 'ui'
 
 import SearchResults from './components/layouts/SearchResults'
 import SearchResultsLoading from './components/layouts/SearchResults.loading'
@@ -31,17 +30,18 @@ export default async function SearchResultsPage({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const searchResults: Promise<ISearchResults> = getListings(searchParams || {})
+
   const listingData = await searchResults
   // @ts-ignore
   const querySearch = new URLSearchParams(searchParams)
 
   return (
-    <AppLayout>
+    <Fragment>
       <SearchFilters searchParams={searchParams} listingData={listingData} />
       <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}>
         {/* @ts-expect-error Server Component */}
         <SearchResults searchParams={searchParams} />
       </Suspense>
-    </AppLayout>
+    </Fragment>
   )
 }

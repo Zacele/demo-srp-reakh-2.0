@@ -1,1 +1,1 @@
-export { LISTINGS_DATA } from './constants'
+export { LISTINGS_DATA, MENU_LIMIT } from './constants'
