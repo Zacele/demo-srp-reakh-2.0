@@ -1,6 +1,6 @@
 import { getListings } from 'api'
 import { ISearchResults, Result as ListingResult } from 'types'
-import { ListingCard } from 'ui'
+import { ListingCard, SortFilter } from 'ui'
 
 const SearchResults = async ({
   searchParams
@@ -13,12 +13,17 @@ const SearchResults = async ({
   return (
     <div className="container max-w-[1200px] px-6 pt-3 mx-auto">
       <div className={`flex p-2`}>
-        <div className={`w-full sm:min-w-[639px] sm:max-w-[900px] relative`}>
-          <div className={'pt-4.5'}>
-            <p className="pt-2 text-[32px] leading-5 text-[#203C3E] font-bold">
-              {listingData.texts.page_header}
-            </p>
-            <p className="pb-4 text-base font-normal">{listingData.texts.results_status}</p>
+        <div className="w-full sm:min-w-[639px] sm:max-w-[900px] relative">
+          <div className="flex items-center justify-between pt-4.5">
+            <div>
+              <h1 className="pt-2 text-[32px] leading-5 text-[#203C3E] font-bold">
+                {listingData.texts.page_header}
+              </h1>
+              <h2 className="pb-4 text-base font-normal">{listingData.texts.results_status}</h2>
+            </div>
+            <div className="min-w-40">
+              <SortFilter searchForm={listingData.search_form} />
+            </div>
           </div>
           {listingData.results.map((item: ListingResult) => (
             <ListingCard key={item.id} data={item} alt={item.title_img_alt} />

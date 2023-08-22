@@ -11,7 +11,7 @@ const HeaderLoading = () => {
 export default function RootLayout({ children }: { children: JSX.Element | JSX.Element[] }) {
   return (
     <html data-theme="reakh" lang="en">
-      <body>
+      <body suppressHydrationWarning>
         <QueryClientProvider>
           <ThemeRegistry options={{ key: 'mui' }}>
             <Suspense fallback={<HeaderLoading />}>

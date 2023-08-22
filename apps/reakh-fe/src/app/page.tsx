@@ -11,6 +11,7 @@ type Props = {
   params: { id: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const listingData: ISearchResults = await getListings({

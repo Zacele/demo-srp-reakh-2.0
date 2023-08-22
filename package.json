@@ -54,6 +54,7 @@
     "query-string": "^8.1.0",
     "react-highlight-words": "^0.20.0",
     "react-hook-form": "^7.45.4",
+    "react-select": "^5.7.4",
     "react-tiny-popover": "^7.2.4",
     "react-use": "^17.4.0"
   },
