@@ -20,7 +20,7 @@ export function ListingCard({ data, alt }: Props) {
       </div>
       <div
         className={clsx(
-          'h-[256px] items-center justify-center w-full overflow-hidden transition-shadow duration-300 shadow-lg hover:shadow-primary bg-slate-50 rounded-none sm:rounded-2xl card-compact card sm:flex-row',
+          'items-center justify-center w-full overflow-hidden transition-shadow duration-300 shadow-lg hover:shadow-primary bg-slate-50 rounded-none sm:rounded-2xl card-compact card sm:flex-row',
           {
             'sm:rounded-b-none': hasNested
           }
@@ -30,7 +30,13 @@ export function ListingCard({ data, alt }: Props) {
         <div className="flex flex-col justify-between w-full h-full p-5">
           {/* TITLE */}
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-secondary">{data.headline}</h1>
+            <h1
+              className={clsx('text-xl font-bold text-secondary', {
+                'text-base': data.headline.length > 50
+              })}
+            >
+              {data.headline}
+            </h1>
             <h2 className="font-bold text-md text-primary">{`${data.category_name} | ${data.address}`}</h2>
           </div>
           {/* PRICE */}

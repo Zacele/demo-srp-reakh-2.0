@@ -30,7 +30,14 @@ export function ListingCard({ data, alt }: Props) {
         <div className="flex flex-col justify-between w-full h-full p-5">
           {/* TITLE */}
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-secondary">{data.headline}</h1>
+            <h1
+              className={clsx('font-bold text-secondary', {
+                'text-base': data.headline.length > 70,
+                'text-xl': data.headline.length <= 70
+              })}
+            >
+              {data.headline}
+            </h1>
             <h2 className="font-bold text-md text-primary">{`${data.category_name} | ${data.address}`}</h2>
           </div>
           {/* PRICE */}

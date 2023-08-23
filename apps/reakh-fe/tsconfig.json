@@ -12,7 +12,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "../../packages/types/types.d.ts",
-    "src/hooks/useGetSearchResults.tsx"
+    "src/hooks/useGetSearchResults.tsx",
+    "../../packages/hooks/useCreateQuery.tsx"
   ],
   "exclude": ["node_modules"]
 }

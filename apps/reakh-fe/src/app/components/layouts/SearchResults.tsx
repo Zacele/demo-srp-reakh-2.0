@@ -1,6 +1,6 @@
 import { getListings } from 'api'
 import { ISearchResults, Result as ListingResult } from 'types'
-import { ListingCard, SortFilter } from 'ui'
+import { ListingCard, Pagination, SortFilter } from 'ui'
 
 const SearchResults = async ({
   searchParams
@@ -28,6 +28,12 @@ const SearchResults = async ({
           {listingData.results.map((item: ListingResult) => (
             <ListingCard key={item.id} data={item} alt={item.title_img_alt} />
           ))}
+          <div className="flex items-center justify-center pt-11">
+            <Pagination
+              totalCount={listingData.last_page}
+              currentPage={searchParams?.page?.toString() ?? '1'}
+            />
+          </div>
         </div>
         {/* <div
           className={clsx('bg-pink-300 md:inline-block', {

@@ -2,7 +2,8 @@
 
 import React from 'react'
 import Select, { components, type ControlProps, type DropdownIndicatorProps } from 'react-select'
-import { useRouter } from 'next/navigation'
+import useCreateQuery from 'hooks/useCreateQuery'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ISearchForm } from 'types'
 
 import SortIcon from './SortIcon'
@@ -29,14 +30,24 @@ const Control = ({ children, ...props }: ControlProps) => {
 
 const SortFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()!
+  const orderByParams = searchParams.get('order_by') || 'relevance'
+
+  const { createQueryString } = useCreateQuery()
+
   return (
     <Select
-      onChange={(option) => {
-        console.log('option: ', option)
-      }}
+      instanceId={'sort-filter'}
+      onChange={(option) =>
+        router.push(pathname + '?' + createQueryString('order_by', option?.value || 'relevance'))
+      }
       options={searchForm.sort_options}
+      value={
+        searchForm.sort_options.find((option) => option.value === orderByParams) ||
+        searchForm.sort_options[0]
+      }
       isSearchable={false}
-      defaultValue={searchForm.sort_options[0]}
       // @ts-ignore
       sortText={searchForm.sort_text || 'Sort'}
       components={{

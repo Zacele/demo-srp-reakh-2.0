@@ -19,6 +19,23 @@ const defaultTheme = createTheme({
     button: {
       textTransform: 'none'
     }
+  },
+  components: {
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          border: '1px solid #203C3E',
+          fontSize: '20px',
+          color: '#203C3E',
+          fontWeight: 700,
+          borderRadius: 10,
+          '&.Mui-selected': {
+            border: 'none',
+            cursor: 'not-allowed'
+          }
+        }
+      }
+    }
   }
 })
 
