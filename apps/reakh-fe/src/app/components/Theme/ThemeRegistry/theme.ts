@@ -29,9 +29,12 @@ const defaultTheme = createTheme({
           color: '#203C3E',
           fontWeight: 700,
           borderRadius: 10,
+          '&:hover': {
+            backgroundColor: '#E8E8E8',
+            border: 'none'
+          },
           '&.Mui-selected': {
-            border: 'none',
-            cursor: 'not-allowed'
+            border: 'none'
           }
         }
       }
