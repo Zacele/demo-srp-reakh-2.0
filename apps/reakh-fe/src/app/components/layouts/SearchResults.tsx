@@ -34,6 +34,10 @@ const SearchResults = async ({
               currentPage={searchParams?.page?.toString() ?? '1'}
             />
           </div>
+          <div
+            className="pt-8"
+            dangerouslySetInnerHTML={{ __html: listingData.description.text }}
+          />
         </div>
         {/* <div
           className={clsx('bg-pink-300 md:inline-block', {
