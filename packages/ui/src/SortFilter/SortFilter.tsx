@@ -11,7 +11,7 @@ import SortIcon from './SortIcon'
 const DropdownIndicator = (props: DropdownIndicatorProps) => {
   return (
     <components.DropdownIndicator {...props}>
-      <div className="w-3 h-3">
+      <div className="w-4 h-4">
         <SortIcon />
       </div>
     </components.DropdownIndicator>
@@ -40,6 +40,7 @@ const SortFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
     <Select
       instanceId={'sort-filter'}
       onChange={(option) =>
+        // @ts-ignore
         router.push(pathname + '?' + createQueryString('order_by', option?.value || 'relevance'))
       }
       options={searchForm.sort_options}
