@@ -8,6 +8,9 @@ const useCreateQuery = () => {
   const createQueryString = React.useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString())
+      if (params.has('page')) {
+        params.set('page', '1')
+      }
       params.set(name, value)
 
       return params.toString()

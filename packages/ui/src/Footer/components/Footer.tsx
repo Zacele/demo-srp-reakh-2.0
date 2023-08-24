@@ -91,7 +91,9 @@ const Footer: React.FC<{ listingData: ISearchResults }> = ({ listingData }) => {
                 xs={3}
                 sx={{ color: '#fff', fontSize: '16px', fontWeight: 400 }}
               >
-                <Link href={item.url}>{item.title}</Link>
+                <Link target="_blank" href={item.url}>
+                  {item.title}
+                </Link>
               </Grid>
             ))}
           </Grid>

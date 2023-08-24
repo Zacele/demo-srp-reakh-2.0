@@ -67,6 +67,7 @@ const BottomFooter: React.FC<{ essentialData: IEssential }> = ({ essentialData }
             px: 6,
             display: 'flex',
             py: 1.5,
+            pt: 3,
             justifyContent: 'space-between'
           }}
         >
@@ -115,31 +116,31 @@ const BottomFooter: React.FC<{ essentialData: IEssential }> = ({ essentialData }
         >
           <Grid container spacing={2}>
             <Grid item xs="auto">
-              <Link href={essentialData.social_profiles.facebook.url}>
+              <Link target="_blank" href={essentialData.social_profiles.facebook.url}>
                 <FacebookIcon />
               </Link>
             </Grid>
 
             <Grid item xs="auto">
-              <Link href={essentialData.social_profiles.youtube.url}>
+              <Link target="_blank" href={essentialData.social_profiles.youtube.url}>
                 <YoutubeIcon />
               </Link>
             </Grid>
 
             <Grid item xs="auto">
-              <Link href={essentialData.social_profiles.linkedin.url}>
+              <Link target="_blank" href={essentialData.social_profiles.linkedin.url}>
                 <LinkedInIcon />
               </Link>
             </Grid>
 
             <Grid item xs="auto">
-              <Link href={essentialData.social_profiles.twitter.url}>
+              <Link target="_blank" href={essentialData.social_profiles.twitter.url}>
                 <TwitterIcon />
               </Link>
             </Grid>
 
             <Grid item xs="auto">
-              <Link href={essentialData.social_profiles.instagram.url}>
+              <Link target="_blank" href={essentialData.social_profiles.instagram.url}>
                 <InstagramIcon />
               </Link>
             </Grid>
@@ -164,13 +165,23 @@ const BottomFooter: React.FC<{ essentialData: IEssential }> = ({ essentialData }
               >
                 {essentialData.footer.partner_sites.map((partnerSite, idx) => (
                   <>
-                    <Link key={partnerSite.name} href={partnerSite.path}>
+                    <Link key={partnerSite.name} target="_blank" href={partnerSite.path}>
                       {partnerSite.name}
                     </Link>
                     {idx === essentialData.footer.partner_sites.length - 1 ? null : (
                       <span style={{ margin: '0 4px' }}> | </span>
                     )}
                   </>
+                ))}
+              </Box>
+            </Grid>
+
+            <Grid item xs={4}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-evenly', marginLeft: 10 }}>
+                {essentialData.app.data.map((app, idx) => (
+                  <Link key={app.name} href={app.url} target="_blank">
+                    <Image src={app.image} alt={app.image_alt} height={45} width={120} />
+                  </Link>
                 ))}
               </Box>
             </Grid>
@@ -184,7 +195,6 @@ const BottomFooter: React.FC<{ essentialData: IEssential }> = ({ essentialData }
             alt="we-chat-qr-code"
             fill
             src={process.env.NEXT_PUBLIC_API_ROOT + essentialData.social_profiles.weechat.image.url}
-            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </DialogContent>
       </Dialog>
