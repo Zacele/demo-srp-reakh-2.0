@@ -10,10 +10,17 @@ import { ISearchResults } from 'types'
 
 import CustomTabPanel from './TabPanel'
 
-function a11yProps(index: number) {
+function a11yPropsSearchType(index: number) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
+    id: `search-type-tab-${index}`,
+    'aria-controls': `search-type-tabpanel-${index}`
+  }
+}
+
+function a11yPropsPropertyType(index: number) {
+  return {
+    id: `property-tye-tab-${index}`,
+    'aria-controls': `property-type-tabpanel-${index}`
   }
 }
 
@@ -48,29 +55,48 @@ const Footer: React.FC<{ listingData: ISearchResults }> = ({ listingData }) => {
       <Box sx={{ borderBottom: 1, borderColor: '#77C232' }} px={3}>
         <StyledTabs value={valueType} onChange={handleTabType} aria-label="tab-type">
           {listingData.bottom_menu.data.map((item, idx) => (
-            <Tab key={item.title} label={item.title} {...a11yProps(idx)} />
+            <Tab key={item.title} label={item.title} {...a11yPropsSearchType(idx)} />
           ))}
         </StyledTabs>
       </Box>
-      <Box sx={{ borderBottom: 1, borderColor: '#77C232', maxWidth: '1200px', margin: 'auto' }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: '#77C232',
+          maxWidth: '1200px',
+          margin: 'auto'
+        }}
+      >
         <CustomTabPanel value={valueType} index={valueType}>
-          <StyledTabs value={valuePropertyType} onChange={handlePropertyType} aria-label="tab-type">
+          <StyledTabs
+            value={valuePropertyType}
+            onChange={handlePropertyType}
+            aria-label="property-tab-type"
+          >
             {listingData.bottom_menu.data[valueType].data.map((item, idx) => (
-              <Tab key={item.title} label={item.title} {...a11yProps(idx)} />
+              <Tab key={item.title} label={item.title} {...a11yPropsPropertyType(idx)} />
             ))}
           </StyledTabs>
         </CustomTabPanel>
       </Box>
 
-      <CustomTabPanel value={valueType} index={valueType}>
-        <Grid container spacing={2}>
-          {listingData.bottom_menu.data[valueType].data[valuePropertyType].data.map((item) => (
-            <Grid key={item.title} item xs={3}>
-              <Link href={item.url}>{item.title}</Link>
-            </Grid>
-          ))}
-        </Grid>
-      </CustomTabPanel>
+      <Box sx={{ borderBottom: 1, borderColor: '#77C232' }}>
+        <CustomTabPanel value={valueType} index={valueType}>
+          <Grid container spacing={2} sx={{ p: 2, px: 5 }}>
+            {/* These tabs are map to the top tab navigation above. */}
+            {listingData.bottom_menu.data[valueType].data[valuePropertyType].data.map((item) => (
+              <Grid
+                key={item.title}
+                item
+                xs={3}
+                sx={{ color: '#fff', fontSize: '16px', fontWeight: 400 }}
+              >
+                <Link href={item.url}>{item.title}</Link>
+              </Grid>
+            ))}
+          </Grid>
+        </CustomTabPanel>
+      </Box>
     </Box>
   )
 }

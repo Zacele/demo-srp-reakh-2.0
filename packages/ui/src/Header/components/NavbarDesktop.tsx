@@ -28,7 +28,7 @@ const NavbarDesktop: React.FC<{ essentialsData: IGetEssentials }> = ({ essential
         <Container maxWidth="lg" sx={{ px: 0 }}>
           <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex' }}>
-              <Link href={'/'} passHref>
+              <Link href={'/'} aria-label="Link to home" passHref>
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_ROOT}/static/img/logo.svg`}
                   alt="logo"
