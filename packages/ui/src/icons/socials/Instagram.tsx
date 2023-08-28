@@ -27,7 +27,7 @@ const InstagramIcon: React.FC<SvgIconProps> = (props) => {
           y2="12.9715"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#77C232" />
+          <stop stopColor="#77C232" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_148_4771"
@@ -37,7 +37,7 @@ const InstagramIcon: React.FC<SvgIconProps> = (props) => {
           y2="12.9705"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#77C232" />
+          <stop stopColor="#77C232" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_148_4771"
@@ -47,7 +47,7 @@ const InstagramIcon: React.FC<SvgIconProps> = (props) => {
           y2="12.9716"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#77C232" />
+          <stop stopColor="#77C232" />
         </linearGradient>
       </defs>
     </SvgIcon>

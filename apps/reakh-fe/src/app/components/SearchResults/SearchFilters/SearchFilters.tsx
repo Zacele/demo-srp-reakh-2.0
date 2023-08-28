@@ -19,7 +19,11 @@ const SearchFilters: React.FC<{
   const methods = useForm<SearchFormInputsType>({
     mode: 'onChange',
     defaultValues: {
-      ...searchParams
+      ...searchParams,
+      active_tab: 'popularLocations' || searchParams?.active_tab,
+      search_type: 'sale' || searchParams?.search_type,
+      order_by: 'relevance' || searchParams?.order_by,
+      property_type: 'residential' || searchParams?.property_type
     }
   })
 

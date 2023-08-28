@@ -3,9 +3,9 @@ import { getListings } from 'api'
 import { Metadata } from 'next'
 import { ISearchResults } from 'types'
 
-import SearchResults from './components/layouts/SearchResults'
-import SearchResultsLoading from './components/layouts/SearchResults.loading'
-import SearchFilters from './components/SearchResults/SearchFilters'
+import SearchResults from '../../components/layouts/SearchResults'
+import SearchResultsLoading from '../../components/layouts/SearchResults.loading'
+import SearchFilters from '../../components/SearchResults/SearchFilters'
 
 type Props = {
   params: { id: string }
@@ -15,7 +15,8 @@ type Props = {
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const listingData: ISearchResults = await getListings({
     q: JSON.stringify(searchParams.q),
-    page_size: 1
+    page_size: 1,
+    search_type: 'sale'
   })
   const { seo } = listingData
 
@@ -24,12 +25,18 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   }
 }
 
-export default async function SearchResultsPage({
+export default async function BuySearchResultsPage({
+  params,
   searchParams
 }: {
+  params: string
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const searchResults: Promise<ISearchResults> = getListings(searchParams || {})
+  const searchResults: Promise<ISearchResults> = getListings(
+    { ...searchParams, search_type: 'sale' } || {}
+  )
+
+  console.log('slug: ', params)
 
   const listingData = await searchResults
   // @ts-ignore
@@ -40,7 +47,7 @@ export default async function SearchResultsPage({
       <SearchFilters searchParams={searchParams} listingData={listingData} />
       <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}>
         {/* @ts-expect-error Server Component */}
-        <SearchResults searchParams={searchParams} />
+        <SearchResults searchParams={{ ...searchParams, search_type: 'sale' }} />
       </Suspense>
     </Fragment>
   )

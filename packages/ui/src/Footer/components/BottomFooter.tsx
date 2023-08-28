@@ -164,14 +164,14 @@ const BottomFooter: React.FC<{ essentialData: IEssential }> = ({ essentialData }
                 }}
               >
                 {essentialData.footer.partner_sites.map((partnerSite, idx) => (
-                  <>
+                  <React.Fragment key={partnerSite.name}>
                     <Link key={partnerSite.name} target="_blank" href={partnerSite.path}>
                       {partnerSite.name}
                     </Link>
                     {idx === essentialData.footer.partner_sites.length - 1 ? null : (
                       <span style={{ margin: '0 4px' }}> | </span>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </Box>
             </Grid>

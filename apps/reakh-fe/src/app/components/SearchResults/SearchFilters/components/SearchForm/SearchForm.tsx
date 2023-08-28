@@ -19,7 +19,6 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import { getSuggestions } from 'api'
 import clsx from 'clsx'
 import { extractLocationsFromParams, selectNextLocation, selectTopLevelLocations } from 'lib'
@@ -234,7 +233,6 @@ const SearchForm: React.FC<{
   setValue: UseFormSetValue<SearchFormInputsType>
   isLoading: boolean
 }> = ({ searchForm, register, setValue, isLoading }) => {
-  const { onSubmit, isPending } = useOnSubmitFilter()
   const icon = <CheckCircleIcon fontSize="small" color="disabled" />
   const checkedIcon = <CheckCircleIcon fontSize="small" />
   const [isFocusing, setIsFocusing] = useState(false)

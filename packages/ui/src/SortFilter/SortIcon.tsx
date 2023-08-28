@@ -5,7 +5,7 @@ import { SvgIcon, SvgIconProps } from '@mui/material'
 
 const SortIcon: React.FC<SvgIconProps> = (props) => {
   return (
-    <SvgIcon {...props} viewBox="6">
+    <SvgIcon {...props}>
       <path
         d="M5.95043 10.3181H0.398382C0.178355 10.3181 0 10.4964 0 10.7165V11.1148C0 11.3349 0.178355 11.5132 0.398382 11.5132H5.95043C6.17041 11.5132 6.34881 11.3349 6.34881 11.1148V10.7165C6.34881 10.4964 6.17045 10.3181 5.95043 10.3181Z"
         fill="#203C3E"

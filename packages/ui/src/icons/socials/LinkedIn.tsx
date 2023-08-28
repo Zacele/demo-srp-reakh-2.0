@@ -8,7 +8,7 @@ const LinkedInIcon: React.FC<SvgIconProps> = (props) => {
     <SvgIcon {...props} viewBox="0 0 15 14">
       <path
         fillRule="evenodd"
-        clip-rule="evenodd"
+        clipRule="evenodd"
         d="M14.2624 1.69625C14.2624 0.760051 13.5023 0 12.5661 0H2.38863C1.45243 0 0.692383 0.760051 0.692383 1.69625V11.8737C0.692383 12.8099 1.45243 13.57 2.38863 13.57H12.5661C13.5023 13.57 14.2624 12.8099 14.2624 11.8737V1.69625Z"
         fill="#77C232"
       />
