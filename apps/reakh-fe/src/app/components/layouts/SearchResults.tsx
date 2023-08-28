@@ -26,7 +26,12 @@ const SearchResults = async ({
             </div>
           </div>
           {listingData.results.map((item: ListingResult) => (
-            <ListingCard key={item.id} data={item} alt={item.title_img_alt} />
+            <ListingCard
+              texts={listingData.texts}
+              key={item.id}
+              data={item}
+              alt={item.title_img_alt}
+            />
           ))}
           <div className="flex items-center justify-center pt-11">
             <Pagination

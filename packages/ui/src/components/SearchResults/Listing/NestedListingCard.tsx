@@ -9,8 +9,19 @@ import AmenityIcon from './AmenityIcon'
 type ListingProps = {
   data: NestedListing
   isLast: boolean
+  displayRent?: boolean
 }
-function NestedListingCard({ data, isLast }: ListingProps): React.ReactNode {
+
+function NestedListingCard({ data, isLast, displayRent }: ListingProps): React.ReactNode {
+  const priceValueDisplay = () => {
+    if (data.display_price !== 'POA' && data.display_price !== '') {
+      return data.display_price
+    }
+    if (data.display_rent !== 'POA' && data.display_price === '' && data.display_rent !== '') {
+      return data.display_rent
+    }
+    return 'POA'
+  }
   return (
     <div
       className={`flex-row flex items-center justify-center w-full mt-[2px] overflow-hidden transition-shadow duration-300 rounded-none shadow-lg hover:shadow-primary bg-slate-50 card-compact card h-32 ${
@@ -29,7 +40,7 @@ function NestedListingCard({ data, isLast }: ListingProps): React.ReactNode {
       </div>
       <div className="flex flex-col justify-between flex-1 w-full h-full px-5 py-2">
         <div className="flex items-baseline">
-          <h1 className="text-2xl font-bold text-secondary">{`${data.display_price}`}</h1>
+          <h1 className="text-2xl font-bold text-secondary">{priceValueDisplay()}</h1>
           {data?.display_price_per_sqm && data.display_price_per_sqm_with_unit && (
             <p className="pl-2 text-lg font-semibold text-gray-400">
               {data?.display_price_per_sqm_with_unit}
@@ -41,13 +52,13 @@ function NestedListingCard({ data, isLast }: ListingProps): React.ReactNode {
             {data.headline}
           </h1>
         </div>
-        <div className="flex items-center flex-1 gap-2">
+        {/* <div className="flex items-center flex-1 gap-2">
           <div className="font-semibold badge badge-primary badge-sm badge-outline">
             Under Offer
           </div>
           <div className="font-semibold badge badge-error badge-sm badge-outline">Save 27%</div>
           <div className="font-semibold badge badge-info badge-sm badge-outline">City View</div>
-        </div>
+        </div> */}
         <div className="flex flex-wrap">
           {data.specifications.detail.map((amenity) => (
             <AmenityIcon key={amenity.label} value={amenity.short_label} type="Area" size={4} />

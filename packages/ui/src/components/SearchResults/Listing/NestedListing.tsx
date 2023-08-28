@@ -5,15 +5,21 @@ import NestedListingCard from './NestedListingCard'
 
 type NestedProps = {
   data: NestedListing[]
+  displayRent?: boolean
 }
 
-function NestedListing({ data }: NestedProps): React.ReactNode {
+function NestedListing({ data, displayRent }: NestedProps): React.ReactNode {
   return (
-    <div className="">
+    <React.Fragment>
       {data.map((item, idx) => (
-        <NestedListingCard key={item.id} data={item} isLast={idx === data.length - 1} />
+        <NestedListingCard
+          displayRent={displayRent}
+          key={item.id}
+          data={item}
+          isLast={idx === data.length - 1}
+        />
       ))}
-    </div>
+    </React.Fragment>
   )
 }
 
