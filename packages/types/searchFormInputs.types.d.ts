@@ -22,6 +22,7 @@ export interface SearchFormInputsType {
   garages__lte?: string
   bedrooms__gte?: string
   bedrooms__lte?: string
+  pathname?: string
 }
 
 type OrderBy =

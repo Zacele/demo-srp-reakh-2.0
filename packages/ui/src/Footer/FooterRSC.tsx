@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { getEssentialsData, getListings } from 'api'
+import { getEssentialsData } from 'api'
 import { ISearchResults } from 'types'
 
 import { IEssential } from '../types/essentialType'
@@ -7,8 +7,8 @@ import { IEssential } from '../types/essentialType'
 import BottomFooter from './components/BottomFooter'
 import Footer from './components/Footer'
 
-const FooterRSC = async () => {
-  const listingData: ISearchResults = await getListings({})
+const FooterRSC = async ({ searchResults }: { searchResults: Promise<ISearchResults> }) => {
+  const listingData: ISearchResults = await searchResults
   const essentialData: IEssential = await getEssentialsData()
   return (
     <Suspense fallback={null}>

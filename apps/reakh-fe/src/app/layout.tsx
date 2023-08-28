@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { AppFooter, AppHeader } from 'ui'
+import { AppHeader } from 'ui'
 
 import ThemeRegistry from './components/Theme/ThemeRegistry'
 import QueryClientProvider from './QueryClientProvider'
@@ -19,10 +19,6 @@ export default function RootLayout({ children }: { children: JSX.Element | JSX.E
               <AppHeader />
             </Suspense>
             {children}
-            <Suspense fallback={<HeaderLoading />}>
-              {/* @ts-expect-error Server Component */}
-              <AppFooter />
-            </Suspense>
           </ThemeRegistry>
         </QueryClientProvider>
       </body>

@@ -438,7 +438,7 @@ export interface BottomMenu {
 
 export interface Daum {
   title: string
-  data: Daum2[]
+  data: Omit<Daum2[] | Daum3[]>
 }
 
 export interface Daum2 {
