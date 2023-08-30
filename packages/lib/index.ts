@@ -2,6 +2,7 @@ export { default as convertToAutocompleteData } from './convertToAutocompleteDat
 export * from './currencyUtils'
 export { default as extractLocationsFromParams } from './extractLocationsFromParams'
 export { default as flagPath } from './flagPath'
+export { default as formatBedsRange } from './formatBedsRange'
 export { default as getPrice } from './getPrice'
 export * from './rangeUtils'
 export { default as selectNextLocation } from './selectNextLocation'

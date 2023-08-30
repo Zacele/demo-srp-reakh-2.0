@@ -37,9 +37,9 @@ export default async function BuySearchResultsPage({
   params: { slug: string[] }
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const saleType = slug[0] === 'buy' ? 'sale' : 'rent'
+  const searchType = slug[0] === 'buy' ? 'sale' : 'rent'
   const searchResults: Promise<ISearchResults> = getListings(
-    { ...searchParams, search_type: saleType, pathname: slug.length > 1 ? slug.join('/') : '' } ||
+    { ...searchParams, search_type: searchType, pathname: slug.length > 1 ? slug.join('/') : '' } ||
       {}
   )
 
@@ -49,13 +49,17 @@ export default async function BuySearchResultsPage({
 
   return (
     <Fragment>
-      <SearchFilters searchParams={searchParams} listingData={listingData} />
+      <SearchFilters
+        searchType={searchType}
+        searchParams={searchParams}
+        listingData={listingData}
+      />
       <Suspense key={querySearch.toString()} fallback={<SearchResultsLoading />}>
         {/* @ts-expect-error Server Component */}
         <SearchResults
           searchParams={{
             ...searchParams,
-            search_type: saleType,
+            search_type: searchType,
             pathname: slug.length > 1 ? slug.join('/') : ''
           }}
         />

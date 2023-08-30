@@ -3,9 +3,10 @@
 import React from 'react'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { styled } from '@mui/material'
+import { Box, styled, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import Popover from '@mui/material/Popover'
+import { ISearchForm } from 'types'
 
 const PopoverButton = styled(Button)`
   background-color: #f0f0f0;
@@ -38,7 +39,9 @@ const FilterPopoverWrapper: React.FC<{
   filterId: string
   children: JSX.Element | JSX.Element[]
   buttonText: string
-}> = ({ filterId, children, buttonText }) => {
+  filterStatus?: string
+  searchFormTexts?: ISearchForm['texts']
+}> = ({ filterId, children, buttonText, filterStatus, searchFormTexts }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -56,11 +59,23 @@ const FilterPopoverWrapper: React.FC<{
     <React.Fragment>
       <PopoverButton
         aria-describedby={id}
-        variant="contained"
         onClick={handleClick}
-        endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        endIcon={
+          open ? (
+            <ExpandLessIcon sx={{ color: '#203C3E' }} />
+          ) : (
+            <ExpandMoreIcon sx={{ color: '#203C3E' }} />
+          )
+        }
       >
-        {buttonText}
+        <Box>
+          <Typography sx={{ fontSize: '18px', fontWeight: 400, color: '#203C3E', lineHeight: 1 }}>
+            {buttonText}
+          </Typography>
+          <Typography sx={{ fontSize: '13px', fontWeight: 700, color: '#3249C2', lineHeight: 1 }}>
+            {filterStatus ?? searchFormTexts.any}
+          </Typography>
+        </Box>
       </PopoverButton>
       <StyledPopover
         id={id}

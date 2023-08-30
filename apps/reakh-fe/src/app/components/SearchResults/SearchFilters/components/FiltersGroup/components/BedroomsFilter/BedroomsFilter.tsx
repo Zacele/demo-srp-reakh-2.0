@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import clsx from 'clsx'
+import { formatBedsRange } from 'lib'
 import inRange from 'lodash/inRange'
 import { useSearchParams } from 'next/navigation'
 import { ISearchForm } from 'types'
@@ -57,6 +58,7 @@ const BedroomsFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
   React.useEffect(() => {
     if (bedroomsSearchParamsMin) setValue('bedrooms__gte', bedroomsSearchParamsMin)
     if (bedroomsSearchParamsMax) setValue('bedrooms__lte', bedroomsSearchParamsMin)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onButtonClick = (value: number) => {
@@ -95,8 +97,15 @@ const BedroomsFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     handleSubmit(onSubmit)()
   }
 
+  const bedRoomStatus = formatBedsRange(bedroomsInFormMin, bedroomsInFormMax)
+
   return (
-    <PopOverComponent filterId="bedrooms-filter" buttonText={searchForm.texts.bedrooms}>
+    <PopOverComponent
+      filterId="bedrooms-filter"
+      buttonText={searchForm.texts.bedrooms}
+      filterStatus={bedRoomStatus}
+      searchFormTexts={searchForm.texts}
+    >
       <Box sx={{ width: 310, height: 95, mt: 1, mx: 2 }}>
         <Typography sx={{ fontSize: 18, fontWeight: 700, color: '#203C3E', pb: 1 }}>
           {searchForm.texts.bedrooms}

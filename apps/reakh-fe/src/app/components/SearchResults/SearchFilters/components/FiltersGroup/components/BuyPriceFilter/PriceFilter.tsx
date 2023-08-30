@@ -10,7 +10,7 @@ import Select from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
-import { getPrice, makeCurrencyFormat } from 'lib'
+import { getPrice, makeCurrencyFormat, makeCurrencyRangeFormat } from 'lib'
 import { useSearchParams } from 'next/navigation'
 import { ISearchForm, ISearchResults } from 'types'
 
@@ -81,8 +81,19 @@ const PriceFilter: React.FC<{
     return ''
   }
 
+  const currencyRangeFormat = makeCurrencyRangeFormat(searchForm.currency)
+  const priceRange = React.useMemo(
+    () => currencyRangeFormat(priceMinValue, priceMaxValue),
+    [currencyRangeFormat, priceMaxValue, priceMinValue]
+  )
+
   return (
-    <PopOverComponent filterId="price-filter" buttonText={searchForm.texts.price}>
+    <PopOverComponent
+      filterId="price-filter"
+      buttonText={searchForm.texts.price}
+      searchFormTexts={searchForm.texts}
+      filterStatus={priceRange}
+    >
       <React.Fragment>
         <Box sx={{ marginLeft: '80%', height: '20px' }}>
           <Button
@@ -99,6 +110,7 @@ const PriceFilter: React.FC<{
             onClick={() => {
               setValue('price_min__gte', '')
               setValue('price_min__lte', '')
+
               handleSubmit(onSubmit)()
             }}
           >

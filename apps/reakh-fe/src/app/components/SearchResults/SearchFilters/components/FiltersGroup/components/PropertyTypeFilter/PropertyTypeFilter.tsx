@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -52,7 +51,7 @@ const CheckboxButton = styled(Button)({
   width: '200px'
 })
 
-const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
+const PropertyTypeFilters: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   const [alignment, setAlignment] = React.useState<'residential' | 'commercial'>('residential')
   const searchParams = useSearchParams()
   const { setValue, control, handleSubmit, register, getValues } = useFormContext()
@@ -86,6 +85,7 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
       return
     }
     setValue('categories', [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChange = (
@@ -127,8 +127,21 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     return false
   }
 
+  const filterStatus = React.useMemo(() => {
+    if (!categoriesFormValue || categoriesFormValue.length === 0) return searchForm.texts[alignment]
+    if (categoriesFormValue.length > 1) {
+      return `${categoriesFormValue[0]} +  ${categoriesFormValue.length - 1}`
+    }
+    return `${categoriesFormValue[0]}`
+  }, [alignment, categoriesFormValue, searchForm.texts])
+
   return (
-    <PopOverComponent filterId="property-type-filter" buttonText={searchForm.texts.propertyType}>
+    <PopOverComponent
+      filterId="property-type-filter"
+      buttonText={searchForm.texts.propertyType}
+      searchFormTexts={searchForm.texts}
+      filterStatus={filterStatus}
+    >
       <Box sx={{ width: 450, px: 2, py: 2 }}>
         <Controller
           name="property_type"
@@ -238,4 +251,4 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
   )
 }
 
-export default FeaturesFilter
+export default PropertyTypeFilters

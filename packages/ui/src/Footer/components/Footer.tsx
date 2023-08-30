@@ -67,7 +67,7 @@ const Footer: React.FC<{ listingData: ISearchResults }> = ({ listingData }) => {
   }
 
   return (
-    <Box sx={{ width: '100%', mt: 5, backgroundColor: '#203C3E' }}>
+    <Box aria-hidden={false} sx={{ width: '100%', mt: 5, backgroundColor: '#203C3E' }}>
       <Box sx={{ borderBottom: 1, borderColor: '#77C232' }} px={3}>
         <StyledTabs value={valueType} onChange={handleTabType} aria-label="tab-type">
           {listingData.bottom_menu.data.map((item, idx) => (

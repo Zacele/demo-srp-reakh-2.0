@@ -1,13 +1,24 @@
 'use client'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { FormControl, Grid, InputLabel, MenuItem, Select, styled, Typography } from '@mui/material'
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography
+} from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
 import { useOnSubmitFilter } from '@src/hooks/useOnSubmitFilter'
 import clsx from 'clsx'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import queryString from 'query-string'
 import { ISearchForm } from 'types'
 
 import PopOverComponent from '../FilterPopoverWrapper'
@@ -43,18 +54,33 @@ const RoundedButton = styled(Button)(({ theme }) => ({
   }
 }))
 
-const ButtonGroupWrapper = styled(ButtonGroup)`
+const ButtonGroupWrapper = styled(ToggleButtonGroup)`
   border-radius: 11px;
   text-transform: none;
 `
 
-const ButtonWrapper = styled(Button)`
+const ButtonWrapper = styled(ToggleButton)`
   border-radius: 11px;
   color: #203c3e;
   border: 1px solid #77c232;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  height: 30px;
 
-  &.MuiButton-contained {
+  &:hover {
+    color: #203c3e;
+    background: #78c2325a;
+  }
+
+  &.Mui-selected {
     color: #fff;
+    font-weight: 700;
+    background: #77c232;
+    &:hover {
+      color: #fff;
+      background: #77c232;
+    }
   }
 `
 
@@ -62,17 +88,15 @@ const MoreFilters: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
   const { setValue, register, handleSubmit, control, watch } = useFormContext()
   const { onSubmit } = useOnSubmitFilter()
   const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  const [searchType, setSearchType] = React.useState<'sale' | 'rent'>('sale')
   const bathroomsMinInParams = searchParams.get('bathrooms__gte')
   const garageMinInParams = searchParams.get('garages__gte')
   const floorAreaMinInParams = searchParams.get('floor_area__gte')
   const floorAreaMaxInParams = searchParams.get('floor_area__lte')
   const landAreaMinInParams = searchParams.get('land_area__gte')
   const landAreaMaxInParams = searchParams.get('land_area__lte')
-
-  const floorAreaMinValue = watch('floor_area__gte')
-  const floorAreaMaxValue = watch('floor_area__lte')
-  const landAreaMinValue = watch('land_area__gte')
-  const landAreaMaxValue = watch('land_area__lte')
 
   React.useEffect(() => {
     register('bathrooms__gte')
@@ -83,18 +107,53 @@ const MoreFilters: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
     register('land_area__lte')
   }, [register])
 
+  const floorAreaMinValue = watch('floor_area__gte')
+  const floorAreaMaxValue = watch('floor_area__lte')
+  const landAreaMinValue = watch('land_area__gte')
+  const searchTypeInForm = watch('search_type')
+  const landAreaMaxValue = watch('land_area__lte')
+
+  React.useEffect(() => {
+    if (searchTypeInForm) setSearchType(searchTypeInForm)
+  }, [searchTypeInForm])
+
   React.useEffect(() => {
     if (!floorAreaMinInParams) setValue('floor_area__gte', '')
     if (!floorAreaMaxInParams) setValue('floor_area__lte', '')
     if (!landAreaMinInParams) setValue('land_area__gte', '')
     if (!landAreaMaxInParams) setValue('land_area__lte', '')
+    if (!bathroomsMinInParams) setValue('bathrooms__gte', '')
+    if (!garageMinInParams) setValue('garages__gte', '')
   }, [
     setValue,
     floorAreaMinInParams,
     floorAreaMaxInParams,
     landAreaMinInParams,
-    landAreaMaxInParams
+    landAreaMaxInParams,
+    bathroomsMinInParams,
+    garageMinInParams
   ])
+
+  const onSearchTypeChange = (event: React.MouseEvent<HTMLElement>, type: 'sale' | 'rent') => {
+    const categoriesSearch = searchParams.getAll('categories')
+    const newCategoriesSearch =
+      categoriesSearch.length > 0 &&
+      categoriesSearch.filter((category) => category !== 'LongTermRental')
+
+    if (type === searchType) return
+
+    let newUrl = `/${type === 'sale' ? 'buy' : 'rent'}${window.location.search}`
+
+    newUrl = queryString.exclude(newUrl, [
+      'rent_min__gte',
+      'rent_min__lte',
+      'price_min__gte',
+      'price_min__lte',
+      'categories'
+    ])
+
+    router.push(newUrl + queryString.stringify({ categories: newCategoriesSearch }))
+  }
 
   React.useEffect(() => {
     // Update floor_area__gte and floor_area__lte values when floorAreaMinValue or floorAreaMaxValue changes
@@ -191,12 +250,76 @@ const MoreFilters: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
     handleSubmit(onSubmit)()
   }
 
+  const moreFiltersStatus = React.useMemo(() => {
+    let count = 0
+    if (bathroomsMinInParams) {
+      count = count + 1
+    }
+
+    if (garageMinInParams) {
+      count = count + 1
+    }
+
+    if (floorAreaMinInParams || floorAreaMaxInParams) {
+      count = count + 1
+    }
+
+    if (landAreaMaxInParams || landAreaMinInParams) {
+      count = count + 1
+    }
+
+    return count
+  }, [
+    bathroomsMinInParams,
+    floorAreaMaxInParams,
+    floorAreaMinInParams,
+    garageMinInParams,
+    landAreaMaxInParams,
+    landAreaMinInParams
+  ])
+
   return (
-    <PopOverComponent filterId="more-filters" buttonText={searchForm.texts.moreFilters}>
+    <PopOverComponent
+      filterId="more-filters"
+      buttonText={searchForm.texts.moreFilters}
+      searchFormTexts={searchForm.texts}
+      filterStatus={moreFiltersStatus > 0 ? `(${moreFiltersStatus})` : null}
+    >
       <Box sx={{ mx: 3, my: 2, height: 650, width: 350 }}>
-        <ButtonGroupWrapper fullWidth aria-label="search type select">
-          <ButtonWrapper variant="outlined">{searchForm.texts.buy}</ButtonWrapper>
-          <ButtonWrapper variant="outlined">{searchForm.texts.rent}</ButtonWrapper>
+        <Box sx={{ marginLeft: '80%' }}>
+          <Button
+            variant="text"
+            size="small"
+            sx={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: '#77C232',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              textTransform: 'none'
+            }}
+            onClick={() => {
+              setValue('bathrooms__gte', '')
+              setValue('garages__gte', '')
+              setValue('land_area__gte', '')
+              setValue('land_area__lte', '')
+              setValue('garages__lte', '')
+              setValue('garages__gte', '')
+              handleSubmit(onSubmit)()
+            }}
+          >
+            Resets
+          </Button>
+        </Box>
+        <ButtonGroupWrapper
+          onChange={onSearchTypeChange}
+          value={searchType}
+          exclusive
+          fullWidth
+          aria-label="search type select"
+        >
+          <ButtonWrapper value="sale">{searchForm.texts.buy}</ButtonWrapper>
+          <ButtonWrapper value="rent">{searchForm.texts.rent}</ButtonWrapper>
         </ButtonGroupWrapper>
         <Box sx={{ mt: 1 }}>
           <Typography

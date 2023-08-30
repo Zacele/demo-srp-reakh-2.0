@@ -65,7 +65,8 @@ const SortFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
           minHeight: '30px',
           border: '1px solid #E8E8E8',
           fontSize: '18px',
-          paddingLeft: '12px'
+          paddingLeft: '12px',
+          cursor: 'pointer'
         }),
         singleValue: (provided) => ({
           ...provided,
@@ -90,9 +91,9 @@ const SortFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) => {
         height: 30,
         colors: {
           ...theme.colors,
-          primary25: '#90b072',
+          primary25: 'rgba(0, 0, 0, 0.07)',
           primary: '#77C232',
-          primary50: '#90b072'
+          primary50: 'rgba(0, 0, 0, 0.07)'
         }
       })}
     />

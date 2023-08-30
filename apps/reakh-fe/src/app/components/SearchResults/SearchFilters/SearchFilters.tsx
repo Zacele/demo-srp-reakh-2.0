@@ -13,7 +13,8 @@ import SearchForm from './components/SearchForm'
 const SearchFilters: React.FC<{
   searchParams: SearchFormInputsType
   listingData: ISearchResults
-}> = ({ searchParams, listingData }) => {
+  searchType: 'sale' | 'rent'
+}> = ({ searchParams, listingData, searchType }) => {
   const { onSubmit } = useOnSubmitFilter()
 
   const methods = useForm<SearchFormInputsType>({
@@ -21,7 +22,7 @@ const SearchFilters: React.FC<{
     defaultValues: {
       ...searchParams,
       active_tab: 'popularLocations' || searchParams?.active_tab,
-      search_type: 'sale' || searchParams?.search_type,
+      search_type: searchType,
       order_by: 'relevance' || searchParams?.order_by,
       property_type: 'residential' || searchParams?.property_type
     }
@@ -44,19 +45,10 @@ const SearchFilters: React.FC<{
       setIsLoading(false)
     }
   }, [prevSearchForm, searchForm])
-  const searchTypeInParams = searchParams?.search_type
 
   React.useEffect(() => {
     register('search_type')
   }, [register])
-
-  React.useEffect(() => {
-    if (searchTypeInParams) {
-      setValue('search_type', searchTypeInParams)
-      return
-    }
-    setValue('search_type', 'sale')
-  }, [searchTypeInParams, setValue])
 
   const [isDevToolEnabled, setIsDevToolEnabled] = React.useState<boolean>(false)
   React.useEffect(() => {
@@ -73,7 +65,7 @@ const SearchFilters: React.FC<{
             searchForm={searchForm}
             isLoading={isLoading}
           />
-          <FilterGroups searchForm={searchForm} texts={texts} />
+          <FilterGroups searchType={searchType} searchForm={searchForm} texts={texts} />
         </form>
       </FormProvider>
       {isDevToolEnabled && <DevTool control={control} />}

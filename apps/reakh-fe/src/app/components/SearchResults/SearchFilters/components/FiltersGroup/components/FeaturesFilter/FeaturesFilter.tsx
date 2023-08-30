@@ -58,8 +58,6 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // console.log(':featuresInForm', featuresInForm)
-
   const onButtonChange = (
     event: React.MouseEvent<HTMLElement>,
     value: AllAmenity['value'] | AllHighlight['value'],
@@ -89,10 +87,24 @@ const FeaturesFilter: React.FC<{ searchForm: ISearchForm }> = ({ searchForm }) =
     register('highlights')
   }, [register])
 
+  const featuresFilterStatus = React.useMemo(() => {
+    if (featuresInForm && highlightsInForm) {
+      return featuresInForm.length + highlightsInForm.length > 0
+        ? featuresInForm.length + highlightsInForm.length
+        : 0
+    }
+    if (featuresInForm) return featuresInForm.length
+    if (highlightsInForm) return highlightsInForm.length
+
+    return 0
+  }, [featuresInForm, highlightsInForm])
+
   return (
     <PopOverComponent
       filterId="features-filter"
       buttonText={searchForm.texts.features || 'Features'}
+      searchFormTexts={searchForm.texts}
+      filterStatus={featuresFilterStatus > 0 ? `(${featuresFilterStatus})` : null}
     >
       <Box sx={{ marginLeft: '80%', mt: 1, height: '20px' }}>
         <Button
